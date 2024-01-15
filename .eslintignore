@@ -1,0 +1,23 @@
+!**/.eslintrc*
+node_modules*
+dist
+*.svg
+*.ico
+*.json
+*.md
+*.log
+*.lock
+# config
+.gitignore
+.eslintrc.js
+commitlint.config.js
+babel.config.js
+
+# dir
+/lambda/
+/build/
+/scripts
+/config
+/src/**/*.d.ts
+/src/setupProxy.ts
+/public

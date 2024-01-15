@@ -1,0 +1,39 @@
+{
+  "include": ["src", "config/setupProxy.js"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "./dist/", // 输出目录
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["dom", "dom.iterable", "scripthost", "es2015.promise", "ES2015.Core", "ES5"],
+    "module": "ESNext", // 采用的模块系统 commonjs
+    "target": "es6",
+    "moduleResolution": "node",
+    "allowJs": true, // 允许编译javascript文件
+    "pretty": true, // 给错误和消息设置样式，使用颜色和上下文
+    "jsx": "react",
+    // "declaration": true, // 打包生成.d.ts文件
+    "skipLibCheck": true, //忽略所有库中的声明文件（ *.d.ts）的类型检查。
+    // "noImplicitReturns": true, // 不是函数的所有返回路径都有返回值时报错。
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strict": true,
+    "noImplicitAny": false, // 是否在表达式和声明上有隐含的any类型时报错
+    "isolatedModules": true, // 将每个文件作为单独的模块
+    "esModuleInterop": true, // 导入语法 import foo from "foo"
+    "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
+    "experimentalDecorators": true, // 安装@types/node，允许检测第三方模块antd之类
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true, // 禁止对同一文件使用大小写不一致的引用。
+    "resolveJsonModule": true, // 包括随.json扩展导入的模块。
+    "noEmit": true
+  },
+  "semicolon": [true, "always", "ignore-interfaces"],
+  "rules": {
+    "quotemark": [true, "single", "avoid-escape"]
+  },
+  "typeRoots": ["node_modules/@types"],
+}
