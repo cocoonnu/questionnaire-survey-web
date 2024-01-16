@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
+const appDirectory = fs.realpathSync(process.cwd())
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
 
 module.exports = {
   plugins: [
@@ -17,6 +17,6 @@ module.exports = {
         },
         stage: 3,
       },
-    ]
+    ],
   ],
-};
+}

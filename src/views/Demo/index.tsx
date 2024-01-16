@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDemoStore } from './store/demo.store'
 import { app } from '@/utils/tools/app_utils'
 import styles from './index.module.less'
@@ -8,6 +8,8 @@ const Index = () => {
   const demoRef = useRef()
   const layoutStore = useDemoStore()
   const navigate = useNavigate()
+  const location = useLocation()
+  console.log('location', location)
 
   useEffect(() => {
     console.log(demoRef, 'demoRef')

@@ -24,7 +24,7 @@ const globalRouterList: IRoutersData = [
 
 const files = require.context('../views', true, /(router|router.layers)\.(js|ts)$/)
 const routerList: IRoutersData = []
-const routerLayerList = []
+const routerLayerList: IRoutersData = []
 
 files.keys().forEach((key) => {
   const child = files(key).default

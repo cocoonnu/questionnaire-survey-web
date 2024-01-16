@@ -12,6 +12,7 @@ dist
 .eslintrc.js
 commitlint.config.js
 babel.config.js
+postcss.config.js
 
 # dir
 /lambda/

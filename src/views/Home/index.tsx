@@ -11,11 +11,6 @@ interface HomeProps {
 const Home = (props: HomeProps) => {
   const navigate = useNavigate()
 
-  useEffect(() => {
-    console.log('home init')
-    return () => {}
-  }, [])
-
   return (
     <PageHeaderWrapper path={props.path}>
       <div className={styles.content_box}>
@@ -24,7 +19,7 @@ const Home = (props: HomeProps) => {
         <EkdButton
           type="primary"
           onClick={() => {
-            navigate('/app/demo')
+            navigate('/app/demo', { state: { name: 'cocoon' } })
           }}
         >
           跳转demo页面

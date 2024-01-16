@@ -1,24 +1,23 @@
-import type { ModalProps } from '@hose/eui'
 import classNames from 'classnames'
+import type { ModalProps } from '@hose/eui'
 
 export interface ModelOptions<T = ModalProps> extends ModalProps {
   /** 弹窗模式 */
   enhancer?: 'modal' | 'drawer'
+  /** 弹窗参数，同antd的ModalProps */
   enhancerOptions?: T
 }
 
 interface GetModelDefaultOptionsData {
   /** 弹窗类型 */
   enhancer?: 'modal' | 'drawer'
-  /** 是否隐藏弹层内置的头部/底部 */
-  hiddleHeader?: boolean
+  /** 是否隐藏弹层内置的头部、底部 */
+  hiddenHeaderAndFooter?: boolean
   /** 弹层外层样式 */
   className?: string
 }
 
-/**
- * 获取弹层默认参数，所有参数同antd modal
- */
+/** 获取弹层默认参数，默认模式为modal，显示头部、底部，点击外部可关闭 */
 export const getModelDefaultOptions = <T = ModalProps>(
   data?: GetModelDefaultOptionsData,
 ): ModelOptions<T> => {
@@ -28,7 +27,7 @@ export const getModelDefaultOptions = <T = ModalProps>(
     maskClosable: true,
     centered: true, // 居中
   }
-  if (data?.hiddleHeader) {
+  if (data?.hiddenHeaderAndFooter) {
     modelOpts = {
       ...modelOpts,
       enhancerOptions: {

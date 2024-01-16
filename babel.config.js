@@ -1,7 +1,7 @@
 module.exports = function (api) {
-  api.cache(true);
-  const { FIG_ENV } = process.env || {};
-  const isProd = ['pre', 'prod'].includes(FIG_ENV);
+  api.cache(true)
+  const { FIG_ENV } = process.env || {}
+  const isProd = ['pre', 'prod'].includes(FIG_ENV)
 
   return {
     presets: [
@@ -25,9 +25,9 @@ module.exports = function (api) {
         '@babel/plugin-transform-runtime',
         {
           corejs: 3,
-          "absoluteRuntime": false,
-          "helpers": true,
-          "regenerator": true,
+          absoluteRuntime: false,
+          helpers: true,
+          regenerator: true,
           proposals: true,
         },
       ],
@@ -48,14 +48,19 @@ module.exports = function (api) {
       '@babel/plugin-transform-destructuring',
       '@babel/plugin-transform-arrow-functions',
       [
-        "@babel/plugin-transform-modules-commonjs",
+        '@babel/plugin-transform-modules-commonjs',
         {
-          "allowTopLevelThis": true
-        }
+          allowTopLevelThis: true,
+        },
       ],
-      "react-activation/babel"
-      ['import', { libraryName: 'antd', libraryDirectory: 'lib', style: true }, 'antd'],
-      ['import', { libraryName: '@hose/eui', libraryDirectory: 'es/components', style: false }, '@hose/eui']
+      'react-activation/babel'[
+        ('import', { libraryName: 'antd', libraryDirectory: 'lib', style: true }, 'antd')
+      ],
+      [
+        'import',
+        { libraryName: '@hose/eui', libraryDirectory: 'es/components', style: false },
+        '@hose/eui',
+      ],
     ].filter(Boolean),
     env: {
       production: {
@@ -69,5 +74,5 @@ module.exports = function (api) {
         // plugins: ['react-hot-loader/babel'],
       },
     },
-  };
-};
+  }
+}
