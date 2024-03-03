@@ -10,6 +10,7 @@ import GlobalWatchEvent from './components/GlobalWatchEvent'
 
 import './reset.less'
 import 'antd/dist/antd.css'
+// import './theme.less'
 
 const App = () => {
   return (
