@@ -17,6 +17,10 @@ const globalRouterList: IRoutersData = [
     redirect: '/app/home',
   },
   {
+    path: '/loginRegister',
+    component: () => import('@/views/LoginRegister'),
+  },
+  {
     path: '/demo',
     component: () => import('@/views/Demo'),
   },

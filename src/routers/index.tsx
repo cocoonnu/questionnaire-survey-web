@@ -5,9 +5,9 @@ import { isMobile } from '@/utils/tools/browser_utls'
 import { globalRouterList, routerList } from './routerList' // 路由配置
 import PrivateRoute from './PrivateRoute'
 import BaseLayout from '@/layout/BaseLayout'
-import type { RouterItem, RoutersState } from './types'
 import KeepAliveWrapper from './KeepAliveWrapper'
 import NoMatch from '@/components/NoMatch'
+import type { RouterItem, RoutersState } from './types'
 
 const isH5Flag = isMobile()
 

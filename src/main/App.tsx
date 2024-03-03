@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as RouterMain } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 import { ConfigProvider as EUIConfigProvider } from '@hose/eui'
 import { AliveScope } from 'react-activation'
@@ -16,11 +16,11 @@ const App = () => {
     <EUIConfigProvider locale={zhCN}>
       <ConfigProvider locale={zhCN}>
         <AliveScope>
-          <RouterMain>
+          <HashRouter>
             <Routes />
             <GlobalLayerManager />
             <GlobalWatchEvent />
-          </RouterMain>
+          </HashRouter>
         </AliveScope>
       </ConfigProvider>
     </EUIConfigProvider>
