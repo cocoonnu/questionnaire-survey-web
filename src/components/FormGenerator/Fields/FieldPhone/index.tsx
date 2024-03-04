@@ -13,7 +13,7 @@ const FieldPhone = ({
   style,
   placeholder,
   size,
-  allowClear,
+  allowClear = true,
   disabled,
   suffix,
 }: FieldPhoneProps) => {

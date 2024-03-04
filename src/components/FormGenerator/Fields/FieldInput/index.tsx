@@ -13,7 +13,7 @@ const FieldInput = ({
   style,
   placeholder,
   size,
-  allowClear,
+  allowClear = true,
   disabled,
   suffix,
   addonBefore,

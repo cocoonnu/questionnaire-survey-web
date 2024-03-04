@@ -1,6 +1,6 @@
 import React from 'react'
 import { Segmented, Button, Checkbox } from 'antd'
-import { fieldPhone, fieldCaptcha, fieldPassword } from '../../consts/fields'
+import { fieldPhone, getFieldCaptcha, fieldPassword } from '../../consts/fields'
 import { MobileOutlined, LockOutlined } from '@ant-design/icons'
 import FormGenerator from '@/components/FormGenerator'
 import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister.store'
@@ -10,7 +10,9 @@ import { LOGIN_METHOD, PAGE_LAYOUT } from '../../consts'
 const LoginLayout = () => {
   const { loginMethod, loginFormRef, loginSubmit } = useLoginRegisterStore()
   const formComponents =
-    loginMethod === LOGIN_METHOD.password ? [fieldPhone, fieldPassword] : [fieldPhone, fieldCaptcha]
+    loginMethod === LOGIN_METHOD.password
+      ? [fieldPhone, fieldPassword]
+      : [fieldPhone, getFieldCaptcha(loginFormRef)]
 
   const segmentedOptions = [
     {

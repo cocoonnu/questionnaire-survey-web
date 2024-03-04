@@ -1,10 +1,11 @@
 import React from 'react'
-import { Input, Button } from 'antd'
+import { Input, Button, message } from 'antd'
+import { app } from '@/utils/tools/app_utils'
+import type { FormInstance } from 'antd'
 import type { FieldComponentProps } from '../../types'
 
 export interface FieldCaptchaProps extends FieldComponentProps {
-  /** 发送验证码之前的校验函数，返回值获取手机号 */
-  beforeGetCaptcha: () => any
+  formRef: React.RefObject<FormInstance>
 }
 
 const FieldCaptcha = ({
@@ -15,7 +16,34 @@ const FieldCaptcha = ({
   size,
   allowClear,
   disabled,
+  formRef,
 }: FieldCaptchaProps) => {
+  const getCaptchaClick = async (event: React.MouseEvent) => {
+    event.stopPropagation()
+    if (!formRef) {
+      message.error('系统异常')
+      return
+    }
+
+    // 校验手机号是否正确
+    let phone = ''
+    try {
+      const res = await formRef?.current?.validateFields(['phone'])
+      phone = res?.phone
+    } catch (error) {
+      return
+    }
+
+    // 滑动弹窗解锁
+    const res = await app.open('CommonSlideToUnlock')
+    if (res && phone) sendCaptcha(phone)
+  }
+
+  const sendCaptcha = (phone: string) => {
+    message.success('发送验证码成功')
+    console.log(phone)
+  }
+
   return (
     <Input
       value={value}
@@ -25,7 +53,7 @@ const FieldCaptcha = ({
       allowClear={allowClear}
       placeholder={placeholder}
       disabled={disabled}
-      suffix={<Button>获取验证码</Button>}
+      suffix={<Button onClick={getCaptchaClick}>发送验证码</Button>}
     />
   )
 }

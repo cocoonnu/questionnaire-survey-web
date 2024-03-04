@@ -3,13 +3,23 @@ import { Button } from 'antd'
 import { LeftOutlined } from '@ant-design/icons'
 import FormGenerator from '@/components/FormGenerator'
 import { PAGE_LAYOUT } from '../../consts'
-import { fieldCaptcha, fieldConfirmPassword, fieldPassword, fieldPhone } from '../../consts/fields'
+import {
+  getFieldCaptcha,
+  fieldConfirmPassword,
+  fieldPassword,
+  fieldPhone,
+} from '../../consts/fields'
 import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister.store'
 import styles from './index.module.less'
 
 const RegisterLayout = () => {
   const registerFormRef = useLoginRegisterStore((state) => state.registerFormRef)
-  const formComponents = [fieldPhone, fieldCaptcha, fieldPassword, fieldConfirmPassword]
+  const formComponents = [
+    fieldPhone,
+    getFieldCaptcha(registerFormRef),
+    fieldPassword,
+    fieldConfirmPassword,
+  ]
 
   return (
     <div className={styles['register-layout']}>
@@ -28,7 +38,7 @@ const RegisterLayout = () => {
       <div className={styles['bottom-tips-wrap']}>
         <div className={styles['tips-title']}>密码规则</div>
         <div className={styles['tips-content']}>
-          密码长度10-20个字符， 其中必须包含大写字母、小写字母、数字 可以使用特殊符号：` ~ ! @ # $ %
+          密码长度10-20个字符，其中必须包含大写字母、小写字母和数字，允许使用特殊符号：` ~ ! @ # $ %
           ^ & * ( ) - _ = + / ? \ |
         </div>
       </div>
