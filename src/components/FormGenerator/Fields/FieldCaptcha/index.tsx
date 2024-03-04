@@ -1,13 +1,13 @@
 import React from 'react'
-import { Input } from 'antd'
+import { Input, Button } from 'antd'
 import type { FieldComponentProps } from '../../types'
 
-export interface FieldInputProps extends FieldComponentProps {
-  suffix?: React.ReactNode
-  addonBefore?: React.ReactNode
+export interface FieldCaptchaProps extends FieldComponentProps {
+  /** 发送验证码之前的校验函数，返回值获取手机号 */
+  beforeGetCaptcha: () => any
 }
 
-const FieldInput = ({
+const FieldCaptcha = ({
   value,
   onChange,
   style,
@@ -15,9 +15,7 @@ const FieldInput = ({
   size,
   allowClear,
   disabled,
-  suffix,
-  addonBefore,
-}: FieldInputProps) => {
+}: FieldCaptchaProps) => {
   return (
     <Input
       value={value}
@@ -27,10 +25,9 @@ const FieldInput = ({
       allowClear={allowClear}
       placeholder={placeholder}
       disabled={disabled}
-      suffix={suffix}
-      addonBefore={addonBefore}
+      suffix={<Button>获取验证码</Button>}
     />
   )
 }
 
-export default FieldInput
+export default FieldCaptcha

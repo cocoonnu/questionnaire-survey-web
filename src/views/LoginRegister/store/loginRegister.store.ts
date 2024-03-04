@@ -1,18 +1,24 @@
 import React from 'react'
 import { create } from 'zustand'
+import { LOGIN_METHOD, PAGE_LAYOUT } from '../consts'
 import type { FormInstance } from 'antd'
 
 export interface LoginRegisterStore {
-  formRef: React.RefObject<FormInstance>
+  pageLayout: PAGE_LAYOUT
+  loginMethod: string | number
+  loginFormRef: React.RefObject<FormInstance>
+  registerFormRef: React.RefObject<FormInstance>
   loginSubmit: () => any
 }
 
 export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
-  formRef: React.createRef(),
+  pageLayout: PAGE_LAYOUT.loginLayout,
+  loginMethod: LOGIN_METHOD.password,
+  loginFormRef: React.createRef(),
+  registerFormRef: React.createRef(),
 
   loginSubmit: () => {
-    const { formRef } = get()
-    formRef.current?.validateFields()
-    console.log('', formRef.current?.getFieldsValue())
+    const { loginFormRef } = get()
+    loginFormRef.current?.validateFields()
   },
 }))

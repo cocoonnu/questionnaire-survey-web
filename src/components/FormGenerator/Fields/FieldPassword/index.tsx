@@ -1,36 +1,39 @@
 import React from 'react'
 import { Input } from 'antd'
+import type { KeyboardEventHandler } from 'react'
 import type { FieldComponentProps } from '../../types'
 
-export interface FieldInputProps extends FieldComponentProps {
+export interface FieldPasswordProps extends FieldComponentProps {
   suffix?: React.ReactNode
   addonBefore?: React.ReactNode
+  onPressEnter?: KeyboardEventHandler<HTMLInputElement>
 }
 
-const FieldInput = ({
+const FieldPassword = ({
   value,
   onChange,
   style,
   placeholder,
-  size,
-  allowClear,
   disabled,
   suffix,
+  size,
   addonBefore,
-}: FieldInputProps) => {
+  onPressEnter,
+}: FieldPasswordProps) => {
   return (
-    <Input
+    <Input.Password
+      allowClear={false}
       value={value}
       onChange={onChange}
       style={style}
       size={size}
-      allowClear={allowClear}
       placeholder={placeholder}
       disabled={disabled}
       suffix={suffix}
       addonBefore={addonBefore}
+      onPressEnter={onPressEnter}
     />
   )
 }
 
-export default FieldInput
+export default FieldPassword

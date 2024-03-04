@@ -1,22 +1,49 @@
 import React from 'react'
-import { Segmented, Button } from 'antd'
+import { Segmented, Button, Checkbox } from 'antd'
+import { fieldPhone, fieldCaptcha, fieldPassword } from '../../consts/fields'
+import { MobileOutlined, LockOutlined } from '@ant-design/icons'
 import FormGenerator from '@/components/FormGenerator'
-import { FORM_TYPE } from '@/components/FormGenerator/types/formType'
 import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister.store'
 import styles from './index.module.less'
+import { LOGIN_METHOD, PAGE_LAYOUT } from '../../consts'
 
 const LoginLayout = () => {
-  const { formRef, loginSubmit } = useLoginRegisterStore()
+  const { loginMethod, loginFormRef, loginSubmit } = useLoginRegisterStore()
+  const formComponents =
+    loginMethod === LOGIN_METHOD.password ? [fieldPhone, fieldPassword] : [fieldPhone, fieldCaptcha]
+
+  const segmentedOptions = [
+    {
+      label: '密码登录',
+      value: LOGIN_METHOD.password,
+      icon: <LockOutlined />,
+    },
+    {
+      label: '验证码登录',
+      value: LOGIN_METHOD.captcha,
+      icon: <MobileOutlined />,
+    },
+  ]
 
   return (
     <div className={styles['login-layout']}>
       <Segmented
-        block
+        block={true}
         size="middle"
-        options={['密码登录', '验证码登录']}
+        value={loginMethod}
+        onChange={(value) => useLoginRegisterStore.setState({ loginMethod: value })}
+        options={segmentedOptions}
         style={{ marginBottom: 24 }}
       />
-      <FormGenerator formRef={formRef} components={[]} />
+      <FormGenerator formRef={loginFormRef} components={formComponents} />
+      <div className={styles['middle-wrapper']}>
+        <Checkbox defaultChecked>记住我的登录信息</Checkbox>
+        <a
+          onClick={() => useLoginRegisterStore.setState({ pageLayout: PAGE_LAYOUT.registerLayout })}
+        >
+          立即注册
+        </a>
+      </div>
       <Button type="primary" onClick={loginSubmit}>
         登录
       </Button>

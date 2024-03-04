@@ -53,18 +53,23 @@ const FormGenerator = ({
   /** 生成表单单项 */
   const renderFromItem = () => {
     return components?.map((item) => {
+      const { field, tooltip, validateTrigger, help, hasFeedback, validateStatus } = item
+
       // 通过是否为必填项配置一套默认规则
       const rules: any[] = [{ required: !item.optional, message: placeholderBuilder(item) }]
       if (item.rules) rules.push(...item.rules)
 
       return (
         <Form.Item
-          {...item}
-          name={item.field}
-          key={item.field}
-          tooltip={item.tooltip}
+          name={field}
+          key={field}
+          tooltip={tooltip}
           rules={rules}
           label={renderLabel(item)}
+          validateTrigger={validateTrigger}
+          help={help}
+          hasFeedback={hasFeedback}
+          validateStatus={validateStatus}
         >
           <RenderField
             formItem={item}

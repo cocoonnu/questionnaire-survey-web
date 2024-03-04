@@ -2,12 +2,12 @@ import React from 'react'
 import { Input } from 'antd'
 import type { FieldComponentProps } from '../../types'
 
-export interface FieldInputProps extends FieldComponentProps {
+export interface FieldPhoneProps extends FieldComponentProps {
   suffix?: React.ReactNode
   addonBefore?: React.ReactNode
 }
 
-const FieldInput = ({
+const FieldPhone = ({
   value,
   onChange,
   style,
@@ -16,8 +16,7 @@ const FieldInput = ({
   allowClear,
   disabled,
   suffix,
-  addonBefore,
-}: FieldInputProps) => {
+}: FieldPhoneProps) => {
   return (
     <Input
       value={value}
@@ -28,9 +27,9 @@ const FieldInput = ({
       placeholder={placeholder}
       disabled={disabled}
       suffix={suffix}
-      addonBefore={addonBefore}
+      addonBefore={'+86'}
     />
   )
 }
 
-export default FieldInput
+export default FieldPhone

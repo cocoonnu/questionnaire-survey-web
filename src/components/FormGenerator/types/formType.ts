@@ -1,4 +1,5 @@
 import type { FormItemProps } from 'antd'
+import type { SizeType } from 'antd/lib/config-provider/SizeContext'
 
 /**
  * 表单单项类型
@@ -32,6 +33,10 @@ export interface FormComponentItem extends FormItemProps {
   optional?: boolean
   /** 自定义placeholder，默认会根据label、type生成 */
   placeholder?: string
+  /** 是否可一键清除 */
+  allowClear?: boolean
+  /** 控件大小 */
+  size?: SizeType
   /** Field组件其他属性 */
   [key: string]: any
 }
@@ -39,4 +44,10 @@ export interface FormComponentItem extends FormItemProps {
 export enum FORM_TYPE {
   /** 常规输入框 */
   input = 'input',
+  /** 密码输入框 */
+  password = 'password',
+  /** 验证码输入框 */
+  captcha = 'captcha',
+  /** 手机号输入框 */
+  phone = 'phone',
 }
