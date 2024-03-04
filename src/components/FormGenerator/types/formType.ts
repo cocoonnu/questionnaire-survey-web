@@ -39,6 +39,4 @@ export interface FormComponentItem extends FormItemProps {
 export enum FORM_TYPE {
   /** 常规输入框 */
   input = 'input',
-  /** 常规下拉框 */
-  select = 'select',
 }

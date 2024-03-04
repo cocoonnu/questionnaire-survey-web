@@ -3,6 +3,7 @@ import type { FormComponentItem } from '../types/formType'
 import { FORM_TYPE } from '../types/formType'
 
 export const placeholderBuilder = (item: FormComponentItem) => {
+  if (item.placeholder) return item.placeholder
   let placeholder = ''
   switch (item.type) {
     case FORM_TYPE.select:
