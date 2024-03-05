@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { HTTP_STATUS } from '../consts/statusCode'
+import { HTTP_STATUS, COMMON_STATUS } from '../consts/statusCode'
 import type { AxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({
@@ -26,6 +26,9 @@ axiosInstance.interceptors.response.use(
     // 接口响应成功的统一处理，输出错误信息、登录权限拦截等
     const responseData = response.data || {}
     if (responseData.errMsg) message.error(responseData.errMsg)
+    if (responseData.code === COMMON_STATUS.NOT_LOGIN) {
+      window.location.replace(`${window.location.hostname}/#/loginRegister`)
+    }
     return response
   },
   (err) => {
@@ -43,13 +46,6 @@ axiosInstance.interceptors.response.use(
         message.error('系统接口异常')
         break
     }
-
-    // if (res?.status === HTTP_STATUS.AUTHENTICATE) {
-    //   // window.location.href = `${CORGI_PASSPORT_URL}/#/login?redirect=${encodeURIComponent(
-    //   //   window.location.href,
-    //   // )}`
-    //   return Promise.reject(err)
-    // }
     return Promise.reject(err)
   },
 )
@@ -92,5 +88,9 @@ const del = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   })
 }
 
+/**
+ * 统一封装的请求实例
+ * @see https://axios-http.com/zh/docs/req_config
+ */
 const request = { get, post, put, del }
 export default request

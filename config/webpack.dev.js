@@ -39,6 +39,7 @@ module.exports = (config) => {
       chunkFilename: 'static/js/[name].chunk.js',
     },
     devServer: {
+      client: { overlay: false },
       historyApiFallback: true,
       compress: true,
       port,

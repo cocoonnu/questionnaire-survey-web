@@ -5,3 +5,8 @@ export const modelDefaultOptions = {
   centered: true,
   closable: false,
 }
+
+/** localStorage缓存key */
+export const LOCALSTORAGE_KEY = {
+  userId: 'userId',
+}

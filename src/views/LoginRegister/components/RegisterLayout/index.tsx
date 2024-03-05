@@ -14,6 +14,7 @@ import styles from './index.module.less'
 
 const RegisterLayout = () => {
   const registerFormRef = useLoginRegisterStore((state) => state.registerFormRef)
+  const registerSubmit = useLoginRegisterStore((state) => state.registerSubmit)
   const formComponents = [
     fieldPhone,
     getFieldCaptcha(registerFormRef),
@@ -42,7 +43,9 @@ const RegisterLayout = () => {
           ^ & * ( ) - _ = + / ? \ |
         </div>
       </div>
-      <Button type="primary">完成登录</Button>
+      <Button type="primary" onClick={registerSubmit}>
+        完成登录
+      </Button>
     </div>
   )
 }

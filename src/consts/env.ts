@@ -31,16 +31,3 @@ export const TOKEN_COOKIE_NAME = {
   pre: 'corgi-token-pre-data',
   prod: 'corgi-token-prod-data',
 }[currentEnv]
-
-// // corgi中心登录passportUrl
-// export const CORGI_PASSPORT_URL = {
-//   dev: 'https://testcorgilogin.k.com',
-//   test: 'https://testcorgilogin.k.com',
-//   pre: 'https://pre-corgilogin.k.com',
-//   prod: 'https://corgilogin.k.com',
-// }[currentEnv]
-
-// /** 跳转登录页面 */
-// export const CORGI_LOGIN_URL = `${CORGI_PASSPORT_URL}/#/login?redirect=${encodeURIComponent(
-//   window.location.href,
-// )}`
