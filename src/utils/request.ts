@@ -1,25 +1,19 @@
-import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
-import { CMS_BASEURL } from '../consts/env'
-import { HTTP_STATUS } from '../consts/statusCode'
-import logUtils from './tools/log_utils'
 import { message } from 'antd'
+import { HTTP_STATUS } from '../consts/statusCode'
+import type { AxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({
-  // baseURL: CMS_BASEURL,
+  baseURL: 'api/',
   timeout: 50000,
   headers: { 'Content-Type': 'application/json' },
 })
 
-// 中间件 拦截请求-
 axiosInstance.interceptors.request.use(
   (config) => {
     const newConfig = config
-    if (!newConfig.headers) {
-      newConfig.headers = {} as any
-    }
-    // newConfig.headers.Authorization = `bearer ${crogiToken}`
-
+    if (!newConfig.headers) newConfig.headers = {} as any
+    // newConfig.headers.Authorization = `bearer ...`
     return newConfig
   },
   (err) => {
@@ -29,40 +23,42 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    // 接口响应成功的统一处理，输出错误信息、登录权限拦截等
+    const responseData = response.data || {}
+    if (responseData.errMsg) message.error(responseData.errMsg)
     return response
   },
   (err) => {
-    logUtils.error(err)
-    if (!err.response) {
-      return Promise.reject(err)
+    // 接口响应失败的统一处理，输出http常见的几个响应错误场景
+    console.error(err)
+    const errResponse = err?.response || {}
+    switch (errResponse.status) {
+      case HTTP_STATUS.BAD_GATEWAY:
+        message.error('请求方式错误')
+        break
+      case HTTP_STATUS.NOT_FOUND:
+        message.error('请求地址不存在')
+        break
+      default:
+        message.error('系统接口异常')
+        break
     }
-    const res = err.response
-    if (res?.status === HTTP_STATUS.AUTHENTICATE) {
-      // window.location.href = `${CORGI_PASSPORT_URL}/#/login?redirect=${encodeURIComponent(
-      //   window.location.href,
-      // )}`
-      return Promise.reject(err)
-    }
-    if (res?.data?.message) {
-      message.error(`${res?.data?.message}`)
-    }
+
+    // if (res?.status === HTTP_STATUS.AUTHENTICATE) {
+    //   // window.location.href = `${CORGI_PASSPORT_URL}/#/login?redirect=${encodeURIComponent(
+    //   //   window.location.href,
+    //   // )}`
+    //   return Promise.reject(err)
+    // }
     return Promise.reject(err)
   },
 )
 
 const safeRequest = <T>(url: string, options?: AxiosRequestConfig): Promise<T> => {
   return new Promise((resolve, reject) => {
-    axiosInstance({
-      method: 'GET',
-      ...options,
-      url,
-    }).then(
+    axiosInstance({ method: 'GET', ...options, url }).then(
       (res) => {
-        if (res) {
-          resolve(res.data)
-        } else {
-          reject(res)
-        }
+        resolve(res.data.value)
       },
       (err) => {
         reject(err)
@@ -71,22 +67,10 @@ const safeRequest = <T>(url: string, options?: AxiosRequestConfig): Promise<T> =
   })
 }
 
-/**
- * get
- * @param url
- * @param opts
- * @returns {Promise}
- */
 const get = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   return safeRequest<T>(url, opts)
 }
 
-/**
- * post
- * @param url
- * @param opts
- * @returns {Promise}
- */
 const post = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   return safeRequest<T>(url, {
     ...opts,
@@ -94,12 +78,6 @@ const post = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   })
 }
 
-/**
- * put
- * @param url
- * @param opts
- * @returns {Promise}
- */
 const put = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   return safeRequest<T>(url, {
     ...opts,
@@ -107,12 +85,6 @@ const put = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   })
 }
 
-/**
- * del
- * @param url
- * @param opts
- * @returns {Promise}
- */
 const del = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   return safeRequest<T>(url, {
     ...opts,
@@ -120,10 +92,5 @@ const del = <T>(url: string, opts?: AxiosRequestConfig): Promise<T> => {
   })
 }
 
-const request = {
-  get,
-  post,
-  put,
-  del,
-}
+const request = { get, post, put, del }
 export default request

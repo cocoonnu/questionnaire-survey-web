@@ -1,3 +1,7 @@
+/**
+ * HTTP常见状态码
+ * @see https://tsejx.github.io/javascript-guidebook/computer-networks/http/http-status-code
+ */
 export const HTTP_STATUS = {
   SUCCESS: 200,
   NOT_MODIFIED: 304,

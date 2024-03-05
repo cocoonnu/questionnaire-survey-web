@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, Button, message } from 'antd'
 import { app } from '@/utils/tools/app_utils'
+import { sendCaptchaService } from '@/services/user.services'
 import type { FormInstance } from 'antd'
 import type { FieldComponentProps } from '../../types'
 
@@ -36,12 +37,12 @@ const FieldCaptcha = ({
 
     // 滑动弹窗解锁
     const res = await app.open('CommonSlideToUnlock')
-    if (res && phone) sendCaptcha(phone)
+    if (res && phone) await sendCaptcha(phone)
   }
 
-  const sendCaptcha = (phone: string) => {
-    message.success('发送验证码成功')
-    console.log(phone)
+  const sendCaptcha = async (phone: string) => {
+    const res = await sendCaptchaService(phone)
+    if (res) message.success('发送验证码成功')
   }
 
   return (
