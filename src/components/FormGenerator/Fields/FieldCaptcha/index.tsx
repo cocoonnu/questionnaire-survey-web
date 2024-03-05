@@ -3,9 +3,9 @@ import { Input, Button, message } from 'antd'
 import { app } from '@/utils/tools/app_utils'
 import { sendCaptchaService } from '@/services/user.services'
 import type { FormInstance } from 'antd'
-import type { FieldComponentProps } from '../../types'
+import type { FormComponentItem } from '../../types/formType'
 
-export interface FieldCaptchaProps extends FieldComponentProps {
+export interface FieldCaptchaProps extends FormComponentItem {
   formRef: React.RefObject<FormInstance>
 }
 

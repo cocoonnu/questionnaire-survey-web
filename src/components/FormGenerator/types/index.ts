@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import type { FormComponentItem } from './formType'
+import type { FormComponentsProps } from './formType'
 import type { FormProps, FormInstance, ColProps } from 'antd'
 
 /**
@@ -18,7 +18,7 @@ export interface FormGeneratorProps extends Omit<FormProps<any>, 'component'> {
    */
 
   /** 表单单项配置 */
-  components: FormComponentItem[]
+  components: FormComponentsProps[]
   /** FormGenerator组件实例 */
   formRef?: React.RefObject<FormInstance>
   /** FormGenerator组件最外层className */
@@ -46,13 +46,4 @@ export interface FormGeneratorProps extends Omit<FormProps<any>, 'component'> {
   previewModeItems?: string[]
   /** 自定义扩展渲染item组件，优先使用扩展组件，返回null内部查找合适组件 */
   customRenderField?: (...args: any[]) => any
-}
-
-/** Field组件公共类型，由RenderField统一封装 */
-export interface FieldComponentProps extends FormComponentItem {
-  value: any
-  onChange: (...arg: any[]) => any
-  disabled: boolean
-  previewMode: boolean
-  placeholder: string
 }

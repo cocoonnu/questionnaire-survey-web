@@ -1,9 +1,9 @@
 import React from 'react'
 import { Input } from 'antd'
 import type { KeyboardEventHandler } from 'react'
-import type { FieldComponentProps } from '../../types'
+import type { FormComponentItem } from '../../types/formType'
 
-export interface FieldPasswordProps extends FieldComponentProps {
+export interface FieldPasswordProps extends FormComponentItem {
   suffix?: React.ReactNode
   addonBefore?: React.ReactNode
   onPressEnter?: KeyboardEventHandler<HTMLInputElement>

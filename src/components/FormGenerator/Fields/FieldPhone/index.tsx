@@ -1,8 +1,8 @@
 import React from 'react'
 import { Input } from 'antd'
-import type { FieldComponentProps } from '../../types'
+import type { FormComponentItem } from '../../types/formType'
 
-export interface FieldPhoneProps extends FieldComponentProps {
+export interface FieldPhoneProps extends FormComponentItem {
   suffix?: React.ReactNode
   addonBefore?: React.ReactNode
 }

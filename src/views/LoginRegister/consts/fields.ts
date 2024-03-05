@@ -1,7 +1,7 @@
 import { FORM_TYPE } from '@/components/FormGenerator/types/formType'
-import type { FormComponentItem } from '@/components/FormGenerator/types/formType'
+import type { FormComponentsProps } from '@/components/FormGenerator/types/formType'
 
-export const fieldPhone: FormComponentItem = {
+export const fieldPhone: FormComponentsProps = {
   field: 'phone',
   label: '手机号',
   type: FORM_TYPE.phone,
@@ -15,7 +15,7 @@ export const fieldPhone: FormComponentItem = {
   ],
 }
 
-export const fieldPassword: FormComponentItem = {
+export const fieldPassword: FormComponentsProps = {
   field: 'password',
   label: '密码',
   type: FORM_TYPE.password,
@@ -29,7 +29,7 @@ export const fieldPassword: FormComponentItem = {
   ],
 }
 
-export const fieldConfirmPassword: FormComponentItem = {
+export const fieldConfirmPassword: FormComponentsProps = {
   field: 'confirmPassword',
   label: '确认密码',
   type: FORM_TYPE.password,
@@ -47,14 +47,14 @@ export const fieldConfirmPassword: FormComponentItem = {
   ],
 }
 
-export const getFieldCaptcha = (formRef) => {
-  const fieldCaptcha: FormComponentItem = {
+export const getFieldCaptcha = (ref) => {
+  const fieldCaptcha: FormComponentsProps = {
     field: 'captcha',
     label: '验证码',
     type: FORM_TYPE.captcha,
     hiddenLabel: true,
     placeholder: '请输入验证码',
-    formRef,
+    formRef: ref,
   }
   return fieldCaptcha
 }

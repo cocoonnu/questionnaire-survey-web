@@ -1,5 +1,9 @@
 import type { FormItemProps } from 'antd'
 import type { SizeType } from 'antd/lib/config-provider/SizeContext'
+import type { FieldPhoneProps } from '../Fields/FieldPhone'
+import type { FieldCaptchaProps } from '../Fields/FieldCaptcha'
+import type { FieldInputProps } from '../Fields/FieldInput'
+import type { FieldPasswordProps } from '../Fields/FieldPassword'
 
 /**
  * 表单单项类型
@@ -37,9 +41,16 @@ export interface FormComponentItem extends FormItemProps {
   allowClear?: boolean
   /** 控件大小 */
   size?: SizeType
-  /** Field组件其他属性 */
-  [key: string]: any
+
+  /** Field组件公共类型，由RenderField统一封装 */
+  value?: any
+  onChange?: (...arg: any[]) => any
+  disabled?: boolean
+  previewMode?: boolean
 }
+
+export type FormComponentsProps = FormComponentItem &
+  (FieldCaptchaProps | FieldInputProps | FieldPasswordProps | FieldPhoneProps)
 
 export enum FORM_TYPE {
   /** 常规输入框 */
