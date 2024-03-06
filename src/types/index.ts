@@ -7,3 +7,12 @@ export enum DetailsModelType {
   /** 只读 */
   readOnly = 'readOnly',
 }
+
+/** 登录用户信息 */
+export interface UserInfo {
+  userName: string
+  phone: string
+  email?: string
+  sex?: string
+  avatar?: string
+}

@@ -1,7 +1,7 @@
 import React from 'react'
-import type { KeepAliveProps } from 'react-activation'
 import { KeepAlive } from 'react-activation'
 import { useLocation } from 'react-router-dom'
+import type { KeepAliveProps } from 'react-activation'
 
 const KeepAliveWrapper = ({ children, ...keepAliveProps }: KeepAliveProps) => {
   const location = useLocation()

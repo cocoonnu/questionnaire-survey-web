@@ -2,10 +2,9 @@ import request from '@/utils/request'
 
 /** 发送验证码 */
 export const sendCaptchaService = async (phone: string) => {
-  const res = await request.post<boolean>('/user/sendCaptcha', {
+  return await request.post<boolean>('/user/sendCaptcha', {
     params: { phone },
   })
-  return res
 }
 
 /** 用户密码登录 */

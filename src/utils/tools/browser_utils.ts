@@ -1,6 +1,5 @@
 /**
  * 判断用户浏览器终端信息
- *
  * browser.versions.ios 判断是否是IOS设备
  */
 export const browser = () => {

@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react'
-import { Navigate } from 'react-router-dom'
+import type { RouterItem } from './types'
 
-// 校验当前用户登录状态
-const PrivateRoute = ({ component: Component, meta, title }) => {
-  const isPrivate = false
+export interface PrivateRouteProps {
+  item: RouterItem
+  component: any
+}
 
+/** 私有化路由组件 */
+const PrivateRoute = ({ component: Component, item }: PrivateRouteProps) => {
   useEffect(() => {
-    if (title) document.title = title // 设置页面标题
-    const checkPass = async () => {
-      if (!isPrivate) {
-        // window.location.href = CORGI_LOGIN_URL;
-      }
-    }
-    checkPass()
-  }, [isPrivate, title])
+    // 设置页面元数据
+    const { title } = item || {}
+    if (title) document.title = title
+  }, [])
 
-  // 校验是否需要登录
-  return !meta.needLogin || isPrivate ? <Component /> : <Navigate replace to={{ pathname: '/' }} />
+  return <Component />
 }
 
 export default PrivateRoute

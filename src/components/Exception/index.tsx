@@ -1,6 +1,6 @@
 import React, { createElement } from 'react'
 import classNames from 'classnames'
-import { Button } from '@hose/eui'
+import { Button } from 'antd'
 import config from './typeConfig'
 import styles from './index.module.less'
 

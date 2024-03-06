@@ -4,7 +4,7 @@ import type { IRoutersData } from './types'
 const globalRouterList: IRoutersData = [
   {
     path: '/',
-    redirect: '/loginRegister',
+    redirect: '/app/systemHome',
   },
   {
     path: '/loginRegister',
