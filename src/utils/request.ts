@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
     const responseData = response.data || {}
     if (responseData.errMsg) message.error(responseData.errMsg)
     if (responseData.code === COMMON_STATUS.NOT_LOGIN) {
-      window.location.replace(`${window.location.hostname}/#/loginRegister`)
+      window.location.replace(`${window.location.origin}/#/loginRegister`)
     }
     return response
   },

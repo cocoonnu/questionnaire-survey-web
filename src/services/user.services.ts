@@ -39,3 +39,8 @@ export const registerService = async (data: {
   })
   return userId
 }
+
+/** 用户退出登录 */
+export const logoutService = async () => {
+  return await request.post<boolean>('/user/logout')
+}

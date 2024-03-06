@@ -8,6 +8,7 @@ import {
   LoginByPasswordService,
   LoginByCaptchaService,
   registerService,
+  logoutService,
 } from '@/services/user.services'
 import { message, type FormInstance } from 'antd'
 
@@ -18,6 +19,7 @@ export interface LoginRegisterStore {
   registerFormRef: React.RefObject<FormInstance>
   loginSubmit: () => any
   registerSubmit: () => any
+  logoutSubmit: () => any
 }
 
 export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
@@ -50,5 +52,15 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
     navigate('/app/systemHome')
     DB.LS.set(LOCALSTORAGE_KEY.userId, userId)
     message.success('欢迎进入小智问卷')
+  },
+
+  logoutSubmit: async () => {
+    const res = await logoutService()
+    if (res) {
+      DB.LS.remove(LOCALSTORAGE_KEY.userId)
+      navigate('/loginRegister')
+      return
+    }
+    message.error('退出登录失败')
   },
 }))

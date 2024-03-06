@@ -4,8 +4,8 @@ import { fieldPhone, getFieldCaptcha, fieldPassword } from '../../consts/fields'
 import { MobileOutlined, LockOutlined } from '@ant-design/icons'
 import FormGenerator from '@/components/FormGenerator'
 import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister.store'
-import styles from './index.module.less'
 import { LOGIN_METHOD, PAGE_LAYOUT } from '../../consts'
+import styles from './index.module.less'
 
 const LoginLayout = () => {
   const { loginMethod, loginFormRef, loginSubmit } = useLoginRegisterStore()
