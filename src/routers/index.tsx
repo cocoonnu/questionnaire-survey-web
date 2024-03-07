@@ -6,8 +6,8 @@ import { globalRouterList, routerList } from './routerList'
 import PrivateRoute from './PrivateRoute'
 import BaseLayout from '@/layout/BaseLayout'
 import KeepAliveWrapper from './KeepAliveWrapper'
-import NoMatchPage from '@/components/NoMatchPage'
-import type { RouterItem, RoutersState } from './types'
+import Exception from '@/components/Exception'
+import type { RouterItem } from './types'
 
 const interceptorRoute = (item: RouterItem) => {
   if (item.redirect) {
@@ -34,23 +34,25 @@ const interceptorRoute = (item: RouterItem) => {
   return <Route path={item.path} key={item.path} element={getRouteComponent()} />
 }
 
-class Routers extends React.Component<any, RoutersState> {
-  render() {
-    return (
-      <Routes>
-        {globalRouterList?.map((item) => {
+const Routers = () => {
+  return (
+    <Routes>
+      {globalRouterList?.map((item) => {
+        return interceptorRoute(item)
+      })}
+      <Route path="/app" element={<BaseLayout />}>
+        {routerList.map((item) => {
           return interceptorRoute(item)
         })}
-        <Route path="/app" element={<BaseLayout />}>
-          {routerList.map((item) => {
-            return interceptorRoute(item)
-          })}
-          <Route path="*" element={<NoMatchPage />} key="noMatch" />
-        </Route>
-        <Route path="*" element={<NoMatchPage />} key="noMatch" />
-      </Routes>
-    )
-  }
+        <Route path="*" element={<Exception />} key="noMatch" />
+      </Route>
+      <Route
+        path="*"
+        key="noMatch"
+        element={<Exception style={{ width: '100vw', height: '100vh' }} />}
+      />
+    </Routes>
+  )
 }
 
 export default Routers

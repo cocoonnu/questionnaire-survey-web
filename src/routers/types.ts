@@ -16,7 +16,3 @@ export interface RouterItem {
 }
 
 export type IRoutersData = RouterItem[]
-
-export interface RoutersState {
-  routers?: IRoutersData
-}
