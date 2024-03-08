@@ -8,6 +8,9 @@ import type { MenuProps } from 'antd'
 
 const HeaderMenu = () => {
   const headerMenuKey = useLayoutStore((s) => s.headerMenuKey)
+  const workingAreaKey = useLayoutStore((s) => s.workingAreaKey)
+  const templateLibraryKey = useLayoutStore((s) => s.templateLibraryKey)
+
   const menuItems = [
     {
       label: '工作台',
@@ -20,13 +23,11 @@ const HeaderMenu = () => {
   ]
 
   const menuClick: MenuProps['onClick'] = (e) => {
-    const key = e.key as HEADER_MENU_KEY
-    useLayoutStore.setState({ headerMenuKey: key })
     if (e.key === HEADER_MENU_KEY.templateLibrary) {
-      navigate(`/app/${TEMPLATE_KEY.questionnaireSurvey}`)
+      navigate(`/app/${templateLibraryKey || TEMPLATE_KEY.questionnaireSurvey}`)
     }
     if (e.key === HEADER_MENU_KEY.workingArea) {
-      navigate(`/app/${WORK_AREA_KEY.systemHome}`)
+      navigate(`/app/${workingAreaKey || WORK_AREA_KEY.systemHome}`)
     }
   }
 

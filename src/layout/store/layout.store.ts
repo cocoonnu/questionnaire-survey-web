@@ -22,7 +22,8 @@ export const useLayoutStore = create<LayoutStore>((set) => ({
         headerMenuKey: HEADER_MENU_KEY.workingArea,
         workingAreaKey: path,
       })
-    } else {
+    }
+    if (Object.values(TEMPLATE_KEY).includes(path)) {
       // 跳转到模板库指定path
       set({
         headerMenuKey: HEADER_MENU_KEY.templateLibrary,

@@ -8,11 +8,15 @@ import {
   FireOutlined,
   CalculatorOutlined,
 } from '@ant-design/icons'
+import PersonalCenter from './PersonalCenter'
 import { navigate } from '@/utils/tools/router_utils'
 import { useLayoutStore } from '@/layout/store/layout.store'
 import { WORK_AREA_KEY, HEADER_MENU_KEY, TEMPLATE_KEY } from '@/layout/consts'
 import styles from './index.module.less'
-import type { MenuProps } from 'antd'
+
+const getIconComponent = (ICON) => {
+  return React.createElement(ICON, { style: { fontSize: 16 } })
+}
 
 const SiderMenu = () => {
   const headerMenuKey = useLayoutStore((s) => s.headerMenuKey)
@@ -23,17 +27,17 @@ const SiderMenu = () => {
     {
       label: '全部问卷',
       key: WORK_AREA_KEY.systemHome,
-      icon: <HomeOutlined style={{ fontSize: 16 }} />,
+      icon: getIconComponent(HomeOutlined),
     },
     {
       label: '星标问卷',
       key: WORK_AREA_KEY.starQuestionnaire,
-      icon: <StarOutlined style={{ fontSize: 16 }} />,
+      icon: getIconComponent(StarOutlined),
     },
     {
       label: '回收站',
       key: WORK_AREA_KEY.recycleBin,
-      icon: <RestOutlined style={{ fontSize: 16 }} />,
+      icon: getIconComponent(RestOutlined),
     },
   ]
 
@@ -41,48 +45,51 @@ const SiderMenu = () => {
     {
       label: '问卷调查',
       key: TEMPLATE_KEY.questionnaireSurvey,
-      icon: <FireOutlined style={{ fontSize: 16 }} />,
+      icon: getIconComponent(FireOutlined),
     },
     {
       label: '在线考试',
       key: TEMPLATE_KEY.onlineExamination,
-      icon: <CalculatorOutlined style={{ fontSize: 16 }} />,
+      icon: getIconComponent(CalculatorOutlined),
     },
     {
       label: '投票评选',
       key: TEMPLATE_KEY.votingTemplate,
-      icon: <LikeOutlined style={{ fontSize: 16 }} />,
+      icon: getIconComponent(LikeOutlined),
     },
   ]
 
-  const menuClickByWorkingArea: MenuProps['onClick'] = (e) => {
-    const key = e.key as WORK_AREA_KEY
-    navigate(`/app/${key}`)
+  const getMenuItems = () => {
+    switch (headerMenuKey) {
+      case HEADER_MENU_KEY.workingArea:
+        return menuItemsByWorkingAreaKey
+      case HEADER_MENU_KEY.templateLibrary:
+        return menuItemsByTemplateLibraryKey
+      default:
+        return menuItemsByWorkingAreaKey
+    }
   }
 
-  const menuClickByTemplateLibraryKey: MenuProps['onClick'] = (e) => {
-    const key = e.key as TEMPLATE_KEY
-    navigate(`/app/${key}`)
+  const getSelectedKey = () => {
+    switch (headerMenuKey) {
+      case HEADER_MENU_KEY.workingArea:
+        return workingAreaKey
+      case HEADER_MENU_KEY.templateLibrary:
+        return templateLibraryKey
+      default:
+        return workingAreaKey
+    }
   }
 
   return (
     <div className={styles['sider-menu']}>
-      {headerMenuKey === HEADER_MENU_KEY.workingArea ? (
-        <Menu
-          mode="vertical"
-          items={menuItemsByWorkingAreaKey}
-          onClick={menuClickByWorkingArea}
-          selectedKeys={[workingAreaKey]}
-        />
-      ) : (
-        <Menu
-          mode="vertical"
-          items={menuItemsByTemplateLibraryKey}
-          onClick={menuClickByTemplateLibraryKey}
-          selectedKeys={[templateLibraryKey]}
-        />
-      )}
-      <div>个人中心</div>
+      <Menu
+        mode="vertical"
+        items={getMenuItems()}
+        onClick={(e) => navigate(`/app/${e.key}`)}
+        selectedKeys={[getSelectedKey()]}
+      />
+      <PersonalCenter />
     </div>
   )
 }
