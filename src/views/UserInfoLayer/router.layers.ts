@@ -1,12 +1,14 @@
 import { modelDefaultOptions } from '@/consts'
 import type { ModalProps } from 'antd'
 
+const layerPrefix = '@UserInfo:'
+
 export default [
   {
     ...modelDefaultOptions,
-    width: 380,
+    width: 450,
     footer: null,
-    key: 'CommonSlideToUnlock',
-    getComponent: () => import('./SlideToUnlock'),
+    key: `${layerPrefix}UserInfoView`,
+    getComponent: () => import('./UserInfoView'),
   },
 ] as ModalProps

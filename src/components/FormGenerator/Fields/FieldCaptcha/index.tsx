@@ -36,7 +36,7 @@ const FieldCaptcha = ({
     }
 
     // 滑动弹窗解锁
-    const res = await app.open('CommonSlideToUnlock')
+    const res = await app.open('@Common:SlideToUnlock')
     if (res && phone) await sendCaptcha(phone)
   }
 

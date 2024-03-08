@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Modal } from 'antd'
+import { app } from '@/utils/tools/app_utils'
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister.store'
 import styles from './index.module.less'
@@ -18,15 +19,20 @@ const PersonalCenter = () => {
     })
   }
 
+  const userInfoClick = () => {
+    app.open('@UserInfo:UserInfoView')
+  }
+
   return (
     <div className={styles['personal-center']}>
-      <Button type="text" icon={<UserOutlined />} size="large">
+      <Button type="text" icon={<UserOutlined />} size="large" onClick={userInfoClick}>
         个人中心
       </Button>
-      <LogoutOutlined
-        rotate={-90}
-        style={{ cursor: 'pointer', fontSize: 18 }}
+      <Button
+        type="text"
+        size="large"
         onClick={logoutClick}
+        icon={<LogoutOutlined rotate={-90} />}
       />
     </div>
   )
