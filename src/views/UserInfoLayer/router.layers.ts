@@ -6,9 +6,16 @@ const layerPrefix = '@UserInfo:'
 export default [
   {
     ...modelDefaultOptions,
-    width: 450,
-    footer: null,
+    width: 500,
     key: `${layerPrefix}UserInfoView`,
-    getComponent: () => import('./UserInfoView'),
+    getComponent: () => import('./components/UserInfoView'),
+  },
+  {
+    ...modelDefaultOptions,
+    title: '修改用户信息',
+    width: 550,
+    maskClosable: false,
+    key: `${layerPrefix}UserInfoEdit`,
+    getComponent: () => import('./components/UserInfoEdit'),
   },
 ] as ModalProps

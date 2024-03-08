@@ -5,7 +5,7 @@ export const placeholderBuilder = (item: FormComponentItem) => {
   if (item.placeholder) return item.placeholder
   let placeholder = ''
   switch (item.type) {
-    case FORM_TYPE.select:
+    case FORM_TYPE.radioGroup:
       placeholder = item?.placeholder || '请选择选项'
       break
     default:

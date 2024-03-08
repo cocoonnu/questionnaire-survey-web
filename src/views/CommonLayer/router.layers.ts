@@ -7,7 +7,6 @@ export default [
   {
     ...modelDefaultOptions,
     width: 380,
-    footer: null,
     key: `${layerPrefix}SlideToUnlock`,
     getComponent: () => import('./SlideToUnlock'),
   },

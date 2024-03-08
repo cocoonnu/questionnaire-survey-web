@@ -4,6 +4,7 @@ import type { FieldPhoneProps } from '../Fields/FieldPhone'
 import type { FieldCaptchaProps } from '../Fields/FieldCaptcha'
 import type { FieldInputProps } from '../Fields/FieldInput'
 import type { FieldPasswordProps } from '../Fields/FieldPassword'
+import type { FieldRadioGroupProps } from '../Fields/FieldRadioGroup'
 
 /**
  * 表单单项类型
@@ -50,7 +51,13 @@ export interface FormComponentItem extends FormItemProps {
 }
 
 export type FormComponentsProps = FormComponentItem &
-  (FieldCaptchaProps | FieldInputProps | FieldPasswordProps | FieldPhoneProps)
+  (
+    | FieldCaptchaProps
+    | FieldInputProps
+    | FieldPasswordProps
+    | FieldPhoneProps
+    | FieldRadioGroupProps
+  )
 
 export enum FORM_TYPE {
   /** 常规输入框 */
@@ -61,4 +68,8 @@ export enum FORM_TYPE {
   captcha = 'captcha',
   /** 手机号输入框 */
   phone = 'phone',
+  /** 多选框 */
+  radioGroup = 'radioGroup',
+  /** 头像上传 */
+  avatarUpload = 'avatarUpload',
 }

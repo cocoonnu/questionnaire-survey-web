@@ -12,6 +12,7 @@ const FormGenerator = ({
   className,
   formRef,
   size,
+  style,
   itemLayout,
   layout = 'vertical',
   labelAlign = 'left',
@@ -53,7 +54,7 @@ const FormGenerator = ({
   /** 生成表单单项 */
   const renderFromItem = () => {
     return components?.map((item) => {
-      const { field, tooltip, validateTrigger, help, hasFeedback, validateStatus } = item
+      const { field, tooltip, validateTrigger, help, hasFeedback, validateStatus, className } = item
 
       // 通过是否为必填项配置一套默认规则
       const rules: any[] = [{ required: !item.optional, message: placeholderBuilder(item) }]
@@ -65,6 +66,7 @@ const FormGenerator = ({
           key={field}
           tooltip={tooltip}
           rules={rules}
+          className={className}
           label={renderLabel(item)}
           validateTrigger={validateTrigger}
           help={help}
@@ -89,6 +91,7 @@ const FormGenerator = ({
       size={size}
       ref={formRef}
       layout={layout}
+      style={style}
       labelAlign={labelAlign}
       {...getFormItemLayout()}
       initialValues={initialValues}
