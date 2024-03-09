@@ -1,20 +1,20 @@
 import React from 'react'
 import { Space, Button } from 'antd'
 import classNames from 'classnames'
-import type { ButtonProps } from 'antd/lib/button/button'
 import styles from './index.module.less'
+import type { ButtonProps } from 'antd/lib/button/button'
 
-interface ModalFooterProps {
+export interface ModalFooterProps {
   /** 按钮配置 */
   actions: ButtonProps[]
   /** 自定义类名 */
-  className?: string
+  footClassName?: string
 }
 
-export const ModalFooter = ({ actions, className }: ModalFooterProps) => {
+export const ModalFooter = ({ actions, footClassName }: ModalFooterProps) => {
   if (actions?.length === 0) return null
   return (
-    <div className={classNames(styles['modal-footer'], className)}>
+    <div className={classNames(styles['modal-footer'], footClassName)}>
       <Space>
         {actions?.map((item, index) => {
           const { name, ...others } = item

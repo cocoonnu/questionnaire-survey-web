@@ -8,7 +8,7 @@ import { LOGIN_METHOD, PAGE_LAYOUT } from '../../consts'
 import styles from './index.module.less'
 
 const LoginLayout = () => {
-  const { loginMethod, loginFormRef, loginSubmit } = useLoginRegisterStore()
+  const { loginMethod, loginFormRef, loginSubmit, btnLoading } = useLoginRegisterStore()
   const formComponents =
     loginMethod === LOGIN_METHOD.password
       ? [fieldPhone, fieldPassword]
@@ -46,7 +46,7 @@ const LoginLayout = () => {
           立即注册
         </a>
       </div>
-      <Button type="primary" onClick={loginSubmit}>
+      <Button type="primary" onClick={loginSubmit} loading={btnLoading}>
         登录
       </Button>
     </div>

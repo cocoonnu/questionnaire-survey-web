@@ -1,11 +1,11 @@
 import { FORM_TYPE } from '@/components/FormGenerator/types/formType'
+import styles from '../components/UserInfoEdit/index.module.less'
 import type { FormComponentsProps } from '@/components/FormGenerator/types/formType'
 
 export const fieldPhone: FormComponentsProps = {
   field: 'phone',
   label: '手机号',
   type: FORM_TYPE.phone,
-  hiddenLabel: true,
   placeholder: '请输入手机号',
   rules: [
     {
@@ -19,7 +19,6 @@ export const fieldPassword: FormComponentsProps = {
   field: 'password',
   label: '密码',
   type: FORM_TYPE.password,
-  hiddenLabel: true,
   placeholder: '请输入密码',
   rules: [
     {
@@ -33,7 +32,6 @@ export const fieldConfirmPassword: FormComponentsProps = {
   field: 'confirmPassword',
   label: '确认密码',
   type: FORM_TYPE.password,
-  hiddenLabel: true,
   placeholder: '请确认密码',
   rules: [
     (formRef) => ({
@@ -52,7 +50,6 @@ export const getFieldCaptcha = (ref) => {
     field: 'captcha',
     label: '验证码',
     type: FORM_TYPE.captcha,
-    hiddenLabel: true,
     placeholder: '请输入验证码',
     formRef: ref,
   }
@@ -71,7 +68,6 @@ export const fieldUsername: FormComponentsProps = {
       message: '用户名长度为3-10位',
     },
   ],
-  // hiddenLabel: true,
 }
 
 export const fieldUserSex: FormComponentsProps = {
@@ -82,16 +78,13 @@ export const fieldUserSex: FormComponentsProps = {
   options: [
     { label: '男', value: 'man' },
     { label: '女', value: 'woman' },
-    { label: '跨性别', value: 'transgender' },
   ],
-  // hiddenLabel: true,
 }
 
 export const fieldAvatarUpload: FormComponentsProps = {
-  field: 'avatarUpload',
+  field: 'avatar',
   label: '头像',
   type: FORM_TYPE.avatarUpload,
   optional: true,
-  className: 'avatar-upload',
-  // hiddenLabel: true,
+  className: styles['avatar-upload'],
 }

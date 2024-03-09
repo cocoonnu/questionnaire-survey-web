@@ -13,6 +13,7 @@ import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister
 import styles from './index.module.less'
 
 const RegisterLayout = () => {
+  const btnLoading = useLoginRegisterStore((state) => state.btnLoading)
   const registerFormRef = useLoginRegisterStore((state) => state.registerFormRef)
   const registerSubmit = useLoginRegisterStore((state) => state.registerSubmit)
   const formComponents = [
@@ -43,7 +44,7 @@ const RegisterLayout = () => {
           ^ & * ( ) - _ = + / ? \ |
         </div>
       </div>
-      <Button type="primary" onClick={registerSubmit}>
+      <Button type="primary" onClick={registerSubmit} loading={btnLoading}>
         完成登录
       </Button>
     </div>

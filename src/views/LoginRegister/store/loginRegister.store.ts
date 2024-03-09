@@ -13,6 +13,7 @@ import {
 import { message, type FormInstance } from 'antd'
 
 export interface LoginRegisterStore {
+  btnLoading: boolean
   pageLayout: PAGE_LAYOUT
   loginMethod: string | number
   loginFormRef: React.RefObject<FormInstance>
@@ -23,6 +24,7 @@ export interface LoginRegisterStore {
 }
 
 export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
+  btnLoading: false,
   pageLayout: PAGE_LAYOUT.loginLayout,
   loginMethod: LOGIN_METHOD.password,
   loginFormRef: React.createRef(),
@@ -30,10 +32,12 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
 
   loginSubmit: async () => {
     const { loginFormRef, loginMethod } = get()
+    set({ btnLoading: true })
     const loginService =
       loginMethod === LOGIN_METHOD.password ? LoginByPasswordService : LoginByCaptchaService
     const formData = await loginFormRef.current?.validateFields()
     const userId = await loginService(formData)
+    set({ btnLoading: false })
     if (!userId) return
 
     // 登录成功后的回调
@@ -45,7 +49,9 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
   registerSubmit: async () => {
     const { registerFormRef } = get()
     const formData = await registerFormRef.current?.validateFields()
+    set({ btnLoading: true })
     const userId = await registerService(formData)
+    set({ btnLoading: false })
     if (!userId) return
 
     // 注册成功后的回调

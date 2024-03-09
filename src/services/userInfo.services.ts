@@ -7,3 +7,10 @@ export const getUserInfoService = async (userId: string) => {
     params: { userId },
   })
 }
+
+/** 更新当前登录的用户信息 */
+export const updateUserInfoService = async (userInfo: UserInfo) => {
+  return await request.post<UserInfo>('/userInfo/updateUserInfo', {
+    data: userInfo,
+  })
+}

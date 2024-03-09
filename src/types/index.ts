@@ -10,9 +10,11 @@ export enum DetailsModelType {
 
 /** 登录用户信息 */
 export interface UserInfo {
-  userName: string
-  phone: string
+  id?: string
+  username?: string
+  phone?: string
   email?: string
   sex?: string
   avatar?: string
+  password?: string
 }

@@ -12,7 +12,6 @@ export default [
   },
   {
     ...modelDefaultOptions,
-    title: '修改用户信息',
     width: 550,
     maskClosable: false,
     key: `${layerPrefix}UserInfoEdit`,
