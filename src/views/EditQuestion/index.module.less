@@ -1,0 +1,38 @@
+.edit-question {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f0f2f5;
+  min-width: 1000px;
+
+  .edit-question-header {
+    width: 100%;
+    height: 56px;
+    background-color: #fff;
+  }
+
+  .edit-question-content {
+    flex: 1;
+    display: flex;
+    padding: 24px;
+    overflow: hidden;
+
+    .content-left,
+    .content-right {
+      width: 20%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .content-middle {
+      flex: 1;
+      padding: 24px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+  }
+}

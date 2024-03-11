@@ -10,6 +10,10 @@ const globalRouterList: IRoutersData = [
     path: '/loginRegister',
     component: () => import('@/views/LoginRegister'),
   },
+  {
+    path: '/editQuestion/:questionId',
+    component: () => import('@/views/EditQuestion'),
+  },
 ]
 
 /** layout路由页面 */

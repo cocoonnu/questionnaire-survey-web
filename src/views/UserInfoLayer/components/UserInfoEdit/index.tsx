@@ -22,6 +22,7 @@ export interface UserInfoEditProps extends ILayerProps {
 }
 
 const UserInfoEdit = React.forwardRef(({ layer, editType }: UserInfoEditProps) => {
+  const btnLoading = useUserInfoStore((s) => s.btnLoading)
   const userInfoFormRef = useUserInfoStore((s) => s.userInfoFormRef)
   const updateUserInfo = useUserInfoStore((s) => s.updateUserInfo)
 
@@ -33,6 +34,7 @@ const UserInfoEdit = React.forwardRef(({ layer, editType }: UserInfoEditProps) =
     {
       name: '确认',
       type: 'primary',
+      loading: btnLoading,
       onClick: async () => {
         const res = await updateUserInfo()
         if (res) {

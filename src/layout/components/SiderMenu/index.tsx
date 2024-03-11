@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu } from 'antd'
+import { Menu, Button } from 'antd'
 import {
   StarOutlined,
   RestOutlined,
@@ -83,12 +83,25 @@ const SiderMenu = () => {
 
   return (
     <div className={styles['sider-menu']}>
-      <Menu
-        mode="vertical"
-        items={getMenuItems()}
-        onClick={(e) => navigate(`/app/${e.key}`)}
-        selectedKeys={[getSelectedKey()]}
-      />
+      <div className={styles['sider-menu-top']}>
+        <div className={styles['top-button']}>
+          <Button
+            type="primary"
+            size="large"
+            style={{ width: '100%' }}
+            onClick={() => navigate('/editQuestion/2806525575')}
+          >
+            新建问卷
+          </Button>
+        </div>
+        <Menu
+          mode="vertical"
+          style={{ width: '100%' }}
+          items={getMenuItems()}
+          onClick={(e) => navigate(`/app/${e.key}`)}
+          selectedKeys={[getSelectedKey()]}
+        />
+      </div>
       <PersonalCenter />
     </div>
   )
