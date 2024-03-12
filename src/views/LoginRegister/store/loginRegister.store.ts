@@ -1,9 +1,9 @@
 import React from 'react'
 import { create } from 'zustand'
 import { DB } from '@/utils/tools/db_utils'
-import { LOCALSTORAGE_KEY } from '@/consts'
+import { LOCALSTORAGE_KEY } from '@/constants'
 import { navigate } from '@/utils/tools/router_utils'
-import { LOGIN_METHOD, PAGE_LAYOUT } from '../consts'
+import { LOGIN_METHOD, PAGE_LAYOUT } from '../constants'
 import {
   LoginByPasswordService,
   LoginByCaptchaService,

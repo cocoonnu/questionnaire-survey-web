@@ -2,13 +2,13 @@ import React from 'react'
 import { Button } from 'antd'
 import { LeftOutlined } from '@ant-design/icons'
 import FormGenerator from '@/components/FormGenerator'
-import { PAGE_LAYOUT } from '../../consts'
+import { PAGE_LAYOUT } from '../../constants'
 import {
   getFieldCaptcha,
   fieldConfirmPassword,
   fieldPassword,
   fieldPhone,
-} from '../../consts/fields'
+} from '../../constants/fields'
 import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister.store'
 import styles from './index.module.less'
 

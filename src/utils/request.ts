@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { HTTP_STATUS, COMMON_STATUS } from '../consts/statusCode'
+import { HTTP_STATUS, COMMON_STATUS } from '../constants/statusCode'
 import type { AxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({

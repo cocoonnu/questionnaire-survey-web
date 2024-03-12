@@ -1,7 +1,7 @@
 import React from 'react'
 import { create } from 'zustand'
 import { DB } from '@/utils/tools/db_utils'
-import { LOCALSTORAGE_KEY } from '@/consts'
+import { LOCALSTORAGE_KEY } from '@/constants'
 import { getUserInfoService, updateUserInfoService } from '@/services/userInfo.services'
 import type { FormInstance } from 'antd'
 import type { UserInfo } from '@/services/userInfo.services'

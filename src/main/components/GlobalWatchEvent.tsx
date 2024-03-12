@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { app } from '@/utils/tools/app_utils'
-import { EVENT_NAME } from '@/consts/eventListener'
+import { EVENT_NAME } from '@/constants/eventListener'
 import { useNavigate } from 'react-router-dom'
 
 const GlobalWatchEvent = () => {

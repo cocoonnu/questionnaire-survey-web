@@ -4,7 +4,7 @@ import { EditOutlined } from '@ant-design/icons'
 import { app } from '@/utils/tools/app_utils'
 import { useUserInfoStore } from '../../store/userInfo.store'
 import styles from './index.module.less'
-import { EDIT_TYPE } from '../../consts'
+import { EDIT_TYPE } from '../../constants'
 
 const UserInfoMain = () => {
   const { phone, username, sex, id, avatar } = useUserInfoStore((s) => s.userInfo)

@@ -3,7 +3,7 @@ import type { ILayerManagerProps } from '@ekd/enhance-layer-manager'
 import { EnhanceLayerManager } from '@ekd/enhance-layer-manager'
 import { routerLayerList } from '@/routers/routerList'
 import { app } from '@/utils/tools/app_utils'
-import { EVENT_NAME } from '@/consts/eventListener'
+import { EVENT_NAME } from '@/constants/eventListener'
 
 @EnhanceLayerManager((props) => props.layers)
 class LayerManager extends React.Component<ILayerManagerProps & { layers: any }> {

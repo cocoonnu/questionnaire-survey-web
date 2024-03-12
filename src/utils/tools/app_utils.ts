@@ -1,5 +1,5 @@
 import MessageCenter from '@ekuaibao/messagecenter'
-import { EVENT_NAME } from '@/consts/eventListener'
+import { EVENT_NAME } from '@/constants/eventListener'
 
 /**
  * 全局发布订阅工具类

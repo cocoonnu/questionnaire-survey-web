@@ -1,4 +1,4 @@
-import { modelDefaultOptions } from '@/consts'
+import { modelDefaultOptions } from '@/constants'
 import type { ModalProps } from 'antd'
 
 const layerPrefix = '@UserInfo:'

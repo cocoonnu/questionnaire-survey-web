@@ -1,11 +1,19 @@
 import { create } from 'zustand'
+import { LEFT_PANEL_KEY } from '../constants'
 import type { QuestionCompInfo } from '@/services/question.services'
 
 export interface EditQuestionStore {
+  /** 左侧面板选中的tab */
+  leftSelectedTab: LEFT_PANEL_KEY
+  /** 当前选中的问卷组件id */
+  selectedId: string
+  /** 问卷页面信息 */
   questionComInfoList: QuestionCompInfo[]
 }
 
 export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
+  selectedId: '',
+  leftSelectedTab: LEFT_PANEL_KEY.componentLib,
   questionComInfoList: [
     {
       id: 'c2',

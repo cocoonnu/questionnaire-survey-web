@@ -10,7 +10,7 @@ import { useLoginRegisterStore } from '@/views/LoginRegister/store/loginRegister
 import styles from './index.module.less'
 import 'swiper/swiper.css'
 import 'swiper/css/pagination'
-import { PAGE_LAYOUT } from './consts'
+import { PAGE_LAYOUT } from './constants'
 
 const LoginRegister = () => {
   const swiperListData = [SwiperImg1, SwiperImg2, SwiperImg3]

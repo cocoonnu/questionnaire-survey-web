@@ -1,6 +1,6 @@
 import { app } from './app_utils'
 import { routerList, globalRouterList } from '@/routers/routerList'
-import { EVENT_NAME } from '@/consts/eventListener'
+import { EVENT_NAME } from '@/constants/eventListener'
 import type { NavigateFunction } from 'react-router-dom'
 import type { RouterItem } from '@/routers/types'
 

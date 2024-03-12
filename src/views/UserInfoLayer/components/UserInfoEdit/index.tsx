@@ -10,8 +10,8 @@ import {
   fieldPhone,
   fieldConfirmPassword,
   fieldPassword,
-} from '../../consts/fields'
-import { EDIT_TYPE } from '../../consts'
+} from '../../constants/fields'
+import { EDIT_TYPE } from '../../constants'
 import styles from './index.module.less'
 import type { ILayerProps } from '@ekd/enhance-layer-manager'
 import type { ButtonProps } from 'antd/lib/button/button'

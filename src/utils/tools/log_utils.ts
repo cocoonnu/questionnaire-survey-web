@@ -1,4 +1,4 @@
-import { isDevEnv } from '@/consts/env'
+import { isDevEnv } from '@/constants/env'
 
 class LogUtils {
   /**

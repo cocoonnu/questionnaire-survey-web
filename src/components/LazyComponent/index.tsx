@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react'
-import { isDevEnv } from '@/consts/env'
+import { isDevEnv } from '@/constants/env'
 import type { LazyFn, ILoadableOpts } from './type'
 
 const Loading = (props: { error?: any }) => {
