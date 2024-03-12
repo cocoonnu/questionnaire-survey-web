@@ -5,14 +5,16 @@ import type { QuestionInputProps } from './QuestionInput/types'
 /** 问卷组件props类型 */
 export type QuestionComProps = QuestionTitleProps | QuestionInputProps
 
-/** 问卷生成器配置 */
+/** 问卷生成器配置类型 */
 export interface QuestionComConfig {
   /** 问卷组件名称 */
   title: string
   /** 问卷组件类型 */
   type: string
-  /** 问卷组件渲染 */
+  /** 问卷静态组件渲染 */
   Component: FC<QuestionComProps>
+  /** 问卷属性组件渲染 */
+  PropComponent: FC<QuestionComProps>
   /** 问卷组件默认props类型 */
   defaultProps: QuestionComProps
 }

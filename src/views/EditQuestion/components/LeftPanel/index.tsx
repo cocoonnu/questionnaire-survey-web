@@ -33,6 +33,7 @@ const LeftPanel = () => {
   return (
     <div className={styles['left-panel']}>
       <Tabs
+        activeKey={leftSelectedTab}
         items={tabItems}
         onChange={(activeKey) =>
           useEditQuestionStore.setState({ leftSelectedTab: activeKey as LEFT_PANEL_KEY })

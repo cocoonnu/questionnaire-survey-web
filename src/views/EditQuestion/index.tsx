@@ -3,12 +3,16 @@ import EditCanvas from './components/EditCanvas'
 import LeftPanel from './components/LeftPanel'
 import EditHeader from './components/EditHeader'
 import RightSetting from './components/RightSetting'
+import { RIGHT_PANEL_KEY } from './constants'
 import { useEditQuestionStore } from './store/editQuestion.store'
 import styles from './index.module.less'
 
 const EditQuestion = () => {
   const clearSelectedId = () => {
-    useEditQuestionStore.setState({ selectedId: '' })
+    useEditQuestionStore.setState({
+      selectedId: '',
+      rightSelectedTab: RIGHT_PANEL_KEY.pageSetting,
+    })
   }
 
   return (

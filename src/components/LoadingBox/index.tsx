@@ -33,6 +33,7 @@ const LoadingBox = ({
   style,
   children,
 }: LoadingBoxProps) => {
+  if (!loading) return children
   const css: React.CSSProperties = {
     zIndex,
     opacity,

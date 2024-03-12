@@ -1,11 +1,11 @@
 export interface QuestionInputProps {
   title?: string
   placeholder?: string
-  onChange?: (newProps: QuestionInputProps) => void
   disabled?: boolean
+  onChange?: (newProps: QuestionInputProps) => void
 }
 
 export const QuestionInputDefaultProps: QuestionInputProps = {
-  title: '输入框标题',
+  title: '请输入题目标题',
   placeholder: '请输入...',
 }
