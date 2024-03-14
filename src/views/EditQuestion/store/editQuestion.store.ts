@@ -1,11 +1,12 @@
 import { create } from 'zustand'
 import { nanoid } from 'nanoid'
 import { LEFT_PANEL_KEY, RIGHT_PANEL_KEY } from '../constants'
-import { getQuestionComConfByType } from '@/components/QuestionGenerator'
+import { useEditHeaderStore } from './editHeader.store'
+import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
 import type { QuestionCompInfo } from '@/services/question.services'
 
-export interface EditQuestionStore {
+export interface EditQuestionStore extends EditHeaderStore {
   /** 左侧面板选中的tab */
   leftSelectedTab: LEFT_PANEL_KEY
   /** 右侧面板选中的tab */
@@ -18,19 +19,10 @@ export interface EditQuestionStore {
   /** 根据id获取questionComInfo，默认为选中的id */
   getQuestionComInfoById: (id?: string) => QuestionCompInfo | null
 
-  /** 根据id获取questionComConfig， 默认为选中的id */
-  getQuestionComConfigById: (id?: string) => QuestionComConfig | null
-
-  /**
-   * 点击左侧面板组件库的组件回调函数
-   * 1. 在当前选中的问卷组件后面新增组件
-   * 2. 当前未选中任何问卷组件则在末尾新增组件
-   */
+  /** 点击左侧面板组件库的组件回调函数  */
   addQuestionComInfo: (config: QuestionComConfig) => void
 
-  /**
-   * 根据id更新questionComInfoList中的props属性
-   */
+  /** 根据id更新questionComInfoList中的props属性 */
   updateQuestionComInfoProps: (id: string, newProps: QuestionComProps) => void
 }
 
@@ -65,17 +57,12 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     },
   ],
 
+  ...useEditHeaderStore(set, get),
+
   getQuestionComInfoById: (id?) => {
     const { selectedId, questionComInfoList } = get()
     const idValue = id || selectedId
     return questionComInfoList.find((item) => item.id === idValue) || null
-  },
-
-  getQuestionComConfigById(id) {
-    const { selectedId, getQuestionComInfoById } = get()
-    const idValue = id || selectedId
-    const questionComInfo = getQuestionComInfoById(idValue)
-    return getQuestionComConfByType(questionComInfo?.type || '') || null
   },
 
   addQuestionComInfo: (config) => {
@@ -92,14 +79,17 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
     const index = questionComInfoList.findIndex((item) => item.id === selectedId)
     if (index < 0) {
+      // 当前未选中任何问卷组件则在末尾新增组件
       newQuestionComInfoList.push(questionComInfo)
     } else {
+      // 在当前选中的问卷组件后面新增组件
       newQuestionComInfoList.splice(index + 1, 0, questionComInfo)
     }
 
     set({
       questionComInfoList: newQuestionComInfoList,
       selectedId: questionComInfo.id,
+      rightSelectedTab: RIGHT_PANEL_KEY.componentProps,
     })
   },
 

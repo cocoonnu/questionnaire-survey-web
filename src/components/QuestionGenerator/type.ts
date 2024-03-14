@@ -1,9 +1,19 @@
 import type { FC } from 'react'
 import type { QuestionTitleProps } from './QuestionTitle/types'
 import type { QuestionInputProps } from './QuestionInput/types'
+import type { QuestionInfoProps } from './QuestionInfo/types'
+import type { QuestionRadioProps } from './QuestionRadio/types'
+import type { QuestionTextareaProps } from './QuestionTextarea/types'
+import type { QuestionParagraphProps } from './QuestionParagraph/types'
 
 /** 问卷组件props类型 */
-export type QuestionComProps = QuestionTitleProps | QuestionInputProps
+export type QuestionComProps =
+  | QuestionTitleProps
+  | QuestionInputProps
+  | QuestionParagraphProps
+  | QuestionInfoProps
+  | QuestionTextareaProps
+  | QuestionRadioProps
 
 /** 问卷生成器配置类型 */
 export interface QuestionComConfig {

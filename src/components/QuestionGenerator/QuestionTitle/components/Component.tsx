@@ -3,7 +3,7 @@ import { Typography } from 'antd'
 import { QuestionTitleDefaultProps } from '../types'
 import type { QuestionTitleProps } from '../types'
 
-const QuestionTitle = (props: QuestionTitleProps) => {
+const Component = (props: QuestionTitleProps) => {
   const { text, level, isCenter } = { ...QuestionTitleDefaultProps, ...props }
 
   const genFontSize = () => {
@@ -27,4 +27,4 @@ const QuestionTitle = (props: QuestionTitleProps) => {
   )
 }
 
-export default QuestionTitle
+export default Component

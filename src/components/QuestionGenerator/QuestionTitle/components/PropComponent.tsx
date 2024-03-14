@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Form, Input, Select, Checkbox } from 'antd'
 import type { QuestionTitleProps } from '../types'
 
-const PropQuestionTitle = (props: QuestionTitleProps) => {
+const PropComponent = (props: QuestionTitleProps) => {
   const { text, level, isCenter, onChange, disabled } = props
   const [form] = Form.useForm()
 
@@ -45,4 +45,4 @@ const PropQuestionTitle = (props: QuestionTitleProps) => {
   )
 }
 
-export default PropQuestionTitle
+export default PropComponent

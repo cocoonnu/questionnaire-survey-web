@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Form, Input } from 'antd'
-import type { QuestionInputProps } from '../types'
+import type { QuestionTextareaProps } from '../types'
 
-const PropComponent = (props: QuestionInputProps) => {
+const PropComponent = (props: QuestionTextareaProps) => {
   const { title, placeholder, onChange, disabled } = props
   const [form] = Form.useForm()
 

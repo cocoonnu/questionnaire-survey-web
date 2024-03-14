@@ -1,27 +1,38 @@
 import questionInputConfig from './QuestionInput'
 import questionTitleConfig from './QuestionTitle'
+import questionInfoConfig from './QuestionInfo'
+import questionTextareaConfig from './QuestionTextarea'
+import questionParagraphConfig from './QuestionParagraph'
+import questionRadioConfig from './QuestionRadio'
 import type { QuestionComConfig } from './type'
 
 /** 问卷生成器配置列表 */
-export const questionComConfigList: QuestionComConfig[] = [questionInputConfig, questionTitleConfig]
+export const questionComConfigList: QuestionComConfig[] = [
+  questionInputConfig,
+  questionTitleConfig,
+  questionInfoConfig,
+  questionRadioConfig,
+  questionParagraphConfig,
+  questionTextareaConfig,
+]
 
 /** 问卷生成器配置分组 */
 export const questionComConfigGroup = [
   {
     groupId: 'textGroup',
     groupName: '文本显示',
-    groupConfigs: [questionTitleConfig],
+    groupConfigs: [questionInfoConfig, questionTitleConfig, questionParagraphConfig],
   },
   {
     groupId: 'inputGroup',
     groupName: '用户输入',
-    groupConfigs: [questionInputConfig],
+    groupConfigs: [questionInputConfig, questionTextareaConfig],
   },
-  // {
-  //   groupId: 'chooseGroup',
-  //   groupName: '用户选择',
-  //   components: [QuestionRadioConf, QuestionCheckboxConf],
-  // },
+  {
+    groupId: 'chooseGroup',
+    groupName: '用户选择',
+    groupConfigs: [questionRadioConfig],
+  },
 ]
 
 /** 通过问卷组件类型获取问卷生成器配置 */

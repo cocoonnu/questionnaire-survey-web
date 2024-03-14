@@ -1,5 +1,6 @@
 import React from 'react'
 import { Empty } from 'antd'
+import { getQuestionComConfByType } from '@/components/QuestionGenerator'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import type { QuestionComProps } from '@/components/QuestionGenerator/type'
 
@@ -8,26 +9,24 @@ const NoProp = () => {
 }
 
 const ComponentProps = () => {
-  const {
-    selectedId,
-    updateQuestionComInfoProps,
-    getQuestionComConfigById,
-    getQuestionComInfoById,
-  } = useEditQuestionStore()
+  const { selectedId, updateQuestionComInfoProps, getQuestionComInfoById } = useEditQuestionStore()
 
   // 获取当前选中的问卷组件信息和配置
-  const questionComConfig = getQuestionComConfigById(selectedId)
   const questionComInfo = getQuestionComInfoById(selectedId)
+  const questionComConfig = getQuestionComConfByType(questionComInfo?.type || '')
 
+  // 未选中任何问卷组件
   if (!questionComConfig) return <NoProp />
 
+  // 表单修改的回调函数
   const onChange = (newProps: QuestionComProps) => {
     updateQuestionComInfoProps(questionComInfo?.id || '', newProps)
   }
 
   // 渲染当前选中的问卷属性组件
   const { PropComponent } = questionComConfig
-  return <PropComponent {...questionComInfo?.props} onChange={onChange} />
+  const { props, isLocked } = questionComInfo || {}
+  return <PropComponent {...props} disabled={isLocked} onChange={onChange} />
 }
 
 export default ComponentProps

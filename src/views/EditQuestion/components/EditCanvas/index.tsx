@@ -33,6 +33,7 @@ const EditCanvas = () => {
   const getComponentClassName = (item: QuestionCompInfo) => {
     return classNames(styles['component-wrapper'], {
       [styles.selected]: item.id === selectedId,
+      [styles.locked]: item.isLocked,
     })
   }
 
@@ -48,18 +49,20 @@ const EditCanvas = () => {
   return (
     <div className={styles['edit-canvas']} id="edit-canvas">
       <LoadingBox loading={false} iconSize="large">
-        {questionComInfoList.map((item) => {
-          return (
-            <div
-              id={item.id}
-              key={item.id}
-              className={getComponentClassName(item)}
-              onClick={(e) => componentClick(e, item)}
-            >
-              <div className={styles['pointer-none']}>{getQuestionComponent(item)}</div>
-            </div>
-          )
-        })}
+        {questionComInfoList
+          .filter((item) => !item.isHidden)
+          .map((item) => {
+            return (
+              <div
+                id={item.id}
+                key={item.id}
+                className={getComponentClassName(item)}
+                onClick={(e) => componentClick(e, item)}
+              >
+                <div className={styles['pointer-none']}>{getQuestionComponent(item)}</div>
+              </div>
+            )
+          })}
       </LoadingBox>
     </div>
   )

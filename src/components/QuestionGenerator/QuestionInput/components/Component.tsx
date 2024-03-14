@@ -3,7 +3,7 @@ import { Typography, Input } from 'antd'
 import { QuestionInputDefaultProps } from '../types'
 import type { QuestionInputProps } from '../types'
 
-const QuestionInput = (props: QuestionInputProps) => {
+const Component = (props: QuestionInputProps) => {
   const { title, placeholder } = { ...QuestionInputDefaultProps, ...props }
 
   return (
@@ -16,4 +16,4 @@ const QuestionInput = (props: QuestionInputProps) => {
   )
 }
 
-export default QuestionInput
+export default Component
