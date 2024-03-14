@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { nanoid } from 'nanoid'
 import { Form, Input, Checkbox, Select, Button } from 'antd'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
-import type { QuestionRadioProps, OptionType } from '../types'
+import type { QuestionCheckboxProps, OptionType } from '../types'
 
-const PropComponent = (props: QuestionRadioProps) => {
+const PropComponent = (props: QuestionCheckboxProps) => {
   const { title, isVertical, selectedValue, options = [], onChange, disabled } = props
   const [form] = Form.useForm()
 
@@ -13,10 +13,12 @@ const PropComponent = (props: QuestionRadioProps) => {
   }, [title, isVertical, selectedValue, options, form])
 
   const handleValuesChange = () => {
-    // 当删除的是默认选中的选项，则需要将默认选中置为空
+    // 当删除的是下面默认选中的选项数组里面的值，则需要将数组对应的值删除
     const { options, selectedValue } = form.getFieldsValue()
-    const selectedIndex = options.findIndex((item) => item.value === selectedValue)
-    if (selectedIndex === -1) form.setFieldsValue({ selectedValue: undefined })
+    const newSelectedValue = selectedValue.filter((item) =>
+      options.find((option) => option?.value === item),
+    )
+    form.setFieldValue('selectedValue', newSelectedValue)
     onChange?.(form.getFieldsValue())
   }
 
@@ -46,9 +48,7 @@ const PropComponent = (props: QuestionRadioProps) => {
           <Input placeholder="请输入选项文字" style={{ width: '90%' }} />
         </Form.Item>
 
-        {field?.key === 0 || field?.key === 1 ? null : (
-          <MinusCircleOutlined onClick={() => remove(field?.name)} />
-        )}
+        {field?.key === 0 ? null : <MinusCircleOutlined onClick={() => remove(field?.name)} />}
       </div>
     )
   }
@@ -89,9 +89,12 @@ const PropComponent = (props: QuestionRadioProps) => {
 
       <Form.Item label="默认选中" name="selectedValue">
         <Select
+          allowClear
+          mode="multiple"
+          value={selectedValue}
           options={options
-            ?.map(({ text, value }) => ({ value, label: text || '' }))
-            ?.filter((item) => item.label)}
+            .map(({ text, value }) => ({ value, label: text || '' }))
+            .filter((item) => item.label)}
         />
       </Form.Item>
       <Form.Item name="isVertical" valuePropName="checked">

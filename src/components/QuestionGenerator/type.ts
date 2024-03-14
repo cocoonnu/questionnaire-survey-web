@@ -3,6 +3,7 @@ import type { QuestionTitleProps } from './QuestionTitle/types'
 import type { QuestionInputProps } from './QuestionInput/types'
 import type { QuestionInfoProps } from './QuestionInfo/types'
 import type { QuestionRadioProps } from './QuestionRadio/types'
+import type { QuestionCheckboxProps } from './QuestionCheckbox/types'
 import type { QuestionTextareaProps } from './QuestionTextarea/types'
 import type { QuestionParagraphProps } from './QuestionParagraph/types'
 
@@ -14,6 +15,7 @@ export type QuestionComProps =
   | QuestionInfoProps
   | QuestionTextareaProps
   | QuestionRadioProps
+  | QuestionCheckboxProps
 
 /** 问卷生成器配置类型 */
 export interface QuestionComConfig {
@@ -22,9 +24,9 @@ export interface QuestionComConfig {
   /** 问卷组件类型 */
   type: string
   /** 问卷静态组件渲染 */
-  Component: FC<QuestionComProps>
+  Component: FC<any>
   /** 问卷属性组件渲染 */
-  PropComponent: FC<QuestionComProps>
+  PropComponent: FC<any>
   /** 问卷组件默认props类型 */
   defaultProps: QuestionComProps
 }
