@@ -4,7 +4,8 @@ import { LEFT_PANEL_KEY, RIGHT_PANEL_KEY } from '../constants'
 import { useEditHeaderStore } from './editHeader.store'
 import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
-import type { QuestionCompInfo } from '@/services/question.services'
+import type { QuestionCompInfo, QuestionInfoType } from '@/services/question.services'
+import { message } from 'antd'
 
 export interface EditQuestionStore extends EditHeaderStore {
   /** 左侧面板选中的tab */
@@ -13,7 +14,9 @@ export interface EditQuestionStore extends EditHeaderStore {
   rightSelectedTab: RIGHT_PANEL_KEY
   /** 当前选中的问卷组件id */
   selectedId: string
-  /** 问卷页面信息 */
+  /** 问卷信息 */
+  questionInfo: QuestionInfoType
+  /** 问卷组件信息列表 */
   questionComInfoList: QuestionCompInfo[]
 
   /** 根据id获取questionComInfo，默认为选中的id */
@@ -24,12 +27,24 @@ export interface EditQuestionStore extends EditHeaderStore {
 
   /** 根据id更新questionComInfoList中的props属性 */
   updateQuestionComInfoProps: (id: string, newProps: QuestionComProps) => void
+
+  /** 保存按钮 */
+  saveQuestion: () => Promise<void>
 }
 
 export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
   selectedId: '',
   leftSelectedTab: LEFT_PANEL_KEY.componentLib,
-  rightSelectedTab: RIGHT_PANEL_KEY.pageSetting,
+  rightSelectedTab: RIGHT_PANEL_KEY.componentProps,
+  questionInfo: {
+    id: '2806525575',
+    name: '前端工程师问卷调查',
+    desc: '这是一份前端工程师的问卷调查',
+    createdTime: '2023-06-01 12:00:00',
+    creatorId: '2221352523423423',
+    isDeleted: false,
+    isPublished: false,
+  },
   questionComInfoList: [
     {
       id: 'c2',
@@ -103,5 +118,11 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     const { props } = newQuestionComInfoList[index]
     newQuestionComInfoList[index].props = { ...props, ...newProps }
     set({ questionComInfoList: newQuestionComInfoList })
+  },
+
+  saveQuestion: async () => {
+    const { questionComInfoList, questionInfo } = get()
+    console.log('', questionComInfoList, questionInfo)
+    message.success('保存成功')
   },
 }))

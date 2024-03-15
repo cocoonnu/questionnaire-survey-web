@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs } from 'antd'
 import ComponentProps from './ComponentProps'
 import { RIGHT_PANEL_KEY } from '../../constants'
-import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
+import { FileTextOutlined } from '@ant-design/icons'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import styles from './index.module.less'
 
@@ -10,15 +10,15 @@ const RightSetting = () => {
   const rightSelectedTab = useEditQuestionStore((state) => state.rightSelectedTab)
 
   const tabItems = [
-    {
-      key: RIGHT_PANEL_KEY.pageSetting,
-      label: (
-        <span>
-          <SettingOutlined />
-          页面设置
-        </span>
-      ),
-    },
+    // {
+    //   key: RIGHT_PANEL_KEY.pageSetting,
+    //   label: (
+    //     <span>
+    //       <SettingOutlined />
+    //       页面设置
+    //     </span>
+    //   ),
+    // },
     {
       key: RIGHT_PANEL_KEY.componentProps,
       label: (

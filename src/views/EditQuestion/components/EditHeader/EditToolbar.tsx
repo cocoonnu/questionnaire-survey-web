@@ -1,16 +1,9 @@
 import React from 'react'
 import { useKeyPress } from 'ahooks'
+import { isActiveElementValid } from '@/utils/tools/dom_utils'
 import { Button, Space, Tooltip, Modal } from 'antd'
 import { DeleteOutlined, EyeInvisibleOutlined, LockOutlined, CopyOutlined } from '@ant-design/icons'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
-
-// 判断鼠标焦点是否在body上而不是输入框
-const isActiveElementValid = () => {
-  const activeElem = document.activeElement
-  if (activeElem === document.body) return true
-  if (activeElem?.matches('div[role="button"]')) return true
-  return false
-}
 
 const EditToolbar = () => {
   const {
@@ -80,6 +73,7 @@ const EditToolbar = () => {
         <Button
           shape="circle"
           disabled={!selectedId}
+          type={questionComInfo?.isHidden ? 'primary' : 'default'}
           icon={<EyeInvisibleOutlined />}
           onClick={hideClick}
         />

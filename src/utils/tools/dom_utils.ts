@@ -1,3 +1,11 @@
+/** 判断鼠标焦点是否在body上而不是输入框 */
+export const isActiveElementValid = () => {
+  const activeElem = document.activeElement
+  if (activeElem === document.body) return true
+  if (activeElem?.matches('div[role="button"]')) return true
+  return false
+}
+
 /**
  * 判断元素是否在视区中
  * @param el 被判断元素

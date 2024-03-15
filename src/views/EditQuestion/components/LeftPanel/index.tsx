@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs } from 'antd'
 import ComponentLib from './ComponentLib'
 import { LEFT_PANEL_KEY } from '../../constants'
-import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
+import { AppstoreOutlined } from '@ant-design/icons'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import styles from './index.module.less'
 
@@ -19,15 +19,15 @@ const LeftPanel = () => {
         </span>
       ),
     },
-    {
-      key: LEFT_PANEL_KEY.layerAttribute,
-      label: (
-        <span>
-          <BarsOutlined />
-          图层
-        </span>
-      ),
-    },
+    // {
+    //   key: LEFT_PANEL_KEY.layerAttribute,
+    //   label: (
+    //     <span>
+    //       <BarsOutlined />
+    //       图层
+    //     </span>
+    //   ),
+    // },
   ]
 
   return (
