@@ -1,7 +1,7 @@
 import { message } from 'antd'
+import { nanoid } from 'nanoid'
 import cloneDeep from 'lodash.clonedeep'
 import type { EditQuestionStore } from './editQuestion.store'
-import { nanoid } from 'nanoid'
 
 type SetType = (
   partial:

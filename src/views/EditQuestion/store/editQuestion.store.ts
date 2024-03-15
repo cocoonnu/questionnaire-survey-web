@@ -1,11 +1,12 @@
 import { create } from 'zustand'
+import { message } from 'antd'
 import { nanoid } from 'nanoid'
+import { arrayMove } from '@dnd-kit/sortable'
 import { LEFT_PANEL_KEY, RIGHT_PANEL_KEY } from '../constants'
 import { useEditHeaderStore } from './editHeader.store'
 import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
 import type { QuestionCompInfo, QuestionInfoType } from '@/services/question.services'
-import { message } from 'antd'
 
 export interface EditQuestionStore extends EditHeaderStore {
   /** 左侧面板选中的tab */
@@ -30,6 +31,9 @@ export interface EditQuestionStore extends EditHeaderStore {
 
   /** 保存按钮 */
   saveQuestion: () => Promise<void>
+
+  /** 拖拽时的回调函数 */
+  onDragEnd: (oldIndex: number, newIndex: number) => void
 }
 
 export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
@@ -124,5 +128,16 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     const { questionComInfoList, questionInfo } = get()
     console.log('', questionComInfoList, questionInfo)
     message.success('保存成功')
+  },
+
+  onDragEnd: (oldIndex, newIndex) => {
+    /**
+     * 拖拽时传入拖拽前的位置index和拖拽后的位置index
+     * 之后选中的拖拽的问卷组件和更新问卷组件列表
+     */
+    const { questionComInfoList } = get()
+    const dragId = questionComInfoList.find((item, index) => index === oldIndex)?.id
+    const newQuestionComInfoList = arrayMove(questionComInfoList, oldIndex, newIndex)
+    set({ questionComInfoList: newQuestionComInfoList, selectedId: dragId })
   },
 }))

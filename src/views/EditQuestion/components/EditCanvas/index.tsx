@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import LoadingBox from '@/components/LoadingBox'
+import { useScrollToSelectedId } from '../../hooks/useScrollToSelected'
+import SortableItem from '@/components/DragSortable/SortableItem'
+import SortableContainer from '@/components/DragSortable/SortableContainer'
 import { RIGHT_PANEL_KEY } from '../../constants'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import { getQuestionComConfByType } from '@/components/QuestionGenerator'
@@ -11,17 +14,9 @@ import type { QuestionCompInfo } from '@/services/question.services'
 const EditCanvas = () => {
   const selectedId = useEditQuestionStore((state) => state.selectedId)
   const questionComInfoList = useEditQuestionStore((state) => state.questionComInfoList)
+  const onDragEnd = useEditQuestionStore((state) => state.onDragEnd)
 
-  useEffect(() => {
-    // 滚动到选中的问卷组件位置
-    const editCanvasElement = document.getElementById('edit-canvas')
-    if (!editCanvasElement || !selectedId) return
-    const selectedQuestionComElement = document.getElementById(selectedId)
-    selectedQuestionComElement?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    })
-  }, [selectedId])
+  useScrollToSelectedId(selectedId)
 
   const getQuestionComponent = (item: QuestionCompInfo) => {
     const { type, props } = item
@@ -49,18 +44,22 @@ const EditCanvas = () => {
   return (
     <div className={styles['edit-canvas']} id="edit-canvas">
       <LoadingBox loading={false} iconSize="large">
-        {questionComInfoList.map((item) => {
-          return (
-            <div
-              id={item.id}
-              key={item.id}
-              className={getComponentClassName(item)}
-              onClick={(e) => componentClick(e, item)}
-            >
-              <div className={styles['pointer-none']}>{getQuestionComponent(item)}</div>
-            </div>
-          )
-        })}
+        <SortableContainer items={questionComInfoList} onDragEnd={onDragEnd}>
+          {questionComInfoList.map((item) => {
+            return (
+              <SortableItem key={item.id} id={item.id}>
+                <div
+                  id={item.id}
+                  key={item.id}
+                  className={getComponentClassName(item)}
+                  onClick={(e) => componentClick(e, item)}
+                >
+                  <div className={styles['pointer-none']}>{getQuestionComponent(item)}</div>
+                </div>
+              </SortableItem>
+            )
+          })}
+        </SortableContainer>
       </LoadingBox>
     </div>
   )

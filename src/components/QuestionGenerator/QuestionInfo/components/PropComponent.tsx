@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Form, Input, Checkbox } from 'antd'
+import { Form, Input } from 'antd'
 import type { QuestionInfoProps } from '../types'
 
 const PropComponent = (props: QuestionInfoProps) => {
@@ -27,9 +27,6 @@ const PropComponent = (props: QuestionInfoProps) => {
       </Form.Item>
       <Form.Item label="描述" name="desc">
         <Input.TextArea />
-      </Form.Item>
-      <Form.Item name="isCenter" valuePropName="checked">
-        <Checkbox>居中显示</Checkbox>
       </Form.Item>
     </Form>
   )
