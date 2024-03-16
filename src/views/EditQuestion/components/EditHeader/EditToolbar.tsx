@@ -9,6 +9,7 @@ import {
   CopyOutlined,
   UpOutlined,
   DownOutlined,
+  RedoOutlined,
 } from '@ant-design/icons'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import { useScrollToSelectedIndex } from '../../hooks/useScrollToSelected'
@@ -25,6 +26,7 @@ const EditToolbar = () => {
     hideSelectedQuestionCom,
     lockSelectedQuestionCom,
     copySelectedQuestionCom,
+    resetQuestionComInfoList,
   } = useEditQuestionStore()
 
   const questionComInfo = getQuestionComInfoById(selectedId)
@@ -34,7 +36,7 @@ const EditToolbar = () => {
 
   const deleteClick = () => {
     Modal.confirm({
-      title: '确定删除吗?',
+      title: '确定要删除吗?',
       okText: '确定',
       cancelText: '我再想想',
       maskClosable: true,
@@ -45,12 +47,23 @@ const EditToolbar = () => {
 
   const hideClick = () => {
     Modal.confirm({
-      title: '确定隐藏吗?',
+      title: '确定要隐藏吗?',
       okText: '确定',
       cancelText: '我再想想',
       maskClosable: true,
       centered: true,
       onOk: () => hideSelectedQuestionCom(true),
+    })
+  }
+
+  const redoClick = () => {
+    Modal.confirm({
+      title: '确定要重置吗?',
+      okText: '确定',
+      cancelText: '我再想想',
+      maskClosable: true,
+      centered: true,
+      onOk: () => resetQuestionComInfoList(),
     })
   }
 
@@ -132,6 +145,9 @@ const EditToolbar = () => {
           icon={<DownOutlined />}
           onClick={moveDownClick}
         />
+      </Tooltip>
+      <Tooltip title="重置">
+        <Button shape="circle" type="default" icon={<RedoOutlined />} onClick={redoClick} />
       </Tooltip>
     </Space>
   )

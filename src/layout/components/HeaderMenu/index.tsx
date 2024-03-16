@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { navigate } from '@/utils/tools/router_utils'
-import { HEADER_MENU_KEY, WORK_AREA_KEY, TEMPLATE_KEY } from '@/layout/consts'
+import { HEADER_MENU_KEY, WORK_AREA_KEY, TEMPLATE_KEY } from '@/constants/menu'
 import { useLayoutStore } from '@/layout/store/layout.store'
 import styles from './index.module.less'
 import type { MenuProps } from 'antd'
@@ -27,7 +27,7 @@ const HeaderMenu = () => {
       navigate(`/app/${templateLibraryKey || TEMPLATE_KEY.questionnaireSurvey}`)
     }
     if (e.key === HEADER_MENU_KEY.workingArea) {
-      navigate(`/app/${workingAreaKey || WORK_AREA_KEY.systemHome}`)
+      navigate(`/app/${workingAreaKey || WORK_AREA_KEY.allQuestionnaire}`)
     }
   }
 

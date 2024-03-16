@@ -8,27 +8,25 @@ import type { InputRef } from 'antd'
 
 const EditTitle = () => {
   const inputRef = useRef<InputRef>(null)
+  const questionName = useEditQuestionStore((state) => state.questionName)
   const [editState, setEditState] = useState(false)
-  const questionInfo = useEditQuestionStore((state) => state.questionInfo)
+  const [nameHistory, setNameHistory] = useState(questionName)
 
   useEffect(() => {
     if (editState) {
+      setNameHistory(questionName)
       inputRef.current?.focus({ cursor: 'end' })
     }
   }, [editState])
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    useEditQuestionStore.setState({
-      questionInfo: { ...questionInfo, name: e.target.value.trim() },
-    })
+    useEditQuestionStore.setState({ questionName: e.target.value.trim() })
   }
 
   const editExit = () => {
     setEditState(false)
-    if (questionInfo.name === '') {
-      useEditQuestionStore.setState({
-        questionInfo: { ...questionInfo, name: '请填写问卷名' },
-      })
+    if (questionName === '') {
+      useEditQuestionStore.setState({ questionName: nameHistory })
     }
   }
 
@@ -36,7 +34,7 @@ const EditTitle = () => {
     return (
       <Input
         ref={inputRef}
-        value={questionInfo.name}
+        value={questionName}
         onChange={onChange}
         onPressEnter={editExit}
         onBlur={editExit}
@@ -46,7 +44,7 @@ const EditTitle = () => {
 
   return (
     <Space>
-      <Typography.Title className={styles.title}>{questionInfo.name}</Typography.Title>
+      <Typography.Title className={styles.title}>{questionName}</Typography.Title>
       <Button icon={<EditOutlined />} type="text" onClick={() => setEditState(true)} />
     </Space>
   )

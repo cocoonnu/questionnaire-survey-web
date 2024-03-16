@@ -1,12 +1,20 @@
 import { create } from 'zustand'
-import { message } from 'antd'
 import { nanoid } from 'nanoid'
+import { message } from 'antd'
+import cloneDeep from 'lodash.clonedeep'
 import { arrayMove } from '@dnd-kit/sortable'
 import { LEFT_PANEL_KEY, RIGHT_PANEL_KEY } from '../constants'
 import { useEditHeaderStore } from './editHeader.store'
+import {
+  getQuestionInfoByIdService,
+  saveQuestionInfoService,
+} from '@/services/questionInfo.services'
+import { DB } from '@/utils/tools/db_utils'
+import { LOCALSTORAGE_KEY } from '@/constants'
+import { TEMPLATE_KEY } from '@/constants/menu'
 import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
-import type { QuestionCompInfo, QuestionInfoType } from '@/services/question.services'
+import type { QuestionComInfo } from '@/services/questionInfo.services'
 
 export interface EditQuestionStore extends EditHeaderStore {
   /** 左侧面板选中的tab */
@@ -15,22 +23,29 @@ export interface EditQuestionStore extends EditHeaderStore {
   rightSelectedTab: RIGHT_PANEL_KEY
   /** 当前选中的问卷组件id */
   selectedId: string
-  /** 问卷信息 */
-  questionInfo: QuestionInfoType
-  /** 问卷组件信息列表 */
-  questionComInfoList: QuestionCompInfo[]
+  /** 问卷名 */
+  questionName: string
+  /** 问卷id */
+  questionId: string
+  /** 问卷组件列表 */
+  questionComInfoList: QuestionComInfo[]
+  /** 问卷组件初始列表 */
+  questionComInfoListInit: QuestionComInfo[]
 
-  /** 根据id获取questionComInfo，默认为选中的id */
-  getQuestionComInfoById: (id?: string) => QuestionCompInfo | null
+  /** 根据问卷ID获取问卷信息 */
+  getQuestionInfoById: (id: string) => Promise<void>
 
-  /** 点击左侧面板组件库的组件回调函数  */
+  /** 根据问卷组件ID获取问卷组件信息 */
+  getQuestionComInfoById: (id?: string) => QuestionComInfo | null
+
+  /** 保存问卷信息 */
+  saveQuestionInfo: () => Promise<void>
+
+  /** 新增问卷组件  */
   addQuestionComInfo: (config: QuestionComConfig) => void
 
-  /** 根据id更新questionComInfoList中的props属性 */
+  /** 更新问卷组件的props属性 */
   updateQuestionComInfoProps: (id: string, newProps: QuestionComProps) => void
-
-  /** 保存按钮 */
-  saveQuestion: () => Promise<void>
 
   /** 拖拽时的回调函数 */
   onDragEnd: (oldIndex: number, newIndex: number) => void
@@ -38,45 +53,72 @@ export interface EditQuestionStore extends EditHeaderStore {
 
 export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
   selectedId: '',
+  questionId: '',
   leftSelectedTab: LEFT_PANEL_KEY.componentLib,
   rightSelectedTab: RIGHT_PANEL_KEY.componentProps,
-  questionInfo: {
-    id: '2806525575',
-    name: '前端工程师问卷调查',
-    desc: '这是一份前端工程师的问卷调查',
-    createdTime: '2023-06-01 12:00:00',
-    creatorId: '2221352523423423',
-    isDeleted: false,
-    isPublished: false,
-  },
-  questionComInfoList: [
-    {
-      id: 'c2',
-      type: 'questionTitle', // 组件类型，不能重复，前后端统一好
-      title: '标题',
-      isHidden: false,
-      isLocked: false,
-      props: { text: '个人信息调研', level: 1, isCenter: false },
-    },
-    {
-      id: 'c3',
-      type: 'questionInput',
-      title: '输入框1',
-      isHidden: false,
-      isLocked: false,
-      props: { title: '你的姓名', placeholder: '请输入姓名...' },
-    },
-    {
-      id: 'c4',
-      type: 'questionInput',
-      title: '输入框2',
-      isHidden: false,
-      isLocked: false,
-      props: { title: '你的电话', placeholder: '请输入电话...' },
-    },
-  ],
+  questionName: '',
+  questionComInfoList: [],
+  questionComInfoListInit: [],
 
   ...useEditHeaderStore(set, get),
+
+  getQuestionInfoById: async (id) => {
+    if (!id) {
+      const intList: QuestionComInfo[] = [
+        {
+          id: nanoid(),
+          title: '问卷信息',
+          type: 'questionInfo',
+          isHidden: false,
+          isLocked: false,
+          props: { title: '问卷标题', desc: '请输入问卷描述' },
+        },
+      ]
+      set({
+        questionName: '问卷标题',
+        questionComInfoList: cloneDeep(intList),
+        questionComInfoListInit: cloneDeep(intList),
+      })
+      return
+    }
+    const res = await getQuestionInfoByIdService(id)
+    const initList = res.questionComInfoList?.map((item) => ({
+      ...item,
+      isHidden: item.isHidden === 1,
+      isLocked: item.isLocked === 1,
+      props: JSON.parse(item.props),
+    }))
+    set({
+      questionId: res.id,
+      questionName: res.name,
+      questionComInfoList: cloneDeep(initList),
+      questionComInfoListInit: cloneDeep(initList),
+    })
+  },
+
+  saveQuestionInfo: async () => {
+    /**
+     * 可以直接将id、name、questionComInfoList传递给后端进行新建获取保存问卷信息
+     * 另外还需要设置创建人、问卷模板和将问卷组件的props设置为JSON字符串
+     */
+    const { questionId, questionName, questionComInfoList } = get()
+    const res = await saveQuestionInfoService({
+      id: questionId,
+      name: questionName,
+      questionComInfoList: questionComInfoList.map((item) => ({
+        ...item,
+        isHidden: item.isHidden ? 1 : 0,
+        isLocked: item.isLocked ? 1 : 0,
+        props: JSON.stringify(item.props),
+      })),
+      userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
+      template: TEMPLATE_KEY.questionnaireSurvey,
+    })
+    if (!res) return
+    // 新建的问卷需要获取一下问卷ID
+    set({ questionId: res.id })
+    message.success('保存成功')
+  },
 
   getQuestionComInfoById: (id?) => {
     const { selectedId, questionComInfoList } = get()
@@ -85,7 +127,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
   },
 
   addQuestionComInfo: (config) => {
-    const questionComInfo: QuestionCompInfo = {
+    const questionComInfo: QuestionComInfo = {
       id: nanoid(),
       type: config.type,
       title: config.title,
@@ -122,12 +164,6 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     const { props } = newQuestionComInfoList[index]
     newQuestionComInfoList[index].props = { ...props, ...newProps }
     set({ questionComInfoList: newQuestionComInfoList })
-  },
-
-  saveQuestion: async () => {
-    const { questionComInfoList, questionInfo } = get()
-    console.log('', questionComInfoList, questionInfo)
-    message.success('保存成功')
   },
 
   onDragEnd: (oldIndex, newIndex) => {

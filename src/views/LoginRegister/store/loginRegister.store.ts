@@ -41,7 +41,7 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
     if (!userId) return
 
     // 登录成功后的回调
-    navigate('/app/systemHome')
+    navigate('/app/allQuestionnaire')
     DB.LS.set(LOCALSTORAGE_KEY.userId, userId)
     message.success('欢迎进入小智问卷')
   },
@@ -55,7 +55,7 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
     if (!userId) return
 
     // 注册成功后的回调
-    navigate('/app/systemHome')
+    navigate('/app/allQuestionnaire')
     DB.LS.set(LOCALSTORAGE_KEY.userId, userId)
     message.success('欢迎进入小智问卷')
   },

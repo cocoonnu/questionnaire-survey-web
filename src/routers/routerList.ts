@@ -4,14 +4,14 @@ import type { IRoutersData } from './types'
 const globalRouterList: IRoutersData = [
   {
     path: '/',
-    redirect: '/app/systemHome',
+    redirect: '/app/allQuestionnaire',
   },
   {
     path: '/loginRegister',
     component: () => import('@/views/LoginRegister'),
   },
   {
-    path: '/editQuestion/:questionId',
+    path: '/editQuestion/:questionId?',
     component: () => import('@/views/EditQuestion'),
   },
 ]

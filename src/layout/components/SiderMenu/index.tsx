@@ -11,7 +11,7 @@ import {
 import PersonalCenter from './PersonalCenter'
 import { navigate } from '@/utils/tools/router_utils'
 import { useLayoutStore } from '@/layout/store/layout.store'
-import { WORK_AREA_KEY, HEADER_MENU_KEY, TEMPLATE_KEY } from '@/layout/consts'
+import { WORK_AREA_KEY, HEADER_MENU_KEY, TEMPLATE_KEY } from '@/constants/menu'
 import styles from './index.module.less'
 
 const getIconComponent = (ICON) => {
@@ -26,7 +26,7 @@ const SiderMenu = () => {
   const menuItemsByWorkingAreaKey = [
     {
       label: '全部问卷',
-      key: WORK_AREA_KEY.systemHome,
+      key: WORK_AREA_KEY.allQuestionnaire,
       icon: getIconComponent(HomeOutlined),
     },
     {
@@ -89,7 +89,7 @@ const SiderMenu = () => {
             type="primary"
             size="large"
             style={{ width: '100%' }}
-            onClick={() => navigate('/editQuestion/2806525575')}
+            onClick={() => navigate('/editQuestion/1768894164450226178')}
           >
             新建问卷
           </Button>

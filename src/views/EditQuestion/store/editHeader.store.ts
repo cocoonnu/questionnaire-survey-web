@@ -31,6 +31,9 @@ export interface EditHeaderStore {
 
   /** 复制选中的问卷组件 */
   copySelectedQuestionCom: () => void
+
+  /** 重置问卷组件列表 */
+  resetQuestionComInfoList: () => void
 }
 
 export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore => ({
@@ -75,6 +78,7 @@ export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore 
     set({
       questionComInfoList: questionComInfoList.filter((item) => item.id !== selectedId),
     })
+    message.success('删除成功')
   },
 
   hideSelectedQuestionCom: (isHidden) => {
@@ -86,6 +90,7 @@ export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore 
     const newList = [...questionComInfoList]
     newList[index].isHidden = isHidden
     set({ questionComInfoList: newList, selectedId: '' })
+    message.success('隐藏成功')
   },
 
   lockSelectedQuestionCom: () => {
@@ -97,6 +102,7 @@ export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore 
     const newList = [...questionComInfoList]
     newList[index].isLocked = !newList[index].isLocked
     set({ questionComInfoList: newList })
+    message.success('锁定成功')
   },
 
   copySelectedQuestionCom: () => {
@@ -115,5 +121,15 @@ export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore 
       ...questionComInfoList.slice(index + 1),
     ]
     set({ questionComInfoList: newList, selectedId: newQuestionComInfo.id })
+    message.success('复制成功')
+  },
+
+  resetQuestionComInfoList: () => {
+    const { questionComInfoListInit } = get()
+    set({
+      selectedId: '',
+      questionComInfoList: cloneDeep(questionComInfoListInit),
+    })
+    message.success('重置成功')
   },
 })

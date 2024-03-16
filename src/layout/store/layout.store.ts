@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { HEADER_MENU_KEY, WORK_AREA_KEY, TEMPLATE_KEY } from '../consts'
+import { HEADER_MENU_KEY, WORK_AREA_KEY, TEMPLATE_KEY } from '../../constants/menu'
 
 export interface LayoutStore {
   headerMenuKey: HEADER_MENU_KEY
@@ -11,7 +11,7 @@ export interface LayoutStore {
 
 export const useLayoutStore = create<LayoutStore>((set) => ({
   headerMenuKey: HEADER_MENU_KEY.workingArea,
-  workingAreaKey: WORK_AREA_KEY.systemHome,
+  workingAreaKey: WORK_AREA_KEY.allQuestionnaire,
   templateLibraryKey: TEMPLATE_KEY.questionnaireSurvey,
 
   monitorPathChange: (pathName) => {
