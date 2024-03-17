@@ -6,6 +6,9 @@ import FieldCaptcha from '../Fields/FieldCaptcha'
 import FieldPhone from '../Fields/FieldPhone'
 import FieldRadioGroup from '../Fields/FieldRadioGroup'
 import FieldAvatarUpload from '../Fields/FieldAvatarUpload'
+import FieldSelect from '../Fields/FieldSelect'
+import FieldDateRange from '../Fields/FieldDateRange'
+import FieldDate from '../Fields/FieldDate'
 
 export const FieldMap: Record<FORM_TYPE, any> = {
   [FORM_TYPE.input]: (props) => <FieldInput {...props} />,
@@ -14,4 +17,7 @@ export const FieldMap: Record<FORM_TYPE, any> = {
   [FORM_TYPE.phone]: (props) => <FieldPhone {...props} />,
   [FORM_TYPE.radioGroup]: (props) => <FieldRadioGroup {...props} />,
   [FORM_TYPE.avatarUpload]: (props) => <FieldAvatarUpload {...props} />,
+  [FORM_TYPE.select]: (props) => <FieldSelect {...props} />,
+  [FORM_TYPE.dateRange]: (props) => <FieldDateRange {...props} />,
+  [FORM_TYPE.date]: (props) => <FieldDate {...props} />,
 }

@@ -6,7 +6,7 @@ export interface FieldRadioGroupProps extends FormComponentItem {
   defaultValue?: any
   optionType?: 'default' | 'button'
   direction?: 'horizontal' | 'vertical'
-  options: { label: string; value: string; disabled?: boolean }[]
+  options: { label: string; value: any; disabled?: boolean }[]
 }
 
 const FieldRadioGroup = ({

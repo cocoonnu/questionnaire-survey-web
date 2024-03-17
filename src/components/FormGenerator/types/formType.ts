@@ -5,6 +5,9 @@ import type { FieldCaptchaProps } from '../Fields/FieldCaptcha'
 import type { FieldInputProps } from '../Fields/FieldInput'
 import type { FieldPasswordProps } from '../Fields/FieldPassword'
 import type { FieldRadioGroupProps } from '../Fields/FieldRadioGroup'
+import type { FieldSelectProps } from '../Fields/FieldSelect'
+import type { FieldDateProps } from '../Fields/FieldDate'
+import type { FieldDateRangeProps } from '../Fields/FieldDateRange'
 
 /**
  * 表单单项类型
@@ -57,6 +60,9 @@ export type FormComponentsProps = FormComponentItem &
     | FieldPasswordProps
     | FieldPhoneProps
     | FieldRadioGroupProps
+    | FieldSelectProps
+    | FieldDateRangeProps
+    | FieldDateProps
   )
 
 export enum FORM_TYPE {
@@ -70,6 +76,12 @@ export enum FORM_TYPE {
   phone = 'phone',
   /** 多选框 */
   radioGroup = 'radioGroup',
+  /** 下拉选择框 */
+  select = 'select',
+  /** 日期选择框 */
+  date = 'date',
+  /** 日期范围选择框 */
+  dateRange = 'dateRange',
   /** 头像上传 */
   avatarUpload = 'avatarUpload',
 }

@@ -17,3 +17,10 @@ export enum TEMPLATE_KEY {
   onlineExamination = 'onlineExamination',
   votingTemplate = 'votingTemplate',
 }
+
+/** 问卷模板label */
+export enum TEMPLATE_LABEL {
+  questionnaireSurvey = '问卷调查',
+  onlineExamination = '在线考试',
+  votingTemplate = '投票评选',
+}

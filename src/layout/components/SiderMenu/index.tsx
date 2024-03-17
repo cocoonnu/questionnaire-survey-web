@@ -11,7 +11,7 @@ import {
 import PersonalCenter from './PersonalCenter'
 import { navigate } from '@/utils/tools/router_utils'
 import { useLayoutStore } from '@/layout/store/layout.store'
-import { WORK_AREA_KEY, HEADER_MENU_KEY, TEMPLATE_KEY } from '@/constants/menu'
+import { WORK_AREA_KEY, HEADER_MENU_KEY, TEMPLATE_KEY, TEMPLATE_LABEL } from '@/constants/menu'
 import styles from './index.module.less'
 
 const getIconComponent = (ICON) => {
@@ -43,17 +43,17 @@ const SiderMenu = () => {
 
   const menuItemsByTemplateLibraryKey = [
     {
-      label: '问卷调查',
+      label: TEMPLATE_LABEL.questionnaireSurvey,
       key: TEMPLATE_KEY.questionnaireSurvey,
       icon: getIconComponent(FireOutlined),
     },
     {
-      label: '在线考试',
+      label: TEMPLATE_LABEL.onlineExamination,
       key: TEMPLATE_KEY.onlineExamination,
       icon: getIconComponent(CalculatorOutlined),
     },
     {
-      label: '投票评选',
+      label: TEMPLATE_LABEL.votingTemplate,
       key: TEMPLATE_KEY.votingTemplate,
       icon: getIconComponent(LikeOutlined),
     },

@@ -9,7 +9,6 @@ import { useLayoutStore } from '@/layout/store/layout.store'
 import styles from './index.module.less'
 
 const BaseLayout = () => {
-  const { Header, Content, Sider } = Layout
   const location = useLocation()
   const monitorPathChange = useLayoutStore((s) => s.monitorPathChange)
 
@@ -18,25 +17,23 @@ const BaseLayout = () => {
   }, [location, monitorPathChange])
 
   return (
-    <Layout className={styles['base-layout']}>
-      <Header className={styles['base-layout-header']}>
+    <div className={styles['base-layout']}>
+      <Layout.Header className={styles['base-layout-header']}>
         <div className={styles['header-logo']} onClick={() => navigate('/')}>
           <img className={styles['log-img']} src={logImg} />
           <div className={styles['log-title']}>小智问卷</div>
         </div>
         <HeaderMenu />
-      </Header>
-      <Layout>
-        <Sider width={220} theme="light">
+      </Layout.Header>
+      <div className={styles['base-layout-main']}>
+        <div className={styles['base-layout-sider']}>
           <SiderMenu />
-        </Sider>
-        <Layout style={{ padding: '24px' }}>
-          <Content>
-            <Outlet />
-          </Content>
-        </Layout>
-      </Layout>
-    </Layout>
+        </div>
+        <div className={styles['base-layout-content']}>
+          <Outlet />
+        </div>
+      </div>
+    </div>
   )
 }
 
