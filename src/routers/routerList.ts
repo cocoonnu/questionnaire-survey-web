@@ -8,10 +8,12 @@ const globalRouterList: IRoutersData = [
   },
   {
     path: '/loginRegister',
+    title: '登录注册 - 小智问卷',
     component: () => import('@/views/LoginRegister'),
   },
   {
     path: '/editQuestion/:questionId?',
+    title: '问卷编辑器 - 小智问卷',
     component: () => import('@/views/EditQuestion'),
   },
 ]

@@ -9,7 +9,7 @@ export const getQuestionInfoByIdService = async (id: string) => {
   })
 }
 
-/** 更新或保存问卷信息 */
+/** 保存问卷编辑器的问卷信息 */
 export const saveQuestionInfoService = async (questionInfo: Partial<QuestionInfo>) => {
   return await request.post<QuestionInfo>('/questionInfo/saveQuestionInfo', {
     data: questionInfo,
@@ -19,6 +19,13 @@ export const saveQuestionInfoService = async (questionInfo: Partial<QuestionInfo
 /** 查询问卷列表 */
 export const getQuestionInfoListService = async (questionInfo: Partial<QuestionInfo>) => {
   return await request.post<QuestionInfo[]>('/questionInfo/getQuestionInfoList', {
+    data: questionInfo,
+  })
+}
+
+/** 更新问卷信息 */
+export const updateQuestionInfoService = async (questionInfo: QuestionInfo) => {
+  return await request.post<boolean>('/questionInfo/updateQuestionInfo', {
     data: questionInfo,
   })
 }
@@ -38,11 +45,11 @@ export interface QuestionInfo {
   /** 问卷创建时间 */
   createdTime: string
   /** 问卷是否发布 */
-  isPublished: boolean
+  isPublished: 0 | 1
   /** 问卷是否删除 */
-  isDeleted: boolean
+  isDeleted: 0 | 1
   /** 问卷是否星标 */
-  isStarred: boolean
+  isStarred: 0 | 1
   /** 答卷数量 */
   answerCount: number
 }

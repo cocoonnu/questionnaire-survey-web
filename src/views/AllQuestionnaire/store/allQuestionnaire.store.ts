@@ -1,6 +1,9 @@
 import React from 'react'
 import { create } from 'zustand'
-import { getQuestionInfoListService } from '@/services/questionInfo.services'
+import {
+  getQuestionInfoListService,
+  updateQuestionInfoService,
+} from '@/services/questionInfo.services'
 import type { FormInstance } from 'antd'
 import type { QuestionInfo } from '@/services/questionInfo.services'
 
@@ -8,31 +11,44 @@ export interface AllQuestionnaireStore {
   questionInfoList: QuestionInfo[]
   searchFormRef: React.RefObject<FormInstance>
   searchLoading: boolean
+  searchFilter: Partial<QuestionInfo>
+
   resetSearchForm: () => void
   submitSearchForm: () => void
-  getQuestionInfoList: (value: Partial<QuestionInfo>) => void
+  onChangeSearchForm: () => void
+  updateQuestionInfo: (questionInfo: QuestionInfo) => Promise<boolean>
 }
 
 export const useAllQuestionnaireStore = create<AllQuestionnaireStore>((set, get) => ({
-  searchLoading: false,
   questionInfoList: [],
+  searchLoading: false,
+  searchFilter: {},
   searchFormRef: React.createRef(),
 
-  getQuestionInfoList: async (value) => {
+  submitSearchForm: async () => {
     set({ searchLoading: true })
-    const res = await getQuestionInfoListService({ ...value })
+    const res = await getQuestionInfoListService(get().searchFilter)
     set({ searchLoading: false })
     if (!res) return
-    set({ questionInfoList: res })
+    set({ questionInfoList: res || [] })
+  },
+
+  onChangeSearchForm: () => {
+    const { searchFormRef } = get()
+    set({ searchFilter: searchFormRef.current?.getFieldsValue() })
   },
 
   resetSearchForm: () => {
-    get().searchFormRef.current?.resetFields()
+    const { searchFormRef } = get()
+    searchFormRef.current?.resetFields()
+    set({ searchFilter: {} })
   },
 
-  submitSearchForm: async () => {
-    const { searchFormRef, getQuestionInfoList } = get()
-    const value = searchFormRef.current?.getFieldsValue()
-    getQuestionInfoList(value)
+  updateQuestionInfo: async (questionInfo) => {
+    const { submitSearchForm } = get()
+    const res = await updateQuestionInfoService(questionInfo)
+    if (!res) return false
+    submitSearchForm()
+    return true
   },
 }))

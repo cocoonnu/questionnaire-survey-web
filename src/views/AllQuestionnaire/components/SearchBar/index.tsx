@@ -10,10 +10,16 @@ const SearchBar = () => {
   const searchFormRef = useAllQuestionnaireStore((state) => state.searchFormRef)
   const resetSearchForm = useAllQuestionnaireStore((state) => state.resetSearchForm)
   const submitSearchForm = useAllQuestionnaireStore((state) => state.submitSearchForm)
+  const onChangeSearchForm = useAllQuestionnaireStore((state) => state.onChangeSearchForm)
 
   return (
     <div className={styles['search-bar']}>
-      <FormGenerator layout="inline" formRef={searchFormRef} components={formComponents} />
+      <FormGenerator
+        layout="inline"
+        formRef={searchFormRef}
+        components={formComponents}
+        onValuesChange={onChangeSearchForm}
+      />
       <Space>
         <Button onClick={resetSearchForm}>重置</Button>
         <Button type="primary" onClick={submitSearchForm} loading={searchLoading}>

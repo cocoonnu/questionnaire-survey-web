@@ -11,7 +11,11 @@ const PrivateRoute = ({ component: Component, item }: PrivateRouteProps) => {
   useEffect(() => {
     // 设置页面元数据
     const { title } = item || {}
-    if (title) document.title = title
+    if (title) {
+      document.title = title
+    } else {
+      document.title = '小智问卷'
+    }
   }, [])
 
   return <Component />
