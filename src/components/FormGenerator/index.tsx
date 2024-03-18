@@ -1,8 +1,7 @@
 import React from 'react'
-import { Form } from 'antd'
+import { Form, Tooltip } from 'antd'
 import classNames from 'classnames'
 import RenderField from './RenderField'
-import { renderTooltip } from '@/utils/render'
 import { placeholderBuilder } from './utils'
 import styles from './index.module.less'
 import type { FormGeneratorProps } from './types'
@@ -48,7 +47,7 @@ const FormGenerator = ({
       res = `${label.slice(0, maxLength - 1)}...`
     }
 
-    return renderTooltip(res, labelTooltip || label)
+    return <Tooltip title={labelTooltip || label}>{res}</Tooltip>
   }
 
   /** 生成表单单项 */

@@ -89,7 +89,7 @@ const SiderMenu = () => {
             type="primary"
             size="large"
             style={{ width: '100%' }}
-            onClick={() => navigate('/editQuestion/1768894164450226178')}
+            onClick={() => navigate('/editQuestion')}
           >
             新建问卷
           </Button>

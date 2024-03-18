@@ -16,6 +16,13 @@ export const saveQuestionInfoService = async (questionInfo: Partial<QuestionInfo
   })
 }
 
+/** 查询问卷列表 */
+export const getQuestionInfoListService = async (questionInfo: Partial<QuestionInfo>) => {
+  return await request.post<QuestionInfo[]>('/questionInfo/getQuestionInfoList', {
+    data: questionInfo,
+  })
+}
+
 /** 问卷信息 */
 export interface QuestionInfo {
   /** 问卷id */

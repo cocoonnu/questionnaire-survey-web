@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Input, Button, Typography, Space } from 'antd'
+import { Input, Button, Typography, Space, Tooltip } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import styles from './index.module.less'
@@ -28,6 +28,9 @@ const EditTitle = () => {
     if (questionName === '') {
       useEditQuestionStore.setState({ questionName: nameHistory })
     }
+    if (questionName?.length > 25) {
+      useEditQuestionStore.setState({ questionName: questionName?.slice(0, 25) })
+    }
   }
 
   if (editState) {
@@ -44,7 +47,9 @@ const EditTitle = () => {
 
   return (
     <Space>
-      <Typography.Title className={styles.title}>{questionName}</Typography.Title>
+      <Tooltip placement="bottom" title={questionName}>
+        <Typography.Title className={styles.title}>{questionName}</Typography.Title>
+      </Tooltip>
       <Button icon={<EditOutlined />} type="text" onClick={() => setEditState(true)} />
     </Space>
   )

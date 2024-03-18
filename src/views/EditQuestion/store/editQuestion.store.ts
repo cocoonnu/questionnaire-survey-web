@@ -9,13 +9,13 @@ import {
   getQuestionInfoByIdService,
   saveQuestionInfoService,
 } from '@/services/questionInfo.services'
+import { navigate } from '@/utils/tools/router_utils'
 import { DB } from '@/utils/tools/db_utils'
 import { LOCALSTORAGE_KEY } from '@/constants'
 import { TEMPLATE_KEY } from '@/constants/menu'
 import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
 import type { QuestionComInfo } from '@/services/questionInfo.services'
-import { navigate } from '@/utils/tools/router_utils'
 
 export interface EditQuestionStore extends EditHeaderStore {
   /** 左侧面板选中的tab */
@@ -76,7 +76,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
         },
       ]
       set({
-        questionName: '问卷标题',
+        questionName: '问卷名',
         questionComInfoList: cloneDeep(intList),
         questionComInfoListInit: cloneDeep(intList),
       })
@@ -118,7 +118,9 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     if (!res) return
 
     // 新建的问卷需要获取一下问卷ID，并跳转路由
-    if (!questionId) navigate(`/editQuestion/${res.id}`)
+    if (!questionId || questionId === '') {
+      navigate(`/editQuestion/${res.id}`, { replace: true })
+    }
     message.success('保存成功')
   },
 

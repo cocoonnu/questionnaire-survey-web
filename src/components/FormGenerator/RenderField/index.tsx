@@ -5,8 +5,8 @@ import type { FormGeneratorProps } from '../types'
 import type { FormComponentItem } from '../types/formType'
 
 export interface RenderFieldProps {
-  value: any
-  onChange: (...arg: any[]) => any
+  value?: any
+  onChange?: (...arg: any[]) => any
   formItem: FormComponentItem
   isDisabled?: FormGeneratorProps['isDisabled']
   isPreviewMode?: FormGeneratorProps['isPreviewMode']
@@ -48,7 +48,6 @@ const RenderField = ({
       onChange,
       disabled,
       placeholder,
-      // previewMode,
     }) || <div />
   )
 }
