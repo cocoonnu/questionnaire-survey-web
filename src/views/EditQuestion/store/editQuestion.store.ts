@@ -33,8 +33,8 @@ export interface EditQuestionStore extends EditHeaderStore {
   /** 问卷组件初始列表 */
   questionComInfoListInit: QuestionComInfo[]
 
-  /** 根据问卷ID获取问卷信息 */
-  getQuestionInfoById: (id: string) => Promise<void>
+  /** 获取问卷信息 */
+  getQuestionInfoById: () => Promise<void>
 
   /** 根据问卷组件ID获取问卷组件信息 */
   getQuestionComInfoById: (id?: string) => QuestionComInfo | null
@@ -63,8 +63,9 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   ...useEditHeaderStore(set, get),
 
-  getQuestionInfoById: async (id) => {
-    if (!id) {
+  getQuestionInfoById: async () => {
+    const { questionId } = get()
+    if (!questionId) {
       const intList: QuestionComInfo[] = [
         {
           id: nanoid(),
@@ -82,7 +83,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
       })
       return
     }
-    const res = await getQuestionInfoByIdService(id)
+    const res = await getQuestionInfoByIdService(questionId)
     const initList = res.questionComInfoList?.map((item) => ({
       ...item,
       isHidden: item.isHidden === 1,
@@ -98,11 +99,28 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
   },
 
   saveQuestionInfo: async () => {
-    /**
-     * 可以直接将id、name、questionComInfoList传递给后端进行新建获取保存问卷信息
-     * 另外还需要设置创建人、问卷模板和将问卷组件的props设置为JSON字符串
-     */
     const { questionId, questionName, questionComInfoList } = get()
+    if (!questionId) {
+      // 新建问卷信息
+      const res = await saveQuestionInfoService({
+        id: questionId,
+        name: questionName,
+        questionComInfoList: questionComInfoList.map((item) => ({
+          ...item,
+          isHidden: item.isHidden ? 1 : 0,
+          isLocked: item.isLocked ? 1 : 0,
+          props: JSON.stringify(item.props),
+        })),
+        userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
+        template: TEMPLATE_KEY.questionnaireSurvey,
+      })
+      if (res) {
+        navigate(`/editQuestion/${res.id}`, { replace: true })
+        message.success('保存成功')
+      }
+      return
+    }
+    // 更新问卷信息
     const res = await saveQuestionInfoService({
       id: questionId,
       name: questionName,
@@ -112,16 +130,8 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
         isLocked: item.isLocked ? 1 : 0,
         props: JSON.stringify(item.props),
       })),
-      userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
-      template: TEMPLATE_KEY.questionnaireSurvey,
     })
-    if (!res) return
-
-    // 新建的问卷需要获取一下问卷ID，并跳转路由
-    if (!questionId || questionId === '') {
-      navigate(`/editQuestion/${res.id}`, { replace: true })
-    }
-    message.success('保存成功')
+    if (res) message.success('保存成功')
   },
 
   getQuestionComInfoById: (id?) => {

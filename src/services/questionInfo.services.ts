@@ -30,6 +30,34 @@ export const updateQuestionInfoService = async (questionInfo: QuestionInfo) => {
   })
 }
 
+/** 批量更新问卷信息 */
+export const batchUpdateQuestionInfoService = async (questionInfoList: QuestionInfo[]) => {
+  return await request.post<boolean>('/questionInfo/batchUpdateQuestionInfo', {
+    data: questionInfoList,
+  })
+}
+
+/** 批量彻底删除问卷信息 */
+export const batchDeleteQuestionInfoService = async (questionInfoIdList: string[]) => {
+  return await request.del<boolean>('/questionInfo/batchDeleteQuestionInfo', {
+    data: questionInfoIdList,
+  })
+}
+
+/** 获取回收站列表 */
+export const getRecycleBinListService = async (params: {
+  isDesc: boolean
+  page: number
+  pageSize: number
+}) => {
+  return await request.get<{ total: number; records: QuestionInfo[] }>(
+    '/questionInfo/getRecycleBinList',
+    {
+      params,
+    },
+  )
+}
+
 /** 问卷信息 */
 export interface QuestionInfo {
   /** 问卷id */
@@ -52,6 +80,8 @@ export interface QuestionInfo {
   isStarred: 0 | 1
   /** 答卷数量 */
   answerCount: number
+  /** 创建人 */
+  username?: string
 }
 
 /** 问卷组件信息 */

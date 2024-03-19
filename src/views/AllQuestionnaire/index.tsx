@@ -10,7 +10,9 @@ import { WORK_AREA_KEY } from '@/constants/menu'
 const AllQuestionnaire = () => {
   const location = useLocation()
   const [isStarPage, setIsStarPage] = useState(false)
-  const questionInfoList = useAllQuestionnaireStore((state) => state.questionInfoList)
+  const questionInfoList = useAllQuestionnaireStore((state) => state.questionInfoList)?.filter(
+    (item) => !item.isDeleted,
+  )
   const submitSearchForm = useAllQuestionnaireStore((state) => state.submitSearchForm)
   const list = isStarPage ? questionInfoList.filter((item) => item.isStarred) : questionInfoList
 
@@ -30,18 +32,16 @@ const AllQuestionnaire = () => {
           <SearchBar />
         </div>
       )}
-      {list?.length > 0 ? (
-        <div className={styles['all-questionnaire-content']}>
-          {list
-            .filter((item) => !item.isDeleted)
-            .map((item) => (
-              <div className={styles['content-card']} key={item.id}>
-                <QuestionCard {...item} />
-              </div>
-            ))}
-        </div>
-      ) : (
+      {!list || list?.length === 0 ? (
         <Empty style={{ marginTop: 100 }} />
+      ) : (
+        <div className={styles['all-questionnaire-content']}>
+          {list.map((item) => (
+            <div className={styles['content-card']} key={item.id}>
+              <QuestionCard {...item} />
+            </div>
+          ))}
+        </div>
       )}
     </div>
   )

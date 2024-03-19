@@ -12,7 +12,8 @@ const EditQuestion = () => {
   const getQuestionInfoById = useEditQuestionStore((state) => state.getQuestionInfoById)
 
   useEffect(() => {
-    getQuestionInfoById(params?.questionId || '')
+    useEditQuestionStore.setState({ questionId: params?.questionId || '' })
+    getQuestionInfoById()
   }, [params])
 
   return (
