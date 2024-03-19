@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Empty } from 'antd'
 import { useLocation } from 'react-router-dom'
 import SearchBar from './components/SearchBar'
@@ -9,7 +9,7 @@ import { WORK_AREA_KEY } from '@/constants/menu'
 
 const AllQuestionnaire = () => {
   const location = useLocation()
-  const [isStarPage, setIsStarPage] = useState(false)
+  const isStarPage = location.pathname.includes(WORK_AREA_KEY.starQuestionnaire)
   const questionInfoList = useAllQuestionnaireStore((state) => state.questionInfoList)?.filter(
     (item) => !item.isDeleted,
   )
@@ -18,12 +18,7 @@ const AllQuestionnaire = () => {
 
   useEffect(() => {
     submitSearchForm()
-    if (location.pathname.includes(WORK_AREA_KEY.starQuestionnaire)) {
-      setIsStarPage(true)
-    } else {
-      setIsStarPage(false)
-    }
-  }, [location])
+  }, [])
 
   return (
     <div className={styles['all-questionnaire']}>

@@ -28,6 +28,7 @@ axiosInstance.interceptors.response.use(
     if (responseData.errMsg) message.error(responseData.errMsg)
     if (responseData.code === COMMON_STATUS.NOT_LOGIN) {
       window.location.replace(`${window.location.origin}/#/loginRegister`)
+      window.document.title = '登录注册 - 小智问卷'
     }
     return response
   },

@@ -89,6 +89,7 @@ const PropComponent = (props: QuestionRadioProps) => {
 
       <Form.Item label="默认选中" name="selectedValue">
         <Select
+          allowClear
           options={options
             ?.map(({ text, value }) => ({ value, label: text || '' }))
             ?.filter((item) => item.label)}

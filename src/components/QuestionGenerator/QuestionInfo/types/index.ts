@@ -1,6 +1,8 @@
 export interface QuestionInfoProps {
   title?: string
   desc?: string
+  isTitleCenter?: boolean
+  isParagraphCenter?: boolean
   disabled?: boolean
   onChange?: (newProps: QuestionInfoProps) => void
 }

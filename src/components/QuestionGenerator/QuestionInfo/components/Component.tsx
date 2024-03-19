@@ -4,14 +4,21 @@ import { QuestionInfoDefaultProps } from '../types'
 import type { QuestionInfoProps } from '../types'
 
 const Component = (props: QuestionInfoProps) => {
-  const { title, desc = '' } = { ...QuestionInfoDefaultProps, ...props }
+  const {
+    title,
+    desc = '',
+    isTitleCenter,
+    isParagraphCenter,
+  } = { ...QuestionInfoDefaultProps, ...props }
 
   const descTextList = desc.split('\n')
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <Typography.Title style={{ fontSize: '24px' }}>{title}</Typography.Title>
-      <Typography.Paragraph>
+    <div>
+      <Typography.Title style={{ fontSize: '24px', textAlign: isTitleCenter ? 'center' : 'start' }}>
+        {title}
+      </Typography.Title>
+      <Typography.Paragraph style={{ textAlign: isParagraphCenter ? 'center' : 'start' }}>
         {descTextList.map((t, index) => (
           <span key={index}>
             {index > 0 && <br />}

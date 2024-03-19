@@ -39,7 +39,7 @@ export const batchUpdateQuestionInfoService = async (questionInfoList: QuestionI
 
 /** 批量彻底删除问卷信息 */
 export const batchDeleteQuestionInfoService = async (questionInfoIdList: string[]) => {
-  return await request.del<boolean>('/questionInfo/batchDeleteQuestionInfo', {
+  return await request.del<boolean>('/questionInfo/completeDeleteQuestionInfo', {
     data: questionInfoIdList,
   })
 }

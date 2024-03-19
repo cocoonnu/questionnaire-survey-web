@@ -1,14 +1,17 @@
 import React from 'react'
-import { Space, Table, Tag, Button } from 'antd'
+import { Space, Table, Tag, Button, Modal } from 'antd'
 import { useRecycleBinStore } from '../store/recycleBin.store'
 import styles from './index.module.less'
 import type { ColumnsType } from 'antd/es/table'
 import type { QuestionInfo } from '@/services/questionInfo.services'
 
 const TableContent = () => {
+  const total = useRecycleBinStore((state) => state.total)
   const page = useRecycleBinStore((state) => state.page)
   const pageSize = useRecycleBinStore((state) => state.pageSize)
   const recycleBinList = useRecycleBinStore((state) => state.recycleBinList)
+  const batchUpdateQuestionInfo = useRecycleBinStore((state) => state.batchUpdateQuestionInfo)
+  const batchDeleteQuestionInfo = useRecycleBinStore((state) => state.batchDeleteQuestionInfo)
 
   const columns: ColumnsType<QuestionInfo> = [
     {
@@ -51,8 +54,26 @@ const TableContent = () => {
       width: 150,
       render: (_, record) => (
         <Space>
-          <Button type="link">恢复</Button>
-          <Button type="link" danger>
+          <Button
+            type="link"
+            onClick={() => batchUpdateQuestionInfo([{ ...record, isDeleted: 0 }])}
+          >
+            恢复
+          </Button>
+          <Button
+            type="link"
+            danger
+            onClick={() => {
+              Modal.confirm({
+                title: '确定要彻底删除吗?',
+                okText: '确定',
+                cancelText: '我再想想',
+                maskClosable: true,
+                centered: true,
+                onOk: () => batchDeleteQuestionInfo([record.id]),
+              })
+            }}
+          >
             彻底删除
           </Button>
         </Space>
@@ -66,12 +87,20 @@ const TableContent = () => {
         rowKey="id"
         columns={columns}
         dataSource={recycleBinList}
+        rowSelection={{
+          onChange: (selectedRowIds, selectedRows) => {
+            useRecycleBinStore.setState({ selectedRowIds, selectedRows })
+          },
+        }}
         pagination={{
           pageSize,
           current: page,
+          total,
           showSizeChanger: true,
           pageSizeOptions: [10, 20, 30],
-          onChange: (page, pageSize) => useRecycleBinStore.setState({ page, pageSize }),
+          onChange: (page, pageSize) => {
+            useRecycleBinStore.setState({ page, pageSize })
+          },
         }}
       />
     </div>

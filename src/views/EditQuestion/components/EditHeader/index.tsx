@@ -27,12 +27,12 @@ const EditHeader = () => {
   const goBack = () => {
     Modal.confirm({
       title: '确定要退出编辑吗?',
-      content: '温馨提醒：请点击完保存按钮再离开',
+      content: '温馨提醒：请点击完保存按钮再退出',
       okText: '确定',
       cancelText: '我再想想',
       maskClosable: true,
       centered: true,
-      onOk: () => navigate(-1),
+      onOk: () => navigate('/'),
     })
   }
 
