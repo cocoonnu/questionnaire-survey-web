@@ -9,6 +9,8 @@ import FieldAvatarUpload from '../Fields/FieldAvatarUpload'
 import FieldSelect from '../Fields/FieldSelect'
 import FieldDateRange from '../Fields/FieldDateRange'
 import FieldDate from '../Fields/FieldDate'
+import FiledTypography from '../Fields/FiledTypography'
+import FieldCheckbox from '../Fields/FiledCheckbox'
 
 export const FieldMap: Record<FORM_TYPE, any> = {
   [FORM_TYPE.input]: (props) => <FieldInput {...props} />,
@@ -20,4 +22,6 @@ export const FieldMap: Record<FORM_TYPE, any> = {
   [FORM_TYPE.select]: (props) => <FieldSelect {...props} />,
   [FORM_TYPE.dateRange]: (props) => <FieldDateRange {...props} />,
   [FORM_TYPE.date]: (props) => <FieldDate {...props} />,
+  [FORM_TYPE.typography]: (props) => <FiledTypography {...props} />,
+  [FORM_TYPE.checkbox]: (props) => <FieldCheckbox {...props} />,
 }

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
+import type { QuestionComType, QuestionComProps } from '@/components/QuestionGenerator/type'
 import type { TEMPLATE_KEY } from '@/constants/menu'
-import type { QuestionComProps } from '@/components/QuestionGenerator/type'
 
 /** 根据问卷ID获取问卷信息 */
 export const getQuestionInfoByIdService = async (id: string) => {
@@ -89,7 +89,7 @@ export interface QuestionComInfo {
   /** 问卷组件id */
   id: string
   /** 问卷组件类型 */
-  type: string
+  type: QuestionComType
   /** 问卷组件名称 */
   title: string
   /** 问卷组件是否隐藏 */

@@ -5,6 +5,7 @@ import type { FormComponentItem } from '../../types/formType'
 export interface FieldInputProps extends FormComponentItem {
   suffix?: React.ReactNode
   addonBefore?: React.ReactNode
+  isTextArea?: boolean
 }
 
 const FieldInput = ({
@@ -17,7 +18,22 @@ const FieldInput = ({
   disabled,
   suffix,
   addonBefore,
+  isTextArea,
 }: FieldInputProps) => {
+  if (isTextArea) {
+    return (
+      <Input.TextArea
+        value={value}
+        onChange={onChange}
+        style={style}
+        size={size}
+        allowClear={allowClear}
+        placeholder={placeholder}
+        disabled={disabled}
+      />
+    )
+  }
+
   return (
     <Input
       value={value}

@@ -13,6 +13,7 @@ import { navigate } from '@/utils/tools/router_utils'
 import { DB } from '@/utils/tools/db_utils'
 import { LOCALSTORAGE_KEY } from '@/constants'
 import { TEMPLATE_KEY } from '@/constants/menu'
+import { QuestionComType } from '@/components/QuestionGenerator/type'
 import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
 import type { QuestionComInfo } from '@/services/questionInfo.services'
@@ -70,7 +71,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
         {
           id: nanoid(), // 先用nanoid生成，后面后端会覆盖掉
           title: '问卷信息',
-          type: 'questionInfo',
+          type: QuestionComType.questionInfo,
           isHidden: 0,
           isLocked: 0,
           props: {

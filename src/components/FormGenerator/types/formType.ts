@@ -8,6 +8,8 @@ import type { FieldRadioGroupProps } from '../Fields/FieldRadioGroup'
 import type { FieldSelectProps } from '../Fields/FieldSelect'
 import type { FieldDateProps } from '../Fields/FieldDate'
 import type { FieldDateRangeProps } from '../Fields/FieldDateRange'
+import type { FiledTypographyProps } from '../Fields/FiledTypography'
+import type { FieldCheckboxProps } from '../Fields/FiledCheckbox'
 
 /**
  * 表单单项类型
@@ -63,6 +65,8 @@ export type FormComponentsProps = FormComponentItem &
     | FieldSelectProps
     | FieldDateRangeProps
     | FieldDateProps
+    | FiledTypographyProps
+    | FieldCheckboxProps
   )
 
 export enum FORM_TYPE {
@@ -74,8 +78,10 @@ export enum FORM_TYPE {
   captcha = 'captcha',
   /** 手机号输入框 */
   phone = 'phone',
-  /** 多选框 */
+  /** 单选框 */
   radioGroup = 'radioGroup',
+  /** 多选框 */
+  checkbox = 'checkbox',
   /** 下拉选择框 */
   select = 'select',
   /** 日期选择框 */
@@ -84,4 +90,6 @@ export enum FORM_TYPE {
   dateRange = 'dateRange',
   /** 头像上传 */
   avatarUpload = 'avatarUpload',
+  /** 标题与描述 */
+  typography = 'typography',
 }

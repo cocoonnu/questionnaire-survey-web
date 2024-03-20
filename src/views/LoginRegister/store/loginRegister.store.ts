@@ -1,4 +1,5 @@
 import React from 'react'
+import { message } from 'antd'
 import { create } from 'zustand'
 import { DB } from '@/utils/tools/db_utils'
 import { LOCALSTORAGE_KEY } from '@/constants'
@@ -10,7 +11,7 @@ import {
   registerService,
   logoutService,
 } from '@/services/user.services'
-import { message, type FormInstance } from 'antd'
+import type { FormInstance } from 'antd'
 
 export interface LoginRegisterStore {
   btnLoading: boolean
@@ -41,7 +42,7 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
     if (!userId) return
 
     // 登录成功后的回调
-    navigate('/app/allQuestionnaire')
+    navigate('/', { replace: true })
     DB.LS.set(LOCALSTORAGE_KEY.userId, userId)
     message.success('欢迎进入小智问卷')
   },
@@ -55,7 +56,7 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
     if (!userId) return
 
     // 注册成功后的回调
-    navigate('/app/allQuestionnaire')
+    navigate('/', { replace: true })
     DB.LS.set(LOCALSTORAGE_KEY.userId, userId)
     message.success('欢迎进入小智问卷')
   },
@@ -64,7 +65,7 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
     const res = await logoutService()
     if (res) {
       DB.LS.remove(LOCALSTORAGE_KEY.userId)
-      navigate('/loginRegister')
+      navigate('/loginRegister', { replace: true })
       return
     }
     message.error('退出登录失败')

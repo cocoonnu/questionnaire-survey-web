@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import FormWrapper from './components/FormWrapper'
 import { useParams } from 'react-router-dom'
 import { useAnswerFormStore } from './store/answerForm.store'
 import styles from './index.module.less'
@@ -13,8 +14,10 @@ const AnswerForm = () => {
   }, [])
 
   return (
-    <div className={styles['answer-form']}>
-      <div className={styles['form-wrapper']} />
+    <div className={styles['page-wrapper']}>
+      <div className={styles['answer-form']}>
+        <FormWrapper />
+      </div>
     </div>
   )
 }
