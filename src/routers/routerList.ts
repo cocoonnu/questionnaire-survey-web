@@ -16,6 +16,11 @@ const globalRouterList: IRoutersData = [
     title: '问卷编辑器 - 小智问卷',
     component: () => import('@/views/EditQuestion'),
   },
+  {
+    path: '/answerForm/:questionId?',
+    title: '小智问卷',
+    component: () => import('@/views/AnswerForm'),
+  },
 ]
 
 /** layout路由页面 */

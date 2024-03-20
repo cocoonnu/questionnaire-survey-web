@@ -45,20 +45,9 @@ const EditToolbar = () => {
     })
   }
 
-  const hideClick = () => {
-    Modal.confirm({
-      title: '确定要隐藏吗?',
-      okText: '确定',
-      cancelText: '我再想想',
-      maskClosable: true,
-      centered: true,
-      onOk: () => hideSelectedQuestionCom(true),
-    })
-  }
-
   const redoClick = () => {
     Modal.confirm({
-      title: '确定要重置吗?',
+      title: '确定要重置这次编辑吗?',
       okText: '确定',
       cancelText: '我再想想',
       maskClosable: true,
@@ -107,7 +96,7 @@ const EditToolbar = () => {
           disabled={!selectedId}
           type={questionComInfo?.isHidden ? 'primary' : 'default'}
           icon={<EyeInvisibleOutlined />}
-          onClick={hideClick}
+          onClick={hideSelectedQuestionCom}
         />
       </Tooltip>
       <Tooltip title="锁定">

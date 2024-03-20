@@ -7,7 +7,7 @@ const PropComponent = (props: QuestionInfoProps) => {
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ title, desc })
+    form.setFieldsValue({ title, desc, isParagraphCenter, isTitleCenter })
   }, [title, desc, form, isParagraphCenter, isTitleCenter])
 
   const handleValuesChange = () => {
@@ -15,13 +15,7 @@ const PropComponent = (props: QuestionInfoProps) => {
   }
 
   return (
-    <Form
-      layout="vertical"
-      initialValues={{ title, desc }}
-      onValuesChange={handleValuesChange}
-      disabled={disabled}
-      form={form}
-    >
+    <Form layout="vertical" onValuesChange={handleValuesChange} disabled={disabled} form={form}>
       <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入问卷标题' }]}>
         <Input />
       </Form.Item>

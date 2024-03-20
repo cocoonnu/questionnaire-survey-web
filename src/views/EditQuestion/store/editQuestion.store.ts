@@ -68,12 +68,17 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     if (!questionId) {
       const intList: QuestionComInfo[] = [
         {
-          id: nanoid(),
+          id: nanoid(), // 先用nanoid生成，后面后端会覆盖掉
           title: '问卷信息',
           type: 'questionInfo',
-          isHidden: false,
-          isLocked: false,
-          props: { title: '问卷标题', desc: '请输入问卷描述' },
+          isHidden: 0,
+          isLocked: 0,
+          props: {
+            title: '问卷标题',
+            desc: '请输入问卷描述...',
+            isTitleCenter: true,
+            isParagraphCenter: false,
+          },
         },
       ]
       set({
@@ -86,8 +91,6 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     const res = await getQuestionInfoByIdService(questionId)
     const initList = res.questionComInfoList?.map((item) => ({
       ...item,
-      isHidden: item.isHidden === 1,
-      isLocked: item.isLocked === 1,
       props: JSON.parse(item.props),
     }))
     set({
@@ -107,8 +110,6 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
         name: questionName,
         questionComInfoList: questionComInfoList.map((item) => ({
           ...item,
-          isHidden: item.isHidden ? 1 : 0,
-          isLocked: item.isLocked ? 1 : 0,
           props: JSON.stringify(item.props),
         })),
         userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
@@ -126,8 +127,6 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
       name: questionName,
       questionComInfoList: questionComInfoList.map((item) => ({
         ...item,
-        isHidden: item.isHidden ? 1 : 0,
-        isLocked: item.isLocked ? 1 : 0,
         props: JSON.stringify(item.props),
       })),
     })
@@ -142,11 +141,11 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   addQuestionComInfo: (config) => {
     const questionComInfo: QuestionComInfo = {
-      id: nanoid(),
+      id: nanoid(), // // 先用nanoid生成，后面后端会覆盖掉
       type: config.type,
       title: config.title,
-      isHidden: false,
-      isLocked: false,
+      isHidden: 0,
+      isLocked: 0,
       props: config.defaultProps,
     }
     const { selectedId, questionComInfoList } = get()

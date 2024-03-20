@@ -93,9 +93,9 @@ export interface QuestionComInfo {
   /** 问卷组件名称 */
   title: string
   /** 问卷组件是否隐藏 */
-  isHidden?: boolean
+  isHidden?: 0 | 1
   /** 问卷组件是否锁定 */
-  isLocked?: boolean
+  isLocked?: 0 | 1
   /** 问卷组件props属性 */
   props: QuestionComProps
 }

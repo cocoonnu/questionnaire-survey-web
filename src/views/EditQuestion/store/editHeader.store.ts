@@ -24,7 +24,7 @@ export interface EditHeaderStore {
   deleteSelectedQuestionCom: () => void
 
   /** 隐藏选中的问卷组件 */
-  hideSelectedQuestionCom: (isHidden: boolean) => void
+  hideSelectedQuestionCom: () => void
 
   /** 锁定选中的问卷组件 */
   lockSelectedQuestionCom: () => void
@@ -81,28 +81,30 @@ export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore 
     message.success('删除成功')
   },
 
-  hideSelectedQuestionCom: (isHidden) => {
+  hideSelectedQuestionCom: () => {
     /**
-     * 只需要控制一个组件的显示与隐藏，然后再取消选中任意问卷组件
+     * 只需要控制一个组件的显示与隐藏
      */
     const { questionComInfoList, selectedId } = get()
     const index = questionComInfoList.findIndex((item) => item.id === selectedId)
+    const { isHidden } = questionComInfoList[index]
+
     const newList = [...questionComInfoList]
-    newList[index].isHidden = isHidden
-    set({ questionComInfoList: newList, selectedId: '' })
-    message.success('隐藏成功')
+    newList[index].isHidden = isHidden === 1 ? 0 : 1
+    set({ questionComInfoList: newList })
   },
 
   lockSelectedQuestionCom: () => {
     /**
-     * 只需要控制一个组件的锁定状态，并且不需要取消选中组件
+     * 只需要控制一个组件的锁定状态
      */
     const { questionComInfoList, selectedId } = get()
     const index = questionComInfoList.findIndex((item) => item.id === selectedId)
+    const { isLocked } = questionComInfoList[index]
+
     const newList = [...questionComInfoList]
-    newList[index].isLocked = !newList[index].isLocked
+    newList[index].isLocked = isLocked === 1 ? 0 : 1
     set({ questionComInfoList: newList })
-    message.success('锁定成功')
   },
 
   copySelectedQuestionCom: () => {

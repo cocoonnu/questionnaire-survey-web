@@ -60,6 +60,7 @@ const PropComponent = (props: QuestionRadioProps) => {
           type="primary"
           onClick={() => {
             add({ text: '', value: nanoid() })
+            form.validateFields()
           }}
           style={{ width: '100%' }}
           icon={<PlusOutlined />}

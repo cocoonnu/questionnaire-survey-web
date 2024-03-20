@@ -1,5 +1,5 @@
 import React from 'react'
-import { Space, Table, Tag, Button, Modal } from 'antd'
+import { Space, Table, Tag, Button, Modal, Tooltip } from 'antd'
 import { useRecycleBinStore } from '../store/recycleBin.store'
 import styles from './index.module.less'
 import type { ColumnsType } from 'antd/es/table'
@@ -18,7 +18,11 @@ const TableContent = () => {
       title: '问卷名',
       dataIndex: 'name',
       key: 'name',
-      render: (name) => <div className={styles['text-ellipsis']}>{name}</div>,
+      render: (name) => (
+        <Tooltip title={name}>
+          <div className={styles['text-ellipsis']}>{name}</div>
+        </Tooltip>
+      ),
     },
     {
       title: '创建人',

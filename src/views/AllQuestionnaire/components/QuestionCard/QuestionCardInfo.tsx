@@ -39,7 +39,10 @@ const QuestionCardInfo = (props: QuestionInfo) => {
     if (key === 'delivery') {
       if (!isPublished) {
         message.warn('问卷未发布，无法投放')
+        return
       }
+      // 新建窗口打开
+      window.open(`${window.location.origin}/#/answerForm/${id}`)
     }
   }
 
