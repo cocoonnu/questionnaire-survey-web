@@ -5,4 +5,10 @@ module.exports = {
     secure: false,
     pathRewrite: { '^/api': '' },
   },
+  '/address/*': {
+    target: 'https://apis.map.qq.com',
+    changeOrigin: true,
+    secure: false,
+    pathRewrite: { '^/address': '' },
+  },
 }

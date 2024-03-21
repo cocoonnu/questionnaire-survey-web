@@ -5,7 +5,7 @@ import { useEditQuestionStore } from '../../store/editQuestion.store'
 import type { QuestionComProps } from '@/components/QuestionGenerator/type'
 
 const NoProp = () => {
-  return <Empty description="未选中组件" style={{ marginTop: 32 }} />
+  return <Empty description="未选中组件" style={{ marginTop: '10%' }} />
 }
 
 const ComponentProps = () => {

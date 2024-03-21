@@ -17,8 +17,8 @@ export const QuestionCheckboxDefaultProps: QuestionCheckboxProps = {
   title: '多选框标题',
   isVertical: false,
   options: [
-    { value: 'item1', text: '选项1' },
-    { value: 'item2', text: '选项2' },
-    { value: 'item3', text: '选项3' },
+    { value: '选项1', text: '选项1' },
+    { value: '选项2', text: '选项2' },
+    { value: '选项3', text: '选项3' },
   ],
 }

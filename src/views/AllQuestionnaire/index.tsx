@@ -28,7 +28,7 @@ const AllQuestionnaire = () => {
         </div>
       )}
       {!list || list?.length === 0 ? (
-        <Empty style={{ marginTop: 100 }} />
+        <Empty style={{ marginTop: '10%' }} />
       ) : (
         <div className={styles['all-questionnaire-content']}>
           {list.map((item) => (

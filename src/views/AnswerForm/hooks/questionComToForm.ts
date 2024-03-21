@@ -5,9 +5,17 @@ import type { QuestionComInfo } from '@/services/questionInfo.services'
 import type { FormComponentsProps } from '@/components/FormGenerator/types/formType'
 
 export const questionComToForm = (questionComInfo: QuestionComInfo): FormComponentsProps => {
-  const { isParagraphCenter, isTitleCenter, title, desc, options, isVertical, selectedValue } =
-    questionComInfo.props
-  const field = questionComInfo.type + generateRandomString()
+  const {
+    isParagraphCenter,
+    isTitleCenter,
+    title,
+    desc,
+    options,
+    isVertical,
+    selectedValue,
+    placeholder,
+  } = questionComInfo.props
+  const field = `${questionComInfo.type}_${generateRandomString()}`
   const label = questionComInfo.props.title || ''
 
   switch (questionComInfo.type) {
@@ -29,6 +37,7 @@ export const questionComToForm = (questionComInfo: QuestionComInfo): FormCompone
         field,
         label,
         type: FORM_TYPE.input,
+        placeholder,
       }
 
     case QuestionComType.questionTextarea:
@@ -37,6 +46,7 @@ export const questionComToForm = (questionComInfo: QuestionComInfo): FormCompone
         label,
         type: FORM_TYPE.input,
         isTextArea: true,
+        placeholder,
       }
 
     case QuestionComType.questionRadio:

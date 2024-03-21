@@ -47,6 +47,8 @@ export interface FormComponentItem extends FormItemProps {
   allowClear?: boolean
   /** 控件大小 */
   size?: SizeType
+  /** 默认值 */
+  defaultValue?: any
 
   /** Field组件公共类型，由RenderField统一封装 */
   value?: any

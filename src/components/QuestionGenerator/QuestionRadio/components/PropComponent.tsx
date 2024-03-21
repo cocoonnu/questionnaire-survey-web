@@ -13,8 +13,12 @@ const PropComponent = (props: QuestionRadioProps) => {
   }, [title, isVertical, selectedValue, options, form])
 
   const handleValuesChange = () => {
-    // 当删除的是默认选中的选项，则需要将默认选中置为空
     const { options, selectedValue } = form.getFieldsValue()
+    // 将text和value的值相等
+    const newOptions = options.map((item) => ({ ...item, value: item.text }))
+    form.setFieldsValue({ options: newOptions })
+
+    // 当删除的是默认选中的选项，则需要将默认选中置为空
     const selectedIndex = options.findIndex((item) => item.value === selectedValue)
     if (selectedIndex === -1) form.setFieldsValue({ selectedValue: undefined })
     onChange?.(form.getFieldsValue())

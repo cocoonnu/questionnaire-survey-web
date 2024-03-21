@@ -142,7 +142,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   addQuestionComInfo: (config) => {
     const questionComInfo: QuestionComInfo = {
-      id: nanoid(), // // 先用nanoid生成，后面后端会覆盖掉
+      id: nanoid(), // 先用nanoid生成，后面后端会覆盖掉
       type: config.type,
       title: config.title,
       isHidden: 0,

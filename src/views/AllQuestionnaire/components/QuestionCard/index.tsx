@@ -8,8 +8,8 @@ import votingTemplateImg from '@/assets/images/votingTemplateImg.png'
 import onlineExaminationImg from '@/assets/images/onlineExaminationImg.png'
 import questionnaireSurveyImg from '@/assets/images/questionnaireSurveyImg.png'
 import styles from './index.module.less'
-import type { QuestionInfo } from '@/services/questionInfo.services'
 import { navigate } from '@/utils/tools/router_utils'
+import type { QuestionInfo } from '@/services/questionInfo.services'
 
 const QuestionCard = (props: QuestionInfo) => {
   const { isStarred, name, template, isPublished, id } = props

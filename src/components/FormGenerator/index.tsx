@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Tooltip } from 'antd'
 import classNames from 'classnames'
 import RenderField from './RenderField'
@@ -18,7 +18,7 @@ const FormGenerator = ({
   scrollToFirstError = true,
   initialValues,
   components,
-  labelMaxNumber = 6,
+  labelMaxNumber = 8,
   fullTitleItems = [],
   isDisabled,
   isPreviewMode,
@@ -28,6 +28,17 @@ const FormGenerator = ({
   onFinish,
   onValuesChange,
 }: FormGeneratorProps) => {
+  /** 设置表单的默认值，通过item.defaultValue传入并自动填充 */
+  useEffect(() => {
+    let initialValues = {}
+    components.forEach((item) => {
+      if (item?.defaultValue) {
+        initialValues = { ...initialValues, [item.field]: item.defaultValue }
+      }
+    })
+    if (formRef) formRef.current?.setFieldsValue(initialValues)
+  }, [formRef, components])
+
   /** 获取表单输入框label、wrapper默认布局 */
   const getFormItemLayout = () => {
     if (itemLayout || layout !== 'horizontal') return itemLayout
@@ -39,15 +50,16 @@ const FormGenerator = ({
     if (hiddenLabel) return null
     let res = label
     const maxLength = labelMaxNumber
+    // 当表单为横向排列并且label字数超过最大字数是展示tooltip
     if (
       label.length > labelMaxNumber &&
       layout !== 'vertical' &&
       !fullTitleItems?.includes(field)
     ) {
       res = `${label.slice(0, maxLength - 1)}...`
+      return <Tooltip title={labelTooltip || label}>{res}</Tooltip>
     }
-
-    return <Tooltip title={labelTooltip || label}>{res}</Tooltip>
+    return res
   }
 
   /** 生成表单单项 */

@@ -13,8 +13,12 @@ const PropComponent = (props: QuestionCheckboxProps) => {
   }, [title, isVertical, selectedValue, options, form])
 
   const handleValuesChange = () => {
-    // 当删除的是下面默认选中的选项数组里面的值，则需要将数组对应的值删除
     const { options, selectedValue } = form.getFieldsValue()
+    // 将text和value的值相等
+    const newOptions = options.map((item) => ({ ...item, value: item.text }))
+    form.setFieldsValue({ options: newOptions })
+
+    // 当删除的是下面默认选中的选项数组里面的值，则需要将数组对应的值删除
     const newSelectedValue = selectedValue.filter((item) =>
       options.find((option) => option?.value === item),
     )

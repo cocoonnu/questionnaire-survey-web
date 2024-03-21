@@ -3,7 +3,6 @@ import { Checkbox, Space } from 'antd'
 import type { FormComponentItem } from '../../types/formType'
 
 export interface FieldCheckboxProps extends FormComponentItem {
-  defaultValue?: any
   direction?: 'horizontal' | 'vertical'
   options: { label: string; value: any; disabled?: boolean }[]
 }

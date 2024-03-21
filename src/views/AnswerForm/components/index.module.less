@@ -1,7 +1,37 @@
 .form-wrapper {
-  width: 600px;
-  min-height: 100%;
-  margin: 64px 0;
-  padding: 24px;
+  width: 1000px;
+  margin-top: 160px;
+  margin-bottom: 72px;
+  padding: 56px 72px 40px;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+
+  .form-component {
+    zoom: 1.2;
+  }
+
+  .submit-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  :global {
+    .ant-form-item {
+      margin-bottom: 45px;
+    }
+  }
+}
+
+.result-page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
 }

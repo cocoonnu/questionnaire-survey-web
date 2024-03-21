@@ -3,7 +3,6 @@ import { Radio, Space } from 'antd'
 import type { FormComponentItem } from '../../types/formType'
 
 export interface FieldRadioGroupProps extends FormComponentItem {
-  defaultValue?: any
   optionType?: 'default' | 'button'
   direction?: 'horizontal' | 'vertical'
   options: { label: string; value: any; disabled?: boolean }[]

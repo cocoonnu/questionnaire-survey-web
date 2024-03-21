@@ -1,5 +1,6 @@
 import React from 'react'
 import { Typography } from 'antd'
+import styles from './index.module.less'
 import type { FormComponentItem } from '../../types/formType'
 
 export interface FiledTypographyProps extends FormComponentItem {
@@ -19,11 +20,17 @@ const FiledTypography = ({
 
   return (
     <div>
-      <Typography.Title style={{ fontSize: '24px', textAlign: isTitleCenter ? 'center' : 'start' }}>
+      <Typography.Title
+        className={styles.title}
+        style={{ textAlign: isTitleCenter ? 'center' : 'start' }}
+      >
         {title}
       </Typography.Title>
       {descTextList?.length > 0 && (
-        <Typography.Paragraph style={{ textAlign: isParagraphCenter ? 'center' : 'start' }}>
+        <Typography.Paragraph
+          className={styles.typography}
+          style={{ textAlign: isParagraphCenter ? 'center' : 'start' }}
+        >
           {descTextList.map((t, index) => (
             <span key={index}>
               {index > 0 && <br />}
