@@ -1,5 +1,6 @@
 import React from 'react'
-import { Space, Table, Tag, Button, Modal, Tooltip } from 'antd'
+import TooltipParcel from '@/components/TooltipParcel'
+import { Space, Table, Tag, Button, Modal } from 'antd'
 import { useRecycleBinStore } from '../store/recycleBin.store'
 import styles from './index.module.less'
 import type { ColumnsType } from 'antd/es/table'
@@ -18,11 +19,7 @@ const TableContent = () => {
       title: '问卷名',
       dataIndex: 'name',
       key: 'name',
-      render: (name) => (
-        <Tooltip title={name}>
-          <div className={styles['text-ellipsis']}>{name}</div>
-        </Tooltip>
-      ),
+      render: (value) => <TooltipParcel title={value} maxWidth={250} />,
     },
     {
       title: '创建人',
@@ -91,6 +88,7 @@ const TableContent = () => {
         rowKey="id"
         columns={columns}
         dataSource={recycleBinList}
+        scroll={{ x: 1200 }}
         rowSelection={{
           onChange: (selectedRowIds, selectedRows) => {
             useRecycleBinStore.setState({ selectedRowIds, selectedRows })

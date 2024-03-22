@@ -56,7 +56,7 @@ export const questionComToForm = (questionComInfo: QuestionComInfo): FormCompone
         type: FORM_TYPE.radioGroup,
         defaultValue: selectedValue,
         direction: isVertical ? 'vertical' : 'horizontal',
-        options: options?.map(({ text, value }) => ({ value, label: text || '' })),
+        options,
       }
     case QuestionComType.questionCheckbox:
       return {
@@ -65,7 +65,7 @@ export const questionComToForm = (questionComInfo: QuestionComInfo): FormCompone
         type: FORM_TYPE.checkbox,
         defaultValue: selectedValue,
         direction: isVertical ? 'vertical' : 'horizontal',
-        options: options?.map(({ text, value }) => ({ value, label: text || '' })),
+        options,
       }
 
     default:

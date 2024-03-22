@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Input, Button, Typography, Space, Tooltip } from 'antd'
+import TooltipParcel from '@/components/TooltipParcel'
+import { Input, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import { useEditQuestionStore } from '../../store/editQuestion.store'
 import styles from './index.module.less'
@@ -41,17 +42,16 @@ const EditTitle = () => {
         onChange={onChange}
         onPressEnter={editExit}
         onBlur={editExit}
+        placeholder="请输入25个字以内的问卷名"
       />
     )
   }
 
   return (
-    <Space>
-      <Tooltip placement="bottom" title={questionName}>
-        <Typography.Title className={styles.title}>{questionName}</Typography.Title>
-      </Tooltip>
+    <div className={styles['edit-title']}>
+      <TooltipParcel titleClassName={styles.title} isEllipsis title={questionName} />
       <Button icon={<EditOutlined />} type="text" onClick={() => setEditState(true)} />
-    </Space>
+    </div>
   )
 }
 

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { nanoid } from 'nanoid'
 import { Form, Input, Checkbox, Select, Button } from 'antd'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
-import type { QuestionRadioProps, OptionType } from '../types'
+import type { QuestionRadioProps } from '../types'
 
 const PropComponent = (props: QuestionRadioProps) => {
   const { title, isVertical, selectedValue, options = [], onChange, disabled } = props
@@ -14,8 +13,8 @@ const PropComponent = (props: QuestionRadioProps) => {
 
   const handleValuesChange = () => {
     const { options, selectedValue } = form.getFieldsValue()
-    // 将text和value的值相等
-    const newOptions = options.map((item) => ({ ...item, value: item.text }))
+    // 将label和value的值相等
+    const newOptions = options?.map((item) => ({ ...item, value: item.label }))
     form.setFieldsValue({ options: newOptions })
 
     // 当删除的是默认选中的选项，则需要将默认选中置为空
@@ -29,7 +28,7 @@ const PropComponent = (props: QuestionRadioProps) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Form.Item
           noStyle
-          name={[field.name, 'text']}
+          name={[field.name, 'label']}
           validateTrigger={['onChange', 'onBlur']}
           rules={[
             {
@@ -37,10 +36,10 @@ const PropComponent = (props: QuestionRadioProps) => {
               message: '请输入选项文字',
             },
             {
-              validator: (_, text) => {
-                if (!text) return Promise.resolve()
+              validator: (_, label) => {
+                if (!label) return Promise.resolve()
                 const { options: optionsValue = [] } = form.getFieldsValue()
-                const num = optionsValue.filter((opt: OptionType) => opt.text === text).length
+                const num = optionsValue.filter((opt) => opt.label === label).length
                 if (num === 1) return Promise.resolve()
                 return Promise.reject(new Error('选项文字与其他选项重复了'))
               },
@@ -57,24 +56,6 @@ const PropComponent = (props: QuestionRadioProps) => {
     )
   }
 
-  const renderAddOptionBtn = (add) => {
-    return (
-      <Form.Item>
-        <Button
-          type="primary"
-          onClick={() => {
-            add({ text: '', value: nanoid() })
-            form.validateFields()
-          }}
-          style={{ width: '100%' }}
-          icon={<PlusOutlined />}
-        >
-          添加选项
-        </Button>
-      </Form.Item>
-    )
-  }
-
   return (
     <Form layout="vertical" onValuesChange={handleValuesChange} disabled={disabled} form={form}>
       <Form.Item label="标题" name="title" rules={[{ required: true, message: '请输入标题' }]}>
@@ -87,7 +68,16 @@ const PropComponent = (props: QuestionRadioProps) => {
             {fields.map((field) => (
               <Form.Item key={field.key}>{renderOptionsItem(field, remove)}</Form.Item>
             ))}
-            {renderAddOptionBtn(add)}
+            <Form.Item>
+              <Button
+                type="primary"
+                onClick={() => add({ label: '', value: '' })}
+                style={{ width: '100%' }}
+                icon={<PlusOutlined />}
+              >
+                添加选项
+              </Button>
+            </Form.Item>
           </Form.Item>
         )}
       </Form.List>
@@ -96,7 +86,7 @@ const PropComponent = (props: QuestionRadioProps) => {
         <Select
           allowClear
           options={options
-            ?.map(({ text, value }) => ({ value, label: text || '' }))
+            ?.map(({ label, value }) => ({ value, label: label || '' }))
             ?.filter((item) => item.label)}
         />
       </Form.Item>

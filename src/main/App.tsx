@@ -1,6 +1,5 @@
 import React from 'react'
 import { HashRouter } from 'react-router-dom'
-// import { AliveScope } from 'react-activation'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
 import Routes from '../routers'
@@ -17,8 +16,6 @@ const App = () => {
         <GlobalLayerManager />
         <GlobalWatchEvent />
       </HashRouter>
-      {/* <AliveScope>
-      </AliveScope> */}
     </ConfigProvider>
   )
 }

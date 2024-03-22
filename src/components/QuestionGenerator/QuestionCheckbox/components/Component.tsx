@@ -17,10 +17,10 @@ const Component = (props: QuestionCheckboxProps) => {
       <Checkbox.Group value={selectedValue}>
         <Space direction={isVertical ? 'vertical' : 'horizontal'}>
           {options.map((opt) => {
-            const { value, text } = opt || {}
+            const { value, label } = opt || {}
             return (
               <Checkbox key={value} value={value}>
-                {text}
+                {label}
               </Checkbox>
             )
           })}

@@ -18,8 +18,13 @@ const globalRouterList: IRoutersData = [
   },
   {
     path: '/answerForm/:questionId?',
-    title: '小智问卷',
+    title: '答卷页面 - 小智问卷',
     component: () => import('@/views/AnswerForm'),
+  },
+  {
+    path: '/statisticalQuestion/:questionId?',
+    title: '问卷统计 - 小智问卷',
+    component: () => import('@/views/StatisticalQuestion'),
   },
 ]
 

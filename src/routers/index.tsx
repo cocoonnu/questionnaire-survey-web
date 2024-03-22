@@ -5,7 +5,6 @@ import { isMobile } from '@/utils/tools/browser_utils'
 import { globalRouterList, routerList } from './routerList'
 import PrivateRoute from './PrivateRoute'
 import BaseLayout from '@/layout/BaseLayout'
-// import KeepAliveWrapper from './KeepAliveWrapper'
 import Exception from '@/components/Exception'
 import type { RouterItem } from './types'
 
@@ -24,11 +23,7 @@ const interceptorRoute = (item: RouterItem) => {
   // 异步加载路由组件
   const lazyComponent = LazyComponent(newComponent)
   const getRouteComponent = () => {
-    return (
-      <PrivateRoute item={item} component={lazyComponent} />
-      // <KeepAliveWrapper>
-      // </KeepAliveWrapper>
-    )
+    return <PrivateRoute item={item} component={lazyComponent} />
   }
 
   return <Route path={item.path} key={item.path} element={getRouteComponent()} />

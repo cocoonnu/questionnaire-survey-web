@@ -1,12 +1,10 @@
-export interface OptionType {
-  value: string
-  text: string
-}
-
 export interface QuestionCheckboxProps {
   title?: string
   isVertical?: boolean
-  options?: OptionType[]
+  options?: {
+    value: string
+    label: string
+  }[]
   selectedValue?: string[]
   disabled?: boolean
   onChange?: (newProps: QuestionCheckboxProps) => void
@@ -17,8 +15,8 @@ export const QuestionCheckboxDefaultProps: QuestionCheckboxProps = {
   title: '多选框标题',
   isVertical: false,
   options: [
-    { value: '选项1', text: '选项1' },
-    { value: '选项2', text: '选项2' },
-    { value: '选项3', text: '选项3' },
+    { value: '选项1', label: '选项1' },
+    { value: '选项2', label: '选项2' },
+    { value: '选项3', label: '选项3' },
   ],
 }

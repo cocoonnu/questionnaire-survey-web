@@ -17,10 +17,10 @@ const Component = (props: QuestionRadioProps) => {
       <Radio.Group value={selectedValue}>
         <Space direction={isVertical ? 'vertical' : 'horizontal'}>
           {options.map((opt) => {
-            const { value, text } = opt || {}
+            const { value, label } = opt || {}
             return (
               <Radio key={value} value={value}>
-                {text}
+                {label}
               </Radio>
             )
           })}

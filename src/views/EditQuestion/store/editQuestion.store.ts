@@ -43,6 +43,9 @@ export interface EditQuestionStore extends EditHeaderStore {
   /** 保存问卷信息 */
   saveQuestionInfo: () => Promise<void>
 
+  /** 发布问卷 */
+  publishQuestion: () => Promise<void>
+
   /** 新增问卷组件  */
   addQuestionComInfo: (config: QuestionComConfig) => void
 
@@ -132,6 +135,10 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
       })),
     })
     if (res) message.success('保存成功')
+  },
+
+  publishQuestion: async () => {
+    /** 先保存问卷，再更新发布状态，最后跳转到统计页面 */
   },
 
   getQuestionComInfoById: (id?) => {

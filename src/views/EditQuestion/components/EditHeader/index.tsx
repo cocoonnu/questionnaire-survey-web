@@ -39,12 +39,10 @@ const EditHeader = () => {
   return (
     <div className={styles['edit-header']}>
       <div className={styles['edit-header-left']}>
-        <Space>
-          <Button type="link" icon={<LeftOutlined />} onClick={goBack}>
-            返回
-          </Button>
-          <EditTitle />
-        </Space>
+        <Button type="link" icon={<LeftOutlined />} onClick={goBack}>
+          返回
+        </Button>
+        <EditTitle />
       </div>
       <div className={styles['edit-header-center']}>
         <EditToolbar />

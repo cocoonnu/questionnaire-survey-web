@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { nanoid } from 'nanoid'
 import { Form, Input, Checkbox, Select, Button } from 'antd'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
-import type { QuestionCheckboxProps, OptionType } from '../types'
+import type { QuestionCheckboxProps } from '../types'
 
 const PropComponent = (props: QuestionCheckboxProps) => {
   const { title, isVertical, selectedValue, options = [], onChange, disabled } = props
@@ -14,8 +13,8 @@ const PropComponent = (props: QuestionCheckboxProps) => {
 
   const handleValuesChange = () => {
     const { options, selectedValue } = form.getFieldsValue()
-    // 将text和value的值相等
-    const newOptions = options.map((item) => ({ ...item, value: item.text }))
+    // 将label和value的值相等
+    const newOptions = options.map((item) => ({ ...item, value: item.label }))
     form.setFieldsValue({ options: newOptions })
 
     // 当删除的是下面默认选中的选项数组里面的值，则需要将数组对应的值删除
@@ -31,7 +30,7 @@ const PropComponent = (props: QuestionCheckboxProps) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Form.Item
           noStyle
-          name={[field.name, 'text']}
+          name={[field.name, 'label']}
           validateTrigger={['onChange', 'onBlur']}
           rules={[
             {
@@ -39,10 +38,10 @@ const PropComponent = (props: QuestionCheckboxProps) => {
               message: '请输入选项文字',
             },
             {
-              validator: (_, text) => {
-                if (!text) return Promise.resolve()
+              validator: (_, label) => {
+                if (!label) return Promise.resolve()
                 const { options: optionsValue = [] } = form.getFieldsValue()
-                const num = optionsValue.filter((opt: OptionType) => opt.text === text).length
+                const num = optionsValue.filter((opt) => opt.label === label).length
                 if (num === 1) return Promise.resolve()
                 return Promise.reject(new Error('选项文字与其他选项重复了'))
               },
@@ -54,24 +53,6 @@ const PropComponent = (props: QuestionCheckboxProps) => {
 
         {field?.key === 0 ? null : <MinusCircleOutlined onClick={() => remove(field?.name)} />}
       </div>
-    )
-  }
-
-  const renderAddOptionBtn = (add) => {
-    return (
-      <Form.Item>
-        <Button
-          type="primary"
-          onClick={() => {
-            add({ text: '', value: nanoid() })
-            form.validateFields()
-          }}
-          style={{ width: '100%' }}
-          icon={<PlusOutlined />}
-        >
-          添加选项
-        </Button>
-      </Form.Item>
     )
   }
 
@@ -87,7 +68,16 @@ const PropComponent = (props: QuestionCheckboxProps) => {
             {fields.map((field) => (
               <Form.Item key={field.key}>{renderOptionsItem(field, remove)}</Form.Item>
             ))}
-            {renderAddOptionBtn(add)}
+            <Form.Item>
+              <Button
+                type="primary"
+                onClick={() => add({ label: '', value: '' })}
+                style={{ width: '100%' }}
+                icon={<PlusOutlined />}
+              >
+                添加选项
+              </Button>
+            </Form.Item>
           </Form.Item>
         )}
       </Form.List>
@@ -98,7 +88,7 @@ const PropComponent = (props: QuestionCheckboxProps) => {
           mode="multiple"
           value={selectedValue}
           options={options
-            .map(({ text, value }) => ({ value, label: text || '' }))
+            .map(({ label, value }) => ({ value, label: label || '' }))
             .filter((item) => item.label)}
         />
       </Form.Item>

@@ -32,12 +32,12 @@ export const useAnswerFormStore = create<AnswerFormStore>((set, get) => ({
     if (questionId === '' || !questionId) return
     const res = await getQuestionInfoByIdService(questionId)
     const initList = res.questionComInfoList
-      ?.filter((item) => !item?.isHidden)
+      .filter((item) => item?.isHidden !== 1)
       .map((item) => ({
         ...item,
         props: JSON.parse(item.props),
       }))
-    window.document.title = `${res.name || '问卷调查'} - 小智问卷`
+    if (res.name) window.document.title = `${res.name} - 小智问卷`
     set({
       questionId: res.id,
       isFinished: false,
