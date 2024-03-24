@@ -12,10 +12,13 @@ export interface StatisticalQuestionStore {
   answerTotal: number
   answerInfoList: AnswerInfo[]
   questionComInfoList: QuestionComInfo[]
+  tableDataList: StatisticalTableData[]
+  selectedQuestionCom: QuestionComInfo | null
 
   getQuestionInfoById: () => void
   getAnswerInfoList: () => void
-  getTableDataBySelectedId: (selectedId: string) => StatisticalTableData[]
+  getTableDataList: () => void
+  getSelectedQuestionCom: () => void
 }
 
 export const useStatisticalQuestionStore = create<StatisticalQuestionStore>((set, get) => ({
@@ -25,6 +28,8 @@ export const useStatisticalQuestionStore = create<StatisticalQuestionStore>((set
   answerTotal: 0,
   answerInfoList: [],
   questionComInfoList: [],
+  tableDataList: [],
+  selectedQuestionCom: null,
 
   getQuestionInfoById: async () => {
     const { questionId } = get()
@@ -52,9 +57,9 @@ export const useStatisticalQuestionStore = create<StatisticalQuestionStore>((set
     }
   },
 
-  getTableDataBySelectedId: (selectedId) => {
-    const { answerInfoList } = get()
-    const tableDataBySelectedId: StatisticalTableData[] = answerInfoList
+  getTableDataList: () => {
+    const { answerInfoList, selectedId } = get()
+    const tableDataList: StatisticalTableData[] = answerInfoList
       .filter((item) => item.answerMap?.[selectedId]) // 先过滤掉不存在当前问卷组件的答卷
       .map((item, index) => ({
         order: index,
@@ -62,6 +67,12 @@ export const useStatisticalQuestionStore = create<StatisticalQuestionStore>((set
         createdTime: item.createdTime,
         answerText: item.answerMap?.[selectedId] || '',
       }))
-    return tableDataBySelectedId
+    set({ tableDataList })
+  },
+
+  getSelectedQuestionCom: () => {
+    const { questionComInfoList, selectedId } = get()
+    const selectedQuestionCom = questionComInfoList.find((item) => item.id === selectedId) || null
+    set({ selectedQuestionCom })
   },
 }))

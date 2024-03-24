@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button, Space } from 'antd'
+import { Button, Space, message } from 'antd'
+import clipboardCopy from 'clipboard-copy'
 import TooltipParcel from '@/components/TooltipParcel'
 import { navigate } from '@/utils/tools/router_utils'
 import { LeftOutlined } from '@ant-design/icons'
@@ -10,12 +11,33 @@ const StatisticalHeader = () => {
   const answerTotal = useStatisticalQuestionStore((state) => state.answerTotal)
   const questionId = useStatisticalQuestionStore((state) => state.questionId)
   const questionName = useStatisticalQuestionStore((state) => state.questionName)
+  const answerFormLink = `${window.location.origin}/#/answerForm/${questionId}`
+
+  const copyLink = () => {
+    clipboardCopy(answerFormLink)
+      .then(() => message.success('复制成功'))
+      .catch(() => message.error('复制失败'))
+  }
+
+  const openLink = () => {
+    window.open(answerFormLink)
+  }
+
+  const editQuestion = () => {
+    navigate(`/editQuestion/${questionId}`)
+    useStatisticalQuestionStore.setState({ selectedId: '' })
+  }
+
+  const goBack = () => {
+    navigate('/')
+    useStatisticalQuestionStore.setState({ selectedId: '' })
+  }
 
   return (
     <div className={styles['statistical-header']}>
       <div className={styles['statistical-header-left']}>
-        <Button type="link" icon={<LeftOutlined />} onClick={() => navigate('/')}>
-          返回
+        <Button type="link" icon={<LeftOutlined />} onClick={goBack}>
+          返回主页
         </Button>
         <TooltipParcel titleClassName={styles['statistical-title']} title={questionName} />
       </div>
@@ -23,19 +45,21 @@ const StatisticalHeader = () => {
         <div className={styles['center-link']}>
           <TooltipParcel
             titleClassName={styles['link-wrapper']}
-            title="http://localhost:3000/#/answerForm/1771020210108731393"
+            title={answerFormLink}
             isShowTooltip={false}
           />
         </div>
         <Space>
-          <Button type="primary">复制链接</Button>
-          <Button>打开</Button>
+          <Button type="primary" onClick={copyLink}>
+            复制链接
+          </Button>
+          <Button onClick={openLink}>打开</Button>
         </Space>
       </div>
       <div className={styles['statistical-header-right']}>
         <Space>
           <div className={styles['total-wrapper']}>答卷数量: {answerTotal}</div>
-          <Button type="primary" onClick={() => navigate(`/editQuestion/${questionId}`)}>
+          <Button type="primary" onClick={editQuestion}>
             编辑问卷
           </Button>
         </Space>

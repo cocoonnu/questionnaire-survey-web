@@ -18,7 +18,7 @@ const AnswerForm = () => {
   }, [])
 
   if (!isPublished) {
-    return <ResultPage status="info" title="问卷已暂停回收，提交将不记录数据" />
+    return <ResultPage status="info" title="问卷已暂停发布，提交将不记录数据" />
   }
 
   if (isFinished) {

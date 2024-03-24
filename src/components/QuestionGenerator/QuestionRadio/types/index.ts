@@ -13,7 +13,7 @@ export interface QuestionRadioProps {
 export const QuestionRadioDefaultProps: QuestionRadioProps = {
   selectedValue: undefined,
   title: '单选框标题',
-  isVertical: false,
+  isVertical: true,
   options: [
     { value: '选项1', label: '选项1' },
     { value: '选项2', label: '选项2' },

@@ -13,7 +13,7 @@ export interface QuestionCheckboxProps {
 export const QuestionCheckboxDefaultProps: QuestionCheckboxProps = {
   selectedValue: [],
   title: '多选框标题',
-  isVertical: false,
+  isVertical: true,
   options: [
     { value: '选项1', label: '选项1' },
     { value: '选项2', label: '选项2' },

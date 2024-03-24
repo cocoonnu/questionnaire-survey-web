@@ -11,6 +11,7 @@ import styles from './index.module.less'
 
 const EditHeader = () => {
   const saveQuestionInfo = useEditQuestionStore((state) => state.saveQuestionInfo)
+  const publishQuestion = useEditQuestionStore((state) => state.publishQuestion)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,7 +41,7 @@ const EditHeader = () => {
     <div className={styles['edit-header']}>
       <div className={styles['edit-header-left']}>
         <Button type="link" icon={<LeftOutlined />} onClick={goBack}>
-          返回
+          返回主页
         </Button>
         <EditTitle />
       </div>
@@ -50,7 +51,9 @@ const EditHeader = () => {
       <div className={styles['edit-header-right']}>
         <Space>
           <Button onClick={() => saveQuestionInfo()}>保存</Button>
-          <Button type="primary">发布</Button>
+          <Button type="primary" onClick={() => publishQuestion()}>
+            发布
+          </Button>
         </Space>
       </div>
     </div>

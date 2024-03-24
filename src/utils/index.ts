@@ -47,7 +47,7 @@ export function formatIdentity(number: string) {
  * 首字母小写
  * @param {String} str 字符串
  */
- export const firstCharToLocaleLowerCase = (str?: string) => {
+export const firstCharToLocaleLowerCase = (str?: string) => {
   if (!str) return ''
   return str.slice(0, 1).toLocaleLowerCase() + str.slice(1)
 }

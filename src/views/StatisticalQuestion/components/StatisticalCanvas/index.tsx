@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classNames from 'classnames'
 import { getQuestionComConfByType } from '@/components/QuestionGenerator'
 import { useStatisticalQuestionStore } from '../../store/statisticalQuestion.store'
@@ -9,6 +9,15 @@ import type { QuestionComInfo } from '@/services/questionInfo.services'
 const StatisticalCanvas = () => {
   const selectedId = useStatisticalQuestionStore((state) => state.selectedId)
   const questionComInfoList = useStatisticalQuestionStore((state) => state.questionComInfoList)
+  const getTableDataList = useStatisticalQuestionStore((state) => state.getTableDataList)
+  const getSelectedQuestionCom = useStatisticalQuestionStore(
+    (state) => state.getSelectedQuestionCom,
+  )
+
+  useEffect(() => {
+    getSelectedQuestionCom()
+    getTableDataList()
+  }, [selectedId])
 
   const getQuestionComponent = (item: QuestionComInfo) => {
     const { type, props } = item
@@ -26,9 +35,7 @@ const StatisticalCanvas = () => {
 
   const componentClick = (e: MouseEvent, item: QuestionComInfo) => {
     e.stopPropagation()
-    useStatisticalQuestionStore.setState({
-      selectedId: item.id,
-    })
+    useStatisticalQuestionStore.setState({ selectedId: item.id })
   }
 
   return (

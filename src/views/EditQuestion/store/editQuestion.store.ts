@@ -7,6 +7,7 @@ import { useEditHeaderStore } from './editHeader.store'
 import {
   getQuestionInfoByIdService,
   saveQuestionInfoService,
+  updateQuestionInfoService,
 } from '@/services/questionInfo.services'
 import { navigate } from '@/utils/tools/router_utils'
 import { generateRandomString } from '@/utils/tools/random_utils'
@@ -16,7 +17,7 @@ import { TEMPLATE_KEY } from '@/constants/menu'
 import { QuestionComType } from '@/components/QuestionGenerator/type'
 import type { EditHeaderStore } from './editHeader.store'
 import type { QuestionComConfig, QuestionComProps } from '@/components/QuestionGenerator/type'
-import type { QuestionComInfo } from '@/services/questionInfo.services'
+import type { QuestionComInfo, QuestionInfo } from '@/services/questionInfo.services'
 
 export interface EditQuestionStore extends EditHeaderStore {
   /** 左侧面板选中的tab */
@@ -35,16 +36,16 @@ export interface EditQuestionStore extends EditHeaderStore {
   questionComInfoListInit: QuestionComInfo[]
 
   /** 获取问卷信息 */
-  getQuestionInfoById: () => Promise<void>
+  getQuestionInfoById: () => void
 
   /** 根据问卷组件ID获取问卷组件信息 */
   getQuestionComInfoById: (id?: string) => QuestionComInfo | null
 
   /** 保存问卷信息 */
-  saveQuestionInfo: () => Promise<void>
+  saveQuestionInfo: () => Promise<QuestionInfo>
 
   /** 发布问卷 */
-  publishQuestion: () => Promise<void>
+  publishQuestion: () => void
 
   /** 新增问卷组件  */
   addQuestionComInfo: (config: QuestionComConfig) => void
@@ -107,29 +108,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   saveQuestionInfo: async () => {
     const { questionId, questionName, questionComInfoList } = get()
-    // 新建问卷信息
-    if (!questionId) {
-      const res = await saveQuestionInfoService({
-        id: undefined,
-        name: questionName,
-        questionComInfoList: questionComInfoList.map((item, index) => ({
-          ...item,
-          sort: index,
-          props: JSON.stringify(item.props),
-          id: item.id?.includes(ADD_QUESTION_COM) ? undefined : item.id,
-        })),
-        userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
-        template: TEMPLATE_KEY.questionnaireSurvey,
-      })
-      if (res) {
-        navigate(`/editQuestion/${res.id}`, { replace: true })
-        message.success('保存成功')
-      }
-      return
-    }
-
-    // 更新问卷信息
-    const res = await saveQuestionInfoService({
+    const serviceData: Partial<QuestionInfo> = {
       id: questionId,
       name: questionName,
       questionComInfoList: questionComInfoList.map((item, index) => ({
@@ -138,12 +117,41 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
         props: JSON.stringify(item.props),
         id: item.id.includes(ADD_QUESTION_COM) ? undefined : item.id,
       })),
-    })
+    }
+
+    // 新建问卷信息
+    if (!questionId) {
+      const res = await saveQuestionInfoService({
+        ...serviceData,
+        id: undefined,
+        isPublished: 1,
+        userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
+        template: TEMPLATE_KEY.questionnaireSurvey,
+      })
+      if (res) {
+        navigate(`/editQuestion/${res.id}`, { replace: true })
+        message.success('保存成功')
+      }
+      return res
+    }
+
+    // 更新问卷信息
+    const res = await saveQuestionInfoService(serviceData)
     if (res) message.success('保存成功')
+    return res
   },
 
   publishQuestion: async () => {
     /** 先保存问卷，再更新发布状态，最后跳转到统计页面 */
+    const { questionId, saveQuestionInfo } = get()
+    const questionInfo = await saveQuestionInfo()
+    if (questionInfo) {
+      const res = await updateQuestionInfoService({ ...questionInfo, isPublished: 1 })
+      if (res) {
+        navigate(`/statisticalQuestion/${questionId}`)
+        message.success('发布成功')
+      }
+    }
   },
 
   getQuestionComInfoById: (id?) => {
