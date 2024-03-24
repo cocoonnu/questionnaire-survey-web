@@ -1,6 +1,13 @@
 import axios from 'axios'
 import request from '@/utils/request'
 
+/** 根据问卷ID获取答卷统计 */
+export const getAnswerInfoListService = async (questionId: string) => {
+  return await request.get<AnswerInfo[]>('/answerInfo/getAnswerInfoList', {
+    params: { questionId },
+  })
+}
+
 /** 提交问卷 */
 export const submitAnswerInfoService = async (data: {
   questionId: string
@@ -22,9 +29,12 @@ export const getUserAddressService = async () => {
 }
 
 export interface AnswerInfo {
+  /** 问卷ID */
   questionId: string
-  answerMap: Record<string, string>
+  /** 问卷组件对应的答案映射map */
+  answerMap: any
+  /** 答卷时间 */
   createdTime: string
+  /** 地理位置 */
   address: string
-  orderNumber: number
 }

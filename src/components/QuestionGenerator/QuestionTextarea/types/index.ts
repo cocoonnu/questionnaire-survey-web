@@ -7,5 +7,5 @@ export interface QuestionTextareaProps {
 
 export const QuestionTextareaDefaultProps: QuestionTextareaProps = {
   title: '多行输入框标题',
-  placeholder: '请输入题目描述...',
+  placeholder: '请输入题目...',
 }

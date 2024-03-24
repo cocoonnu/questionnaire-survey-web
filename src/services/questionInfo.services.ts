@@ -98,4 +98,6 @@ export interface QuestionComInfo {
   isLocked?: 0 | 1
   /** 问卷组件props属性 */
   props: QuestionComProps
+  /** 排列顺序(传给后端需要) */
+  sort?: number
 }

@@ -7,6 +7,7 @@ import {
   MoreOutlined,
   PauseCircleOutlined,
 } from '@ant-design/icons'
+import { navigate } from '@/utils/tools/router_utils'
 import { useAllQuestionnaireStore } from '../../store/allQuestionnaire.store'
 import styles from './index.module.less'
 import type { MenuProps } from 'antd'
@@ -73,6 +74,7 @@ const QuestionCardInfo = (props: QuestionInfo) => {
           icon={<PieChartOutlined />}
           size="small"
           className={styles['button-item']}
+          onClick={() => navigate(`/statisticalQuestion/${id}`)}
         >
           统计
         </Button>

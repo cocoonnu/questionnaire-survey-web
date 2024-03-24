@@ -7,5 +7,5 @@ export interface QuestionInputProps {
 
 export const QuestionInputDefaultProps: QuestionInputProps = {
   title: '单行输入框标题',
-  placeholder: '请输入题目描述...',
+  placeholder: '请输入题目...',
 }

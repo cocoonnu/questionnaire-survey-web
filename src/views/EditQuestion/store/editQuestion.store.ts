@@ -1,15 +1,15 @@
 import { create } from 'zustand'
-import { nanoid } from 'nanoid'
 import { message } from 'antd'
 import cloneDeep from 'lodash.clonedeep'
 import { arrayMove } from '@dnd-kit/sortable'
-import { LEFT_PANEL_KEY, RIGHT_PANEL_KEY } from '../constants'
+import { LEFT_PANEL_KEY, RIGHT_PANEL_KEY, ADD_QUESTION_COM } from '../constants'
 import { useEditHeaderStore } from './editHeader.store'
 import {
   getQuestionInfoByIdService,
   saveQuestionInfoService,
 } from '@/services/questionInfo.services'
 import { navigate } from '@/utils/tools/router_utils'
+import { generateRandomString } from '@/utils/tools/random_utils'
 import { DB } from '@/utils/tools/db_utils'
 import { LOCALSTORAGE_KEY } from '@/constants'
 import { TEMPLATE_KEY } from '@/constants/menu'
@@ -72,7 +72,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     if (!questionId) {
       const intList: QuestionComInfo[] = [
         {
-          id: nanoid(), // 先用nanoid生成，后面后端会覆盖掉
+          id: ADD_QUESTION_COM + generateRandomString(),
           title: '问卷信息',
           type: QuestionComType.questionInfo,
           isHidden: 0,
@@ -107,14 +107,16 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   saveQuestionInfo: async () => {
     const { questionId, questionName, questionComInfoList } = get()
+    // 新建问卷信息
     if (!questionId) {
-      // 新建问卷信息
       const res = await saveQuestionInfoService({
-        id: questionId,
+        id: undefined,
         name: questionName,
-        questionComInfoList: questionComInfoList.map((item) => ({
+        questionComInfoList: questionComInfoList.map((item, index) => ({
           ...item,
+          sort: index,
           props: JSON.stringify(item.props),
+          id: item.id?.includes(ADD_QUESTION_COM) ? undefined : item.id,
         })),
         userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
         template: TEMPLATE_KEY.questionnaireSurvey,
@@ -125,13 +127,16 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
       }
       return
     }
+
     // 更新问卷信息
     const res = await saveQuestionInfoService({
       id: questionId,
       name: questionName,
-      questionComInfoList: questionComInfoList.map((item) => ({
+      questionComInfoList: questionComInfoList.map((item, index) => ({
         ...item,
+        sort: index,
         props: JSON.stringify(item.props),
+        id: item.id.includes(ADD_QUESTION_COM) ? undefined : item.id,
       })),
     })
     if (res) message.success('保存成功')
@@ -149,7 +154,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   addQuestionComInfo: (config) => {
     const questionComInfo: QuestionComInfo = {
-      id: nanoid(), // 先用nanoid生成，后面后端会覆盖掉
+      id: ADD_QUESTION_COM + generateRandomString(),
       type: config.type,
       title: config.title,
       isHidden: 0,
