@@ -115,6 +115,7 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
         ...item,
         sort: index,
         props: JSON.stringify(item.props),
+        // 取消前端设置的问卷组件id信息
         id: item.id.includes(ADD_QUESTION_COM) ? undefined : item.id,
       })),
     }

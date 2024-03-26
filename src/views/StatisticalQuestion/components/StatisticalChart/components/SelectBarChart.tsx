@@ -8,11 +8,11 @@ import {
 import styles from '../index.module.less'
 import type { ECOption } from '@/utils/echarts'
 
-export interface SelectPieChartProps {
+export interface SelectBarChartProps {
   answerTextList: string[]
 }
 
-const SelectPieChart = ({ answerTextList }: SelectPieChartProps) => {
+const SelectBarChart = ({ answerTextList }: SelectBarChartProps) => {
   if (answerTextList.length === 0) {
     return <Empty description="暂无数据" style={{ marginTop: '20%' }} />
   }
@@ -20,31 +20,40 @@ const SelectPieChart = ({ answerTextList }: SelectPieChartProps) => {
   const getOptionData = () => {
     const stringCountMaps = answerTextList.map((item) => getStringCountMap(item))
     const mergedMap = mergeStringCountMaps(stringCountMaps)
-    const optionData = Object.entries(mergedMap).map(([key, value]) => {
-      return { name: key, value }
-    }) as any[]
-    return optionData
+    const xAxisData = Object.keys(mergedMap)
+    const seriesData = Object.values(mergedMap) as any[]
+    return { xAxisData, seriesData }
   }
 
   const optionData = getOptionData()
 
   const option: ECOption = {
     tooltip: {
-      trigger: 'item',
-      formatter: '{b} : {c} ({d}%)',
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+    },
+    xAxis: {
+      type: 'category',
+      data: optionData.xAxisData,
+      axisTick: {
+        alignWithLabel: true,
+      },
+      axisLabel: {
+        interval: 0,
+      },
+    },
+    yAxis: {
+      type: 'value',
     },
     series: [
       {
-        name: 'LeftChart',
-        type: 'pie',
-        radius: ['30%', '60%'],
-        data: optionData,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)',
-          },
+        data: optionData.seriesData,
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)',
         },
       },
     ],
@@ -57,4 +66,4 @@ const SelectPieChart = ({ answerTextList }: SelectPieChartProps) => {
   )
 }
 
-export default SelectPieChart
+export default SelectBarChart

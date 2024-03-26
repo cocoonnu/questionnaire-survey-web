@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import RightChart from './components/StatisticalChart/RightChart'
 import LeftChart from './components/StatisticalChart/LeftChart'
 import StatisticalTable from './components/StatisticalTable'
 import StatisticalHeader from './components/StatisticalHeader'
@@ -35,7 +36,9 @@ const StatisticalQuestion = () => {
             <div className={styles['right-bottom-item']}>
               <LeftChart />
             </div>
-            <div className={styles['right-bottom-item']} />
+            <div className={styles['right-bottom-item']}>
+              <RightChart />
+            </div>
           </div>
         </div>
       </div>

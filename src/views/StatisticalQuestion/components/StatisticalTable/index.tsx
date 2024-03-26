@@ -34,7 +34,7 @@ const StatisticalTable = () => {
     {
       title: '答案文本',
       dataIndex: 'answerText',
-      render: (value) => <TooltipParcel title={value} maxWidth={400} />,
+      render: (value) => <TooltipParcel title={value} placement="topLeft" />,
     },
     {
       title: '地理位置',
@@ -56,6 +56,7 @@ const StatisticalTable = () => {
         columns={columns}
         dataSource={tableDataList}
         scroll={{ y: tableHeight }}
+        pagination={false}
       />
     </div>
   )

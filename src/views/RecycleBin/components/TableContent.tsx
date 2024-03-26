@@ -19,7 +19,7 @@ const TableContent = () => {
       title: '问卷名',
       dataIndex: 'name',
       key: 'name',
-      render: (value) => <TooltipParcel title={value} maxWidth={250} />,
+      render: (value) => <TooltipParcel title={value} maxWidth={250} placement="topLeft" />,
     },
     {
       title: '创建人',
