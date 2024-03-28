@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Empty } from 'antd'
 import { useLocation } from 'react-router-dom'
+import AnimationBox from '@/components/AnimationBox'
 import SearchBar from './components/SearchBar'
 import QuestionCard from './components/QuestionCard'
 import { useAllQuestionnaireStore } from './store/allQuestionnaire.store'
@@ -33,7 +34,9 @@ const AllQuestionnaire = () => {
         <div className={styles['all-questionnaire-content']}>
           {list.map((item) => (
             <div className={styles['content-card']} key={item.id}>
-              <QuestionCard {...item} />
+              <AnimationBox>
+                <QuestionCard {...item} />
+              </AnimationBox>
             </div>
           ))}
         </div>

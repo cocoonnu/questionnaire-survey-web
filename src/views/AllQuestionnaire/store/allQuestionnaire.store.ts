@@ -4,7 +4,9 @@ import {
   getQuestionInfoListService,
   updateQuestionInfoService,
 } from '@/services/questionInfo.services'
+import { addTemplateInfoService } from '@/services/templateInfo.services'
 import type { FormInstance } from 'antd'
+import type { TemplateInfo } from '@/services/templateInfo.services'
 import type { QuestionInfo } from '@/services/questionInfo.services'
 
 export interface AllQuestionnaireStore {
@@ -17,6 +19,7 @@ export interface AllQuestionnaireStore {
   submitSearchForm: () => void
   onChangeSearchForm: () => void
   updateQuestionInfo: (questionInfo: QuestionInfo) => Promise<boolean>
+  addTemplateInfo: (questionInfo: QuestionInfo) => Promise<TemplateInfo>
 }
 
 export const useAllQuestionnaireStore = create<AllQuestionnaireStore>((set, get) => ({
@@ -50,5 +53,14 @@ export const useAllQuestionnaireStore = create<AllQuestionnaireStore>((set, get)
     if (!res) return false
     submitSearchForm()
     return true
+  },
+
+  addTemplateInfo: async (questionInfo) => {
+    return await addTemplateInfoService({
+      type: questionInfo.template,
+      name: questionInfo.name,
+      comInfoList: JSON.stringify(questionInfo.questionComInfoList),
+      isPre: 0,
+    })
   },
 }))

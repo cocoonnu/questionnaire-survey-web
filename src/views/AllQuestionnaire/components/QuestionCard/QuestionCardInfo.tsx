@@ -16,6 +16,7 @@ import type { QuestionInfo } from '@/services/questionInfo.services'
 const QuestionCardInfo = (props: QuestionInfo) => {
   const { id, answerCount, isStarred, isPublished } = props
   const updateQuestionInfo = useAllQuestionnaireStore((state) => state.updateQuestionInfo)
+  const addTemplateInfo = useAllQuestionnaireStore((state) => state.addTemplateInfo)
 
   const moreMenuItems: MenuProps['items'] = [
     {
@@ -44,6 +45,16 @@ const QuestionCardInfo = (props: QuestionInfo) => {
       }
       // 新建窗口打开
       window.open(`${window.location.origin}/#/answerForm/${id}`)
+    }
+    if (key === 'saveAsTemplate') {
+      const res = await addTemplateInfo(props)
+      if (res) {
+        message.success(
+          <span>
+            保存为模板成功 <a onClick={() => navigate(`/app/${res.type}`)}>点击查看</a>
+          </span>,
+        )
+      }
     }
   }
 
