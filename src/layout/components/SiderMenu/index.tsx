@@ -84,16 +84,18 @@ const SiderMenu = () => {
   return (
     <div className={styles['sider-menu']}>
       <div className={styles['sider-menu-top']}>
-        <div className={styles['top-button']}>
-          <Button
-            type="primary"
-            size="large"
-            style={{ width: '100%' }}
-            onClick={() => navigate('/editQuestion')}
-          >
-            新建问卷
-          </Button>
-        </div>
+        {headerMenuKey === HEADER_MENU_KEY.workingArea && (
+          <div className={styles['top-button']}>
+            <Button
+              type="primary"
+              size="large"
+              style={{ width: '100%' }}
+              onClick={() => navigate('/app/questionnaireSurvey')}
+            >
+              新建问卷
+            </Button>
+          </div>
+        )}
         <Menu
           mode="vertical"
           style={{ width: '100%' }}

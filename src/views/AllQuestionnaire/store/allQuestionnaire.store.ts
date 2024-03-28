@@ -5,6 +5,8 @@ import {
   updateQuestionInfoService,
 } from '@/services/questionInfo.services'
 import { addTemplateInfoService } from '@/services/templateInfo.services'
+import { DB } from '@/utils/tools/db_utils'
+import { LOCALSTORAGE_KEY } from '@/constants'
 import type { FormInstance } from 'antd'
 import type { TemplateInfo } from '@/services/templateInfo.services'
 import type { QuestionInfo } from '@/services/questionInfo.services'
@@ -59,8 +61,9 @@ export const useAllQuestionnaireStore = create<AllQuestionnaireStore>((set, get)
     return await addTemplateInfoService({
       type: questionInfo.template,
       name: questionInfo.name,
-      comInfoList: JSON.stringify(questionInfo.questionComInfoList),
       isPre: 0,
+      userId: DB.LS.get(LOCALSTORAGE_KEY.userId),
+      comInfoList: JSON.stringify(questionInfo.questionComInfoList),
     })
   },
 }))

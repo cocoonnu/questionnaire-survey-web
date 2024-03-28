@@ -15,6 +15,20 @@ export const getTemplateInfoListService = async (templateInfo: Partial<TemplateI
   })
 }
 
+/** 删除问卷模板 */
+export const deleteTemplateInfoService = async (id: string) => {
+  return await request.del<boolean>('/templateInfo/deleteTemplateInfo', {
+    params: { id },
+  })
+}
+
+/** 获取问卷模板 */
+export const getTemplateInfoByIdService = async (id: string) => {
+  return await request.get<TemplateInfo>('/templateInfo/getTemplateInfoById', {
+    params: { id },
+  })
+}
+
 export interface TemplateInfo {
   id: string
   type: TEMPLATE_KEY
@@ -22,4 +36,5 @@ export interface TemplateInfo {
   createdTime: string
   comInfoList: any
   isPre: 0 | 1
+  userId: string
 }

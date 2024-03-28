@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import EditCanvas from './components/EditCanvas'
 import LeftPanel from './components/LeftPanel'
 import EditHeader from './components/EditHeader'
@@ -9,11 +9,18 @@ import styles from './index.module.less'
 
 const EditQuestion = () => {
   const params = useParams()
+  const [searchParams] = useSearchParams()
+  const searchParamsValue = Object.fromEntries(searchParams)
   const getQuestionInfoById = useEditQuestionStore((state) => state.getQuestionInfoById)
+  const getTemplateInfoById = useEditQuestionStore((state) => state.getTemplateInfoById)
 
   useEffect(() => {
     useEditQuestionStore.setState({ questionId: params?.questionId || '' })
-    getQuestionInfoById()
+    if (searchParamsValue?.isTemplate === 'true') {
+      getTemplateInfoById()
+    } else {
+      getQuestionInfoById()
+    }
   }, [params])
 
   return (
