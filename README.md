@@ -13,3 +13,13 @@
 - 全局弹窗管理：实现了一个全局的弹窗管理机制，可以在任何组件中打开和关闭弹窗
 
 项目笔记：https://github.com/cocoonnu/web-markdown/blob/main/GraduationProject.md
+
+**部分页面静态预览**
+
+![image-20240401215020350](mark-img/image-20240401215020350.png)
+
+![image-20240401215047914](mark-img/image-20240401215047914.png)
+
+![image-20240401215118567](mark-img/image-20240401215118567.png)
+
+![image-20240401215155507](mark-img/image-20240401215155507.png)
