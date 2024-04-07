@@ -14,10 +14,12 @@ const AllQuestionnaire = () => {
   const questionInfoList = useAllQuestionnaireStore((state) => state.questionInfoList)?.filter(
     (item) => !item.isDeleted,
   )
+  const onChangeSearchForm = useAllQuestionnaireStore((state) => state.onChangeSearchForm)
   const submitSearchForm = useAllQuestionnaireStore((state) => state.submitSearchForm)
   const list = isStarPage ? questionInfoList.filter((item) => item.isStarred) : questionInfoList
 
   useEffect(() => {
+    onChangeSearchForm()
     submitSearchForm()
   }, [])
 

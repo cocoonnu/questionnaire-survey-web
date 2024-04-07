@@ -40,7 +40,7 @@ export const useAllQuestionnaireStore = create<AllQuestionnaireStore>((set, get)
 
   onChangeSearchForm: () => {
     const { searchFormRef } = get()
-    set({ searchFilter: searchFormRef.current?.getFieldsValue() })
+    set({ searchFilter: searchFormRef.current?.getFieldsValue() || {} })
   },
 
   resetSearchForm: () => {
