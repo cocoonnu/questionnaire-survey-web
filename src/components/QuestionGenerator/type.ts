@@ -4,13 +4,15 @@ import type { QuestionInfoProps } from './QuestionInfo/types'
 import type { QuestionRadioProps } from './QuestionRadio/types'
 import type { QuestionCheckboxProps } from './QuestionCheckbox/types'
 import type { QuestionTextareaProps } from './QuestionTextarea/types'
+import type { QuestionSelectProps } from './QuestionSelect/types'
 
 /** 问卷组件props类型 */
 export type QuestionComProps = QuestionInfoProps &
   QuestionInputProps &
   QuestionTextareaProps &
   QuestionRadioProps &
-  QuestionCheckboxProps
+  QuestionCheckboxProps &
+  QuestionSelectProps
 
 export enum QuestionComType {
   questionInput = 'questionInput',
@@ -18,6 +20,7 @@ export enum QuestionComType {
   questionTextarea = 'questionTextarea',
   questionRadio = 'questionRadio',
   questionCheckbox = 'questionCheckbox',
+  questionSelect = 'questionSelect',
 }
 
 /** 问卷生成器配置类型 */

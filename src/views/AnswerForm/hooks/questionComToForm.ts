@@ -67,6 +67,15 @@ export const questionComToForm = (questionComInfo: QuestionComInfo): FormCompone
         direction: isVertical ? 'vertical' : 'horizontal',
         options,
       }
+    case QuestionComType.questionSelect:
+      return {
+        field,
+        label,
+        type: FORM_TYPE.select,
+        defaultValue: selectedValue,
+        options,
+        dropdownStyle: { zoom: 1.2 }, // 下拉框需要同步放大
+      }
 
     default:
       return {

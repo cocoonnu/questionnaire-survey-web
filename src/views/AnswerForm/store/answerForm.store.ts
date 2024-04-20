@@ -1,13 +1,13 @@
 import React from 'react'
 import { create } from 'zustand'
 import { message } from 'antd'
+import { TEMPLATE_KEY } from '@/constants/menu'
 import { QuestionComType } from '@/components/QuestionGenerator/type'
 import { getTemplateInfoByIdService } from '@/services/templateInfo.services'
 import { getQuestionInfoByIdService } from '@/services/questionInfo.services'
 import { submitAnswerInfoService, getUserAddressService } from '@/services/answerInfo.services'
 import type { FormInstance } from 'antd'
 import type { QuestionComInfo } from '@/services/questionInfo.services'
-import { TEMPLATE_KEY } from '@/constants/menu'
 
 export interface AnswerFormStore {
   formRef: React.RefObject<FormInstance>

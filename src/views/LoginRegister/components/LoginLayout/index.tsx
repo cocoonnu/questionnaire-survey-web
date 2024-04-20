@@ -27,6 +27,10 @@ const LoginLayout = () => {
     },
   ]
 
+  const register = () => {
+    useLoginRegisterStore.setState({ pageLayout: PAGE_LAYOUT.registerLayout })
+  }
+
   return (
     <div className={styles['login-layout']}>
       <Segmented
@@ -40,11 +44,7 @@ const LoginLayout = () => {
       <FormGenerator formRef={loginFormRef} components={formComponents} />
       <div className={styles['middle-wrapper']}>
         <Checkbox defaultChecked>记住我的登录信息</Checkbox>
-        <a
-          onClick={() => useLoginRegisterStore.setState({ pageLayout: PAGE_LAYOUT.registerLayout })}
-        >
-          立即注册
-        </a>
+        <a onClick={() => register()}>立即注册</a>
       </div>
       <Button type="primary" onClick={loginSubmit} loading={btnLoading}>
         登录

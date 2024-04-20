@@ -12,7 +12,8 @@ const LeftChart = () => {
 
   if (
     questionComType === QuestionComType.questionCheckbox ||
-    questionComType === QuestionComType.questionRadio
+    questionComType === QuestionComType.questionRadio ||
+    questionComType === QuestionComType.questionSelect
   ) {
     return <SelectPieChart answerTextList={answerTextList} />
   }

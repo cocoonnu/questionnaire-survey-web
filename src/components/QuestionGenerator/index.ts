@@ -3,6 +3,7 @@ import questionInfoConfig from './QuestionInfo'
 import questionTextareaConfig from './QuestionTextarea'
 import questionCheckboxConfig from './QuestionCheckbox'
 import questionRadioConfig from './QuestionRadio'
+import questionSelectConfig from './QuestionSelect'
 import type { QuestionComConfig } from './type'
 
 /** 问卷生成器配置列表 */
@@ -12,6 +13,7 @@ export const questionComConfigList: QuestionComConfig[] = [
   questionRadioConfig,
   questionTextareaConfig,
   questionCheckboxConfig,
+  questionSelectConfig,
 ]
 
 /** 问卷生成器配置分组 */
@@ -29,7 +31,7 @@ export const questionComConfigGroup = [
   {
     groupId: 'chooseGroup',
     groupName: '用户选择',
-    groupConfigs: [questionRadioConfig, questionCheckboxConfig],
+    groupConfigs: [questionRadioConfig, questionCheckboxConfig, questionSelectConfig],
   },
 ]
 

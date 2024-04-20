@@ -8,6 +8,7 @@ export interface FieldSelectProps extends FormComponentItem {
   options?: { label: string; value: any; disabled?: boolean }[]
   mode?: SelectProps['mode']
   rightNode?: React.ReactNode
+  dropdownStyle?: React.CSSProperties
 }
 
 const FieldSelect = ({
@@ -20,6 +21,7 @@ const FieldSelect = ({
   mode,
   rightNode,
   disabled,
+  dropdownStyle,
 }: FieldSelectProps) => {
   const handelValue = () => {
     if (mode === 'tags') {
@@ -56,6 +58,7 @@ const FieldSelect = ({
         options={options}
         showSearch
         optionFilterProp="label"
+        dropdownStyle={dropdownStyle}
       />
       {rightNode && <div className={styles['button-wrapper']}>{rightNode}</div>}
     </div>

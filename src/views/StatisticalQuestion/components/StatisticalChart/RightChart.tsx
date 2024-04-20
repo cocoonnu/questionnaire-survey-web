@@ -12,7 +12,8 @@ const RightChart = () => {
 
   if (
     questionComType === QuestionComType.questionCheckbox ||
-    questionComType === QuestionComType.questionRadio
+    questionComType === QuestionComType.questionRadio ||
+    questionComType === QuestionComType.questionSelect
   ) {
     return <SelectBarChart answerTextList={answerTextList} />
   }
