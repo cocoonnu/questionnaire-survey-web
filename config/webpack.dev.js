@@ -19,7 +19,8 @@ const ips = Object.keys(ifaces)
   )
 
 module.exports = (config) => {
-  const port = config.env.PORT || '3000'
+  // const port = config.env.PORT || '3000'
+  const port = config.env.PORT || '3366'
   const host = config.appPackageJson.host || ''
   const isUseHost = ![null, undefined, '', 'localhost', '0.0.0.0'].includes(host)
   let devServerConfig = {}

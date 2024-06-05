@@ -12,6 +12,9 @@ import styles from './index.module.less'
 const EditHeader = () => {
   const saveQuestionInfo = useEditQuestionStore((state) => state.saveQuestionInfo)
   const publishQuestion = useEditQuestionStore((state) => state.publishQuestion)
+  const isEqualByQuestionComInfoListInit = useEditQuestionStore(
+    (state) => state.isEqualByQuestionComInfoListInit,
+  )
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,15 +29,20 @@ const EditHeader = () => {
   })
 
   const goBack = () => {
-    Modal.confirm({
-      title: '确定要退出编辑吗?',
-      content: '温馨提醒：请点击保存按钮后再退出',
-      okText: '确定',
-      cancelText: '我再想想',
-      maskClosable: true,
-      centered: true,
-      onOk: () => navigate('/'),
-    })
+    const isEqual = isEqualByQuestionComInfoListInit()
+    if (isEqual) {
+      navigate('/')
+    } else {
+      Modal.confirm({
+        title: '确定要退出编辑吗?',
+        content: '温馨提醒：请点击保存按钮后再退出',
+        okText: '确定',
+        cancelText: '我再想想',
+        maskClosable: true,
+        centered: true,
+        onOk: () => navigate('/'),
+      })
+    }
   }
 
   return (

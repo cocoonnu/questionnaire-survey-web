@@ -10,6 +10,7 @@
   "homepage": "/",
   "host": "xxx.com",
   "scripts": {
+    "start": "cross-env NODE_ENV=development FIG_ENV=dev webpack serve --config ./config/webpack.common.js",
     "dev": "cross-env NODE_ENV=development FIG_ENV=dev webpack serve --config ./config/webpack.common.js",
     "build:test": "cross-env FIG_ENV=test webpack --config ./config/webpack.common.js",
     "build:pre": "cross-env FIG_ENV=pre webpack --config ./config/webpack.common.js",

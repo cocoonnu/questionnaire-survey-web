@@ -1,6 +1,7 @@
 import { message } from 'antd'
-import { nanoid } from 'nanoid'
 import cloneDeep from 'lodash.clonedeep'
+import { ADD_QUESTION_COM } from '../constants'
+import { generateRandomString } from '@/utils/tools/random_utils'
 import type { EditQuestionStore } from './editQuestion.store'
 
 type SetType = (
@@ -114,7 +115,7 @@ export const useEditHeaderStore = (set: SetType, get: GetType): EditHeaderStore 
     const { questionComInfoList, selectedId } = get()
     const index = questionComInfoList.findIndex((item) => item.id === selectedId)
     const newQuestionComInfo = cloneDeep(questionComInfoList[index])
-    newQuestionComInfo.id = nanoid()
+    newQuestionComInfo.id = ADD_QUESTION_COM + generateRandomString()
 
     // 在questionComInfoList的index的后面插入newQuestionComInfo
     const newList = [

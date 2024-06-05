@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, item }: PrivateRouteProps) => {
     } else {
       document.title = '小智问卷'
     }
-  }, [])
+  }, [item])
 
   return <Component />
 }

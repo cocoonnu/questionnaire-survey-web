@@ -33,10 +33,10 @@ export const useLoginRegisterStore = create<LoginRegisterStore>((set, get) => ({
 
   loginSubmit: async () => {
     const { loginFormRef, loginMethod } = get()
-    set({ btnLoading: true })
     const loginService =
       loginMethod === LOGIN_METHOD.password ? LoginByPasswordService : LoginByCaptchaService
     const formData = await loginFormRef.current?.validateFields()
+    set({ btnLoading: true })
     const userId = await loginService(formData)
     set({ btnLoading: false })
     if (!userId) return

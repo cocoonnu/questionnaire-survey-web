@@ -61,6 +61,9 @@ export interface EditQuestionStore extends EditHeaderStore {
 
   /** 拖拽时的回调函数 */
   onDragEnd: (oldIndex: number, newIndex: number) => void
+
+  /** 判断当前问卷组件列表和初始列表是否相等 */
+  isEqualByQuestionComInfoListInit: () => boolean
 }
 
 export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
@@ -175,12 +178,13 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
 
   publishQuestion: async () => {
     /** 先保存问卷，再更新发布状态，最后跳转到统计页面 */
-    const { questionId, saveQuestionInfo } = get()
+    const { saveQuestionInfo } = get()
     const questionInfo = await saveQuestionInfo()
     if (questionInfo) {
       const res = await updateQuestionInfoService({ ...questionInfo, isPublished: 1 })
       if (res) {
-        navigate(`/statisticalQuestion/${questionId}`)
+        navigate(`/statisticalQuestion/${questionInfo.id}`)
+        message.success('发布成功')
       }
     }
   },
@@ -240,5 +244,22 @@ export const useEditQuestionStore = create<EditQuestionStore>((set, get) => ({
     const dragId = questionComInfoList.find((item, index) => index === oldIndex)?.id
     const newQuestionComInfoList = arrayMove(questionComInfoList, oldIndex, newIndex)
     set({ questionComInfoList: newQuestionComInfoList, selectedId: dragId })
+  },
+
+  isEqualByQuestionComInfoListInit: () => {
+    const { questionComInfoList, questionComInfoListInit } = get()
+    if (questionComInfoList.length !== questionComInfoListInit.length) return false
+    for (let i = 0; i < questionComInfoList.length; i++) {
+      const item = questionComInfoList[i]
+      const itemInit = questionComInfoListInit[i]
+      if (
+        item.id !== itemInit.id ||
+        item.isHidden !== itemInit.isHidden ||
+        item.isLocked !== itemInit.isLocked ||
+        JSON.stringify(item.props) !== JSON.stringify(itemInit.props)
+      )
+        return false
+    }
+    return true
   },
 }))

@@ -17,5 +17,7 @@ export const HTTP_STATUS = {
 
 /** 后端接口数据状态码 */
 export const COMMON_STATUS = {
+  SUCCESS: 'success',
+  ERROR: 'error',
   NOT_LOGIN: 'notLogin',
 }
