@@ -12,7 +12,7 @@
 - 问卷系统主业务开发：问卷生成器页面开发、答卷统计页面开发
 - 全局弹窗管理：实现了一个全局的弹窗管理机制，可以在任何组件中打开和关闭弹窗
 
-项目笔记：https://github.com/cocoonnu/web-markdown/blob/main/GraduationProject.md
+项目笔记：https://github.com/cocoonnu/web-markdown/blob/main/GraduationLog.md
 
 **部分页面静态预览**
 
